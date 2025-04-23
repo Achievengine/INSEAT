@@ -79,7 +79,7 @@ const DemoForm = () => {
             transition={{ duration: 0.5 }}
             className="section-heading"
           >
-            Try QRDine For Free
+            Try Inseat For Free
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}

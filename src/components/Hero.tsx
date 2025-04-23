@@ -99,7 +99,7 @@ const Hero = () => {
                 <img className="h-10 w-10 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/women/53.jpg" alt="User" />
               </div>
               <p className="text-sm text-gray-600">
-                <span className="font-bold text-secondary">500+</span> restaurants already using QRDine
+                <span className="font-bold text-secondary">500+</span> restaurants already using Inseat
               </p>
             </motion.div>
           </motion.div>

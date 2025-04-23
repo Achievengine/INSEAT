@@ -18,7 +18,7 @@ const Footer = () => {
                   <path d="M7 17h.01" />
                 </svg>
               </div>
-              <span className="text-xl font-bold">QRDine</span>
+              <span className="text-xl font-bold">Inseat</span>
             </div>
             <p className="text-white/70 text-sm">
               Simplify dining experiences with contactless QR code ordering. Boost efficiency, reduce wait times, and increase profits.
@@ -83,7 +83,7 @@ const Footer = () => {
 
         <div className="mt-12 pt-8 border-t border-white/10 text-center">
           <p className="text-white/60 text-sm">
-            © {new Date().getFullYear()} QRDine. All rights reserved.
+            © {new Date().getFullYear()} Inseat. All rights reserved.
           </p>
         </div>
       </div>

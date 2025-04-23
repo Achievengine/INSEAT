@@ -4,9 +4,14 @@ import { motion, useScroll, useSpring } from 'framer-motion';
 // Component imports
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import Features from './components/Features';
+import Features from './components/Features'; // Focus on QR Ordering here
+import LoyaltyEngagement from './components/LoyaltyEngagement';
+import KitchenManagement from './components/KitchenManagement';
+import StaffTools from './components/StaffTools';
+import AdminDashboard from './components/AdminDashboard';
 import DemoForm from './components/DemoForm';
 import Footer from './components/Footer';
+import Pricing from './components/Pricing';
 
 // Styles
 import './App.css';
@@ -34,7 +39,7 @@ const HowItWorks = () => {
     {
       id: 1,
       title: 'Create Your Account',
-      description: 'Sign up and provide your restaurant details to get started with QRDine.',
+      description: 'Sign up and provide your restaurant details to get started with Inseat.',
       icon: (
         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -84,7 +89,7 @@ const HowItWorks = () => {
             transition={{ duration: 0.5 }}
             className="section-heading"
           >
-            How QRDine Works
+            How Inseat Works
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -136,14 +141,14 @@ const Testimonials = () => {
   const testimonials = [
     {
       id: 1,
-      quote: "QRDine has completely transformed how we handle orders. Our staff can focus on service instead of taking orders, and our customers love the convenience!",
+      quote: "Inseat has completely transformed how we handle orders. Our staff can focus on service instead of taking orders, and our customers love the convenience!",
       author: "Maria Rodriguez",
       role: "Owner, La Boca Restaurant",
       avatar: "https://randomuser.me/api/portraits/women/48.jpg"
     },
     {
       id: 2,
-      quote: "Since implementing QRDine, we've seen a 28% increase in average order value and a significant reduction in wait times. It's been a game-changer for our business.",
+      quote: "Since implementing Inseat, we've seen a 28% increase in average order value and a significant reduction in wait times. It's been a game-changer for our business.",
       author: "James Chen",
       role: "Manager, Fusion Bistro",
       avatar: "https://randomuser.me/api/portraits/men/32.jpg"
@@ -177,7 +182,7 @@ const Testimonials = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="section-subheading"
           >
-            Hear from restaurant owners who have transformed their business with QRDine
+            Hear from restaurant owners who have transformed their business with Inseat
           </motion.p>
         </div>
 
@@ -255,6 +260,11 @@ function App() {
         <Hero />
         <Features />
         <HowItWorks />
+        <LoyaltyEngagement />
+        <KitchenManagement />
+        <StaffTools />
+        <AdminDashboard />
+        <Pricing />
         <Testimonials />
         <DemoForm />
       </main>

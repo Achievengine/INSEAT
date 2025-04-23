@@ -24,7 +24,7 @@ const Navbar = () => {
               <path d="M7 17h.01" />
             </svg>
           </div>
-          <span className="text-xl font-bold text-secondary">QRDine</span>
+          <span className="text-xl font-bold text-secondary">Inseat</span>
         </motion.div>
 
         {/* Desktop Navigation */}
@@ -35,8 +35,11 @@ const Navbar = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="flex space-x-6"
           >
-            <a href="#features" className="text-gray-600 hover:text-primary transition-colors">Features</a>
+            <a href="#features" className="text-gray-600 hover:text-primary transition-colors">QR Ordering</a>
             <a href="#how-it-works" className="text-gray-600 hover:text-primary transition-colors">How It Works</a>
+            <a href="#loyalty" className="text-gray-600 hover:text-primary transition-colors">Loyalty</a>
+            <a href="#kitchen" className="text-gray-600 hover:text-primary transition-colors">Kitchen</a>
+            <a href="#staff-tools" className="text-gray-600 hover:text-primary transition-colors">Staff Tools</a>
             <a href="#pricing" className="text-gray-600 hover:text-primary transition-colors">Pricing</a>
             <a href="#testimonials" className="text-gray-600 hover:text-primary transition-colors">Testimonials</a>
           </motion.div>
@@ -84,8 +87,14 @@ const Navbar = () => {
           transition={{ duration: 0.3 }}
           className="md:hidden px-4 py-3 space-y-3 bg-gray-50 mt-2"
         >
-          <a href="#features" className="block py-2 text-gray-600 hover:text-primary transition-colors">Features</a>
+          <a href="#features" className="block py-2 text-gray-600 hover:text-primary transition-colors">QR Ordering</a>
           <a href="#how-it-works" className="block py-2 text-gray-600 hover:text-primary transition-colors">How It Works</a>
+          <a href="#loyalty" className="block py-2 text-gray-600 hover:text-primary transition-colors">Loyalty</a>
+          <a href="#kitchen" className="block py-2 text-gray-600 hover:text-primary transition-colors">Kitchen</a>
+          <a href="#staff-tools" className="block py-2 text-gray-600 hover:text-primary transition-colors">Staff Tools</a>
+            <a href="#loyalty" className="text-gray-600 hover:text-primary transition-colors">Loyalty</a>
+            <a href="#kitchen" className="text-gray-600 hover:text-primary transition-colors">Kitchen</a>
+            <a href="#staff-tools" className="text-gray-600 hover:text-primary transition-colors">Staff Tools</a>
           <a href="#pricing" className="block py-2 text-gray-600 hover:text-primary transition-colors">Pricing</a>
           <a href="#testimonials" className="block py-2 text-gray-600 hover:text-primary transition-colors">Testimonials</a>
           <a href="#demo" className="btn-primary inline-block mt-2">Get Started</a>
