@@ -1,0 +1,76 @@
+/* Global styles that complement Tailwind CSS */
+
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Basic reset for the root container */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+/* Better focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid #FF6B35;
+  outline-offset: 2px;
+}
+
+/* Custom animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Animation for QR code scanner light */
+@keyframes scan {
+  0% { transform: translateY(0); opacity: 0.7; }
+  50% { transform: translateY(80px); opacity: 1; }
+  100% { transform: translateY(140px); opacity: 0.7; }
+}
+
+.scan-animation::before {
+  content: "";
+  position: absolute;
+  height: 3px;
+  width: 80%;
+  background: linear-gradient(to right, transparent, #FF6B35, transparent);
+  top: 0;
+  left: 10%;
+  border-radius: 50%;
+  animation: scan 2s ease-in-out infinite;
+}
+
+/* Prevent image overflow in cards */
+.card img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Fix for sticky footer */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Clip path for some decorative elements */
+.clip-diagonal {
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
+
+/* Media query for reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
