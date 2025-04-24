@@ -72,213 +72,197 @@ const DemoForm = () => {
   }
 
   return (
-    <section id="demo" className="py-16 md:py-24 bg-gray-50">
-      <div className="container-custom">
-        <div className="text-center mb-12">
-          <motion.h2
+    <section className="bg-indigo-950 dark:bg-gray-900 text-white py-20">
+      <div className="container mx-auto px-4">
+        <div className="max-w-6xl mx-auto">
+          <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="section-heading"
-          >
-            Try Inseat For Free
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="section-subheading"
-          >
-            Create your custom QR code menu in seconds. No credit card required.
-          </motion.p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-          {/* Form Side */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="bg-white rounded-xl shadow-lg p-6 md:p-8 border border-gray-100"
+            className="text-center mb-12"
           >
-            <h3 className="text-2xl font-bold text-secondary mb-6">Your Restaurant Details</h3>
+            <h2 className="text-4xl font-bold text-white mb-4">Try Inseat For Free</h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Create your custom QR code menu in seconds. No credit card required.
+            </p>
+          </motion.div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-              {/* Logo Upload */}
-              <div>
-                <label className="form-label">Restaurant Logo</label>
-                <div className="mt-1 flex items-center space-x-5">
-                  <motion.div
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
-                    className="relative h-24 w-24 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center border-2 border-dashed border-gray-300 cursor-pointer"
-                    onClick={triggerFileInput}
-                  >
-                    {logoPreview ? (
-                      <img 
-                        src={logoPreview} 
-                        alt="Restaurant Logo" 
-                        className="h-full w-full object-cover"
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Form Side */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="bg-white/5 p-8 rounded-xl backdrop-blur-lg"
+            >
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                {/* Logo Upload */}
+                <div>
+                  <label className="block text-sm font-medium text-white mb-1">
+                    Restaurant Logo
+                  </label>
+                  <div className="mt-1 flex items-center space-x-5">
+                    <motion.div
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
+                      className="relative h-24 w-24 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center border-2 border-dashed border-gray-300 cursor-pointer"
+                      onClick={triggerFileInput}
+                    >
+                      {logoPreview ? (
+                        <img 
+                          src={logoPreview} 
+                          alt="Restaurant Logo" 
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <svg className="h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                      )}
+                      <input
+                        type="file"
+                        ref={fileInputRef}
+                        className="hidden"
+                        accept="image/*"
+                        onChange={handleFileChange}
                       />
-                    ) : (
-                      <svg className="h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                    )}
-                    <input
-                      type="file"
-                      ref={fileInputRef}
-                      className="hidden"
-                      accept="image/*"
-                      onChange={handleFileChange}
-                    />
-                  </motion.div>
-                  <div className="text-sm text-gray-500">
-                    <p>Upload your restaurant logo</p>
-                    <p className="mt-1">Recommended: 400x400px</p>
+                    </motion.div>
+                    <div className="text-sm text-gray-500">
+                      <p>Upload your restaurant logo</p>
+                      <p className="mt-1">Recommended: 400x400px</p>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Restaurant Name */}
-              <div>
-                <label htmlFor="restaurantName" className="form-label">Restaurant Name</label>
-                <input
-                  id="restaurantName"
-                  type="text"
-                  className={`form-input ${errors.restaurantName ? 'border-red-500 focus:ring-red-200' : ''}`}
-                  placeholder="e.g., Luigi's Italian Bistro"
-                  {...register('restaurantName', {
-                    required: 'Restaurant name is required',
-                    minLength: {
-                      value: 2,
-                      message: 'Name must be at least 2 characters'
-                    }
-                  })}
-                />
-                {errors.restaurantName && (
-                  <motion.p
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="mt-1 text-sm text-red-500"
-                  >
-                    {errors.restaurantName.message}
-                  </motion.p>
-                )}
-              </div>
+                {/* Restaurant Name */}
+                <div>
+                  <label htmlFor="restaurantName" className="block text-sm font-medium text-white mb-1">
+                    Restaurant Name <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    id="restaurantName"
+                    type="text"
+                    className={`w-full px-4 py-2 border border-white/20 rounded-lg bg-white/5 text-white focus:ring-2 focus:ring-primary focus:border-transparent ${errors.restaurantName ? 'border-red-500 focus:ring-red-200' : ''}`}
+                    placeholder="e.g., Luigi's Italian Bistro"
+                    {...register('restaurantName', {
+                      required: 'Restaurant name is required',
+                      minLength: {
+                        value: 2,
+                        message: 'Name must be at least 2 characters'
+                      }
+                    })}
+                  />
+                  {errors.restaurantName && (
+                    <p className="mt-1 text-sm text-red-500">{errors.restaurantName.message}</p>
+                  )}
+                </div>
 
-              {/* Email */}
-              <div>
-                <label htmlFor="email" className="form-label">Business Email</label>
-                <input
-                  id="email"
-                  type="email"
-                  className={`form-input ${errors.email ? 'border-red-500 focus:ring-red-200' : ''}`}
-                  placeholder="you@restaurant.com"
-                  {...register('email', {
-                    required: 'Email is required',
-                    pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: 'Invalid email address'
-                    }
-                  })}
-                />
-                {errors.email && (
-                  <motion.p
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="mt-1 text-sm text-red-500"
-                  >
-                    {errors.email.message}
-                  </motion.p>
-                )}
-              </div>
+                {/* Email */}
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-white mb-1">
+                    Business Email <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    id="email"
+                    type="email"
+                    className={`w-full px-4 py-2 border border-white/20 rounded-lg bg-white/5 text-white focus:ring-2 focus:ring-primary focus:border-transparent ${errors.email ? 'border-red-500 focus:ring-red-200' : ''}`}
+                    placeholder="you@restaurant.com"
+                    {...register('email', {
+                      required: 'Email is required',
+                      pattern: {
+                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                        message: 'Invalid email address'
+                      }
+                    })}
+                  />
+                  {errors.email && (
+                    <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
+                  )}
+                </div>
 
-              {/* Submit Button */}
-              <motion.button
-                type="submit"
-                disabled={!isDirty || !isValid || isSubmitting}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className={`w-full py-3 px-6 rounded-lg font-medium transition-all flex items-center justify-center
-                  ${isDirty && isValid && !isSubmitting
-                    ? 'bg-primary text-white hover:bg-primary/90 shadow-md hover:shadow-lg'
-                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                  }`}
-              >
-                {isSubmitting ? (
-                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                ) : null}
-                {isSubmitting ? 'Creating Your Demo...' : 'Create My Free QR Menu'}
-              </motion.button>
-            </form>
-
-            {/* Form Status Messages */}
-            <AnimatePresence>
-              {formStatus === 'success' && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  className="mt-4 p-3 bg-green-50 text-green-700 rounded-lg border border-green-100 flex items-center"
+                {/* Submit Button */}
+                <motion.button
+                  type="submit"
+                  disabled={!isDirty || !isValid || isSubmitting}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className={`w-full bg-primary text-white py-3 px-6 rounded-lg hover:bg-primary/90 transition-colors duration-200
+                    ${isDirty && isValid && !isSubmitting
+                      ? 'bg-primary text-white hover:bg-primary/90 shadow-md hover:shadow-lg'
+                      : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                    }`}
                 >
-                  <svg className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  Your QR menu demo is ready! Check your email inbox.
-                </motion.div>
-              )}
+                  {isSubmitting ? (
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                  ) : null}
+                  {isSubmitting ? 'Creating Your Demo...' : 'Create My Free QR Menu'}
+                </motion.button>
+              </form>
 
-              {formStatus === 'error' && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  className="mt-4 p-3 bg-red-50 text-red-700 rounded-lg border border-red-100 flex items-center"
-                >
-                  <svg className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                  There was an error creating your demo. Please try again.
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
+              {/* Form Status Messages */}
+              <AnimatePresence>
+                {formStatus === 'success' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    className="mt-4 p-3 bg-green-50 text-green-700 rounded-lg border border-green-100 flex items-center"
+                  >
+                    <svg className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    Your QR menu demo is ready! Check your email inbox.
+                  </motion.div>
+                )}
 
-          {/* Preview Side */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative flex flex-col items-center"
-          >
-            <div className="mb-6 text-center">
-              <h3 className="text-2xl font-bold text-secondary mb-2">Preview Your QR Menu</h3>
-              <p className="text-gray-600">Here's how your customized QR menu will look</p>
-            </div>
+                {formStatus === 'error' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    className="mt-4 p-3 bg-red-50 text-red-700 rounded-lg border border-red-100 flex items-center"
+                  >
+                    <svg className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                    There was an error creating your demo. Please try again.
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
 
-            {/* QR Menu Preview */}
-            <div className="mt-8 bg-white rounded-xl shadow-md p-5 border border-gray-200">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-bold text-gray-800">Preview Your QR Menu</h3>
+            {/* Preview Side */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="relative flex flex-col items-center"
+            >
+              <div className="mb-6 text-center">
+                <h3 className="text-2xl font-bold text-white mb-2">Preview Your QR Menu</h3>
+                <p className="text-gray-400">Here's how your customized QR menu will look</p>
               </div>
-              <div className="flex justify-center">
-                <QRPhoneMockup 
-                  logoPreview={logoPreview || null}
-                  restaurantName={register('restaurantName').value || 'Taste of Paradise'}
-                />
+
+              {/* QR Menu Preview */}
+              <div className="mt-8 bg-white rounded-xl shadow-md p-5 border border-gray-200">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="font-bold text-gray-800">Preview Your QR Menu</h3>
+                </div>
+                <div className="flex justify-center">
+                  <QRPhoneMockup 
+                    logoPreview={logoPreview || null}
+                    restaurantName={register('restaurantName').value || 'Taste of Paradise'}
+                  />
+                </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

@@ -1,8 +1,18 @@
 /* Global styles that complement Tailwind CSS */
 
-/* Smooth scrolling for the entire page */
-html {
+/* Prevent horizontal scrolling and handle overflow */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
   scroll-behavior: smooth;
+}
+
+/* Ensure images are responsive and don't overflow */
+img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 /* Basic reset for the root container */

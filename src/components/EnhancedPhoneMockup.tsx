@@ -77,7 +77,7 @@ const EnhancedPhoneMockup = () => {
       variants={phoneVariants}
       initial="idle"
       animate="animate"
-      className="lg:absolute lg:-left-12 lg:top-10 z-20 shadow-xl rounded-3xl mx-auto lg:mx-0" 
+      className="lg:absolute lg:-left-12 lg:top-0 z-20 shadow-xl rounded-3xl mx-auto lg:mx-0" 
     >
       <div className="relative w-64 md:w-72 overflow-hidden rounded-[28px] border-[10px] border-gray-800 shadow-2xl bg-gray-800"> 
         {/* Phone notch */}
@@ -90,7 +90,7 @@ const EnhancedPhoneMockup = () => {
         </div>
         
         {/* Phone screen */}
-        <div className="relative bg-gray-900 h-[700px] md:h-[760px] flex flex-col items-center justify-center p-4 overflow-hidden rounded-[18px]"> 
+        <div className="relative bg-gray-900 h-[560px] md:h-[660px] flex flex-col items-center justify-center p-4 overflow-hidden rounded-[18px]"> 
           {/* Status bar */}
           <div className="absolute top-0 left-0 w-full bg-black/30 backdrop-blur-sm p-2 flex justify-between items-center z-20 text-xs text-white">
             <div className="ml-6">{currentTime}</div>

@@ -25,13 +25,16 @@ const Hero = () => {
 
   return (
     // Reduced bottom padding: pb-24 md:pb-32
-    <section className="relative pt-12 md:pt-20 pb-4 md:pb-12 bg-gradient-to-b from-white to-gray-50 overflow-visible">
-      {/* Background elements - Adjusted positions */}
+    // Added background grid pattern (made even fainter)
+    <section className="relative pt-12 md:pt-20 pb-4 md:pb-12 bg-gradient-to-b from-white to-gray-50 overflow-visible bg-[linear-gradient(to_right,theme(colors.gray.50/50)_1px,transparent_1px),linear-gradient(to_bottom,theme(colors.gray.50/50)_1px,transparent_1px)] bg-[size:40px_40px]">
+      {/* Background elements - Adjusted positions & opacity based on new image */}
+      {/* Re-added z-index to ensure circles are behind content */}
       <div className="absolute inset-0 overflow-hidden -z-10">
-        <div className="absolute -top-48 -right-48 w-96 h-96 md:w-[500px] md:h-[500px] rounded-full bg-primary/5"></div>
-        <div className="absolute top-1/4 -left-48 w-64 h-64 md:w-80 md:h-80 rounded-full bg-accent/5"></div>
-        <div className="absolute -bottom-48 right-1/4 w-80 h-80 md:w-96 md:h-96 rounded-full bg-secondary/5"></div>
-        {/* Removed grid background */}
+        {/* Adjusted right circle size and position based on new image */}
+        <div className="absolute -top-48 -right-48 w-72 h-72 md:w-96 md:h-96 rounded-full bg-primary/5"></div>
+        {/* Kept left circle size and position from previous attempt */}
+        <div className="absolute top-1/2 -translate-y-1/2 -left-64 w-[500px] h-[500px] md:w-[600px] md:h-[600px] rounded-full bg-accent/5"></div>
+        {/* Removed the third circle to better match the reference image */}
       </div>
 
       <div className="container-custom relative">
@@ -48,10 +51,11 @@ const Hero = () => {
             {/* Image removed from here */}
             <motion.h1
               variants={itemVariants}
-              className="text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-display font-bold leading-tight text-secondary" // Adjusted text size
+              className="text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-display font-bold leading-tight text-secondary"
             >
-              Transform Your Restaurant with 
-              <span className="text-primary block mt-2">QR Code Ordering</span>
+              Transform Your Restaurant
+               <br />
+               with <span className="text-primary">QR Code Ordering</span>
             </motion.h1>
             
             <motion.p 
@@ -105,7 +109,7 @@ const Hero = () => {
                 alt="Healthy Food"
                 // Made image bigger: w-[320px] md:w-[450px] lg:w-[600px]
                 // Moved image down: top-[10%]
-                className="absolute right-[-5%] md:right-[-10%] lg:right-[-15%] top-[10%] w-[360px] h-auto md:w-[490px] lg:w-[680px] z-10"
+                className="absolute right-[-15%] md:right-[-20%] lg:right-[-25%] top-[10%] w-[360px] h-auto md:w-[490px] lg:w-[680px] z-10"
               />
 
               {/* Phone Mockup - Positioned absolutely, overlapping */}

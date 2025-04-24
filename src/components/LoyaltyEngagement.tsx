@@ -78,7 +78,7 @@ const LoyaltyEngagement = () => {
   ];
 
   // Calculate appropriate tier based on visit count
-  const calculateTier = (visits) => {
+  const calculateTier = (visits: number): number => {
     if (visits >= 31) return 3; // Platinum
     if (visits >= 16) return 2; // Gold
     if (visits >= 6) return 1; // Silver
@@ -86,7 +86,7 @@ const LoyaltyEngagement = () => {
   };
 
   // Calculate discount based on visits and days since last visit
-  const calculateDiscount = (visits, daysSinceLastVisit) => {
+  const calculateDiscount = (visits: number, daysSinceLastVisit: number): number => {
     const tierIndex = calculateTier(visits);
     const currentTier = tiers[tierIndex];
     
@@ -106,7 +106,7 @@ const LoyaltyEngagement = () => {
   };
 
   // Update calculator state
-  const handleCalculatorChange = (field, value) => {
+  const handleCalculatorChange = (field: string, value: string) => {
     setCalculatorState(prev => ({
       ...prev,
       [field]: parseInt(value, 10)
@@ -134,7 +134,7 @@ const LoyaltyEngagement = () => {
   const discountAmount = (calculatorState.orderTotal * currentDiscount / 100).toFixed(2);
 
   return (
-    <section id="loyalty" className="py-16 relative">
+    <section id="loyalty" className="pt-16 pb-0 relative">
       {/* Mobile mockup that overlaps with feature section */}
       <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-16 z-10 scale-90">
         <motion.img 

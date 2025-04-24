@@ -41,6 +41,7 @@ const Navbar = () => {
             {/* <a href="#kitchen" className="text-gray-600 hover:text-primary transition-colors">Kitchen</a>
             <a href="#staff-tools" className="text-gray-600 hover:text-primary transition-colors">Staff Tools</a> */}
             <a href="#pricing" className="text-gray-600 hover:text-primary transition-colors">Pricing</a>
+            <a href="#about-us" className="text-gray-600 hover:text-primary transition-colors">About Us</a>
             {/* <a href="#testimonials" className="text-gray-600 hover:text-primary transition-colors">Testimonials</a> */}
           </motion.div>
           
@@ -92,10 +93,8 @@ const Navbar = () => {
           <a href="#loyalty" className="block py-2 text-gray-600 hover:text-primary transition-colors">Loyalty</a>
           <a href="#kitchen" className="block py-2 text-gray-600 hover:text-primary transition-colors">Kitchen</a>
           <a href="#staff-tools" className="block py-2 text-gray-600 hover:text-primary transition-colors">Staff Tools</a>
-            <a href="#loyalty" className="text-gray-600 hover:text-primary transition-colors">Loyalty</a>
-            <a href="#kitchen" className="text-gray-600 hover:text-primary transition-colors">Kitchen</a>
-            <a href="#staff-tools" className="text-gray-600 hover:text-primary transition-colors">Staff Tools</a>
           <a href="#pricing" className="block py-2 text-gray-600 hover:text-primary transition-colors">Pricing</a>
+          <a href="#about-us" className="block py-2 text-gray-600 hover:text-primary transition-colors">About Us</a>
           <a href="#testimonials" className="block py-2 text-gray-600 hover:text-primary transition-colors">Testimonials</a>
           <a href="#demo" className="btn-primary inline-block mt-2">Get Started</a>
         </motion.div>
