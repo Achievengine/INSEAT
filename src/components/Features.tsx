@@ -91,7 +91,7 @@ const Features = () => {
   ];
 
   return (
-    <section id="features" className="py-16 md:py-24 bg-white">
+    <section id="features" className="pt-16 pb-8 md:pt-24 md:pb-12 bg-indigo-950 dark:bg-gray-900 text-white relative mb-24"> {/* Reduced bottom padding, added overall bottom margin */}
       <div className="container-custom">
         <div className="text-center mb-12 md:mb-16">
           <motion.div
@@ -103,7 +103,7 @@ const Features = () => {
             <h2 className="section-heading">
               Powerful Features For Your Restaurant
             </h2>
-            <p className="section-subheading">
+            <p className="section-subheading text-gray-300">
               Revolutionize your restaurant operations with our comprehensive QR code ordering system
             </p>
           </motion.div>
@@ -143,46 +143,19 @@ const Features = () => {
           ))}
         </motion.div>
 
-        {/* Stats Section */}
-        <motion.div 
+        {/* Trusted Section - Styled like Loyalty CTA */}
+        <motion.div
+          className="mt-16 md:mt-20 text-center p-6 bg-gradient-to-r from-indigo-800/70 to-indigo-600/70 dark:from-gray-800 dark:to-gray-700 rounded-lg max-w-4xl mx-auto relative z-10 -mb-32"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true }} /* Added negative bottom margin */
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="mt-16 md:mt-24 p-8 md:p-12 bg-gradient-to-r from-secondary to-secondary/90 rounded-xl text-white shadow-xl"
         >
-          <div className="flex flex-col md:flex-row justify-between items-center text-center md:text-left space-y-8 md:space-y-0">
-            <div>
-              <h3 className="text-2xl md:text-3xl font-bold mb-2">Trusted by restaurants worldwide</h3>
-              <p className="text-white/80 max-w-md">Join thousands of restaurants already using our QR code ordering system to boost their business.</p>
-            </div>
-            
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 text-center">
-              <motion.div 
-                whileHover={{ y: -5 }}
-                className="flex flex-col"
-              >
-                <span className="text-3xl md:text-4xl font-bold">500+</span>
-                <span className="text-white/80 text-sm">Restaurants</span>
-              </motion.div>
-              
-              <motion.div 
-                whileHover={{ y: -5 }}
-                className="flex flex-col"
-              >
-                <span className="text-3xl md:text-4xl font-bold">2M+</span>
-                <span className="text-white/80 text-sm">Orders</span>
-              </motion.div>
-              
-              <motion.div 
-                whileHover={{ y: -5 }}
-                className="flex flex-col"
-              >
-                <span className="text-3xl md:text-4xl font-bold">32%</span>
-                <span className="text-white/80 text-sm">Avg. Revenue Boost</span>
-              </motion.div>
-            </div>
-          </div>
+          <h4 className="text-xl md:text-2xl font-bold mb-3 text-white">Trusted by restaurants worldwide</h4>
+          <p className="mb-6 text-gray-200 max-w-xl mx-auto">Join thousands of restaurants already using our QR code ordering system to boost efficiency and customer satisfaction.</p>
+          <button className="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-6 rounded-full transition-colors">
+            Get Started
+          </button>
         </motion.div>
       </div>
     </section>
@@ -190,4 +163,3 @@ const Features = () => {
 };
 
 export default Features;
-

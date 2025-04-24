@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const LoyaltyEngagement = () => {
@@ -129,25 +129,34 @@ const LoyaltyEngagement = () => {
     visible: { opacity: 1, y: 0 }
   };
 
-  const tierCardVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1 }
-  };
-
   // Calculate current discount for the calculator
   const currentDiscount = calculateDiscount(calculatorState.visits, calculatorState.daysSinceLastVisit);
   const discountAmount = (calculatorState.orderTotal * currentDiscount / 100).toFixed(2);
 
   return (
-    <section id="loyalty" className="py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white">
-      <div className="container mx-auto px-4 max-w-7xl">
-        <div className="text-center mb-12 md:mb-16">
+    <section id="loyalty" className="py-16 relative">
+      {/* Mobile mockup that overlaps with feature section */}
+      <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-16 z-10 scale-90">
+        <motion.img 
+          src="/images/mobile-mockup.png" 
+          alt="Mobile App Mockup" 
+          className="max-h-[600px] w-auto"
+          initial={{ y: 0 }}
+          animate={{ y: [0, -10, 0] }}
+          transition={{ repeat: Infinity, duration: 3 }}
+        />
+      </div>
+
+      {/* Dark background for the main feature section like pricing */}
+      <div className="bg-indigo-950 dark:bg-gray-900 text-white py-14 pt-12 mt-3 rounded-t-3xl">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="text-center mb-12 md:mb-16">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }} 
             whileInView={{ opacity: 1, y: 0 }} 
             viewport={{ once: true }} 
             transition={{ duration: 0.5 }} 
-            className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+            className="text-3xl md:text-4xl font-bold text-white mb-4"
           >
             Innovative Loyalty & Engagement
           </motion.h2>
@@ -156,7 +165,7 @@ const LoyaltyEngagement = () => {
             whileInView={{ opacity: 1, y: 0 }} 
             viewport={{ once: true }} 
             transition={{ duration: 0.5, delay: 0.1 }} 
-            className="text-xl text-gray-600 max-w-3xl mx-auto"
+            className="text-xl text-gray-200 max-w-3xl mx-auto"
           >
             Drive repeat business and optimize revenue with our unique loyalty and pricing tools.
           </motion.p>
@@ -170,15 +179,15 @@ const LoyaltyEngagement = () => {
           viewport={{ once: true }}
           variants={containerVariants}
         >
-          <h3 className="text-2xl font-bold text-center mb-8">Loyalty Tier Progression</h3>
+          <h3 className="text-2xl font-bold text-center mb-8 text-white">Loyalty Tier Progression</h3>
           
           <div className="flex justify-center mb-8">
-            <div className="bg-gray-100 p-1 rounded-full flex">
+            <div className="bg-indigo-900 dark:bg-gray-800 p-1 rounded-full flex">
               {tiers.map((tier, index) => (
                 <motion.button
                   key={tier.id}
                   onClick={() => setActiveTier(index)}
-                  className={`px-4 py-2 rounded-full text-sm md:text-base ${activeTier === index ? 'bg-white shadow-md' : ''}`}
+                  className={`px-4 py-2 rounded-full text-sm md:text-base ${activeTier === index ? 'bg-white text-indigo-900 dark:text-gray-800 shadow-md' : 'text-white'}`}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -188,28 +197,31 @@ const LoyaltyEngagement = () => {
             </div>
           </div>
           
-          <div className="relative py-2 mb-2">
-            <div className="h-2 bg-gray-200 rounded-full mx-10">
+          {/* Step indicator with smooth transition and margin below */}
+          <div className="relative py-2 mb-10">
+            <div className="h-2 bg-indigo-800 dark:bg-gray-700 rounded-full mx-10">
               {/* Progress track with tier markers */}
               <div className="absolute left-0 right-0 top-1/2 transform -translate-y-1/2 flex justify-between px-10 z-10">
                 {tiers.map((tier, index) => (
                   <div key={tier.id} className="flex flex-col items-center">
-                    <div 
-                      className={`w-6 h-6 rounded-full border-2 border-white ${index <= activeTier ? `bg-[${tier.color}]` : 'bg-gray-300'}`}
+                    <motion.div 
+                      className="w-6 h-6 rounded-full border-2 border-white flex items-center justify-center"
                       style={{ backgroundColor: index <= activeTier ? tier.color : '#d1d5db' }}
-                    ></div>
+                      whileHover={{ scale: 1.2 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                    ></motion.div>
                     <span className="text-xs mt-2 hidden md:block">{tier.visits} visits</span>
                   </div>
                 ))}
               </div>
               
-              {/* Progress bar */}
+              {/* Progress bar with smooth transition */}
               <motion.div 
                 className="h-full rounded-full"
-                style={{ backgroundColor: tiers[activeTier].color, width: `${(activeTier / (tiers.length - 1)) * 100}%` }}
+                style={{ backgroundColor: tiers[activeTier].color }}
                 initial={{ width: 0 }}
                 animate={{ width: `${(activeTier / (tiers.length - 1)) * 100}%` }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
               ></motion.div>
             </div>
           </div>
@@ -221,7 +233,7 @@ const LoyaltyEngagement = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
-              className="bg-white rounded-lg shadow-lg p-6 md:p-8 max-w-4xl mx-auto"
+              className="bg-indigo-900 dark:bg-gray-800 rounded-lg shadow-lg p-6 md:p-8 max-w-4xl mx-auto border border-indigo-700 dark:border-gray-700"
             >
               <div className="flex flex-col md:flex-row gap-6">
                 <div className="flex-1">
@@ -233,15 +245,15 @@ const LoyaltyEngagement = () => {
                       {tiers[activeTier].name.charAt(0)}
                     </div>
                     <div>
-                      <h4 className="text-2xl font-bold">{tiers[activeTier].name} Tier</h4>
-                      <p className="text-gray-600">{tiers[activeTier].visits} visits</p>
+                      <h4 className="text-2xl font-bold text-white">{tiers[activeTier].name} Tier</h4>
+                      <p className="text-gray-300">{tiers[activeTier].visits} visits</p>
                     </div>
                   </div>
-                  <p className="text-lg mb-4">Base Discount: <span className="font-bold">{tiers[activeTier].baseDiscount}%</span></p>
+                  <p className="text-lg mb-4 text-white">Base Discount: <span className="font-bold">{tiers[activeTier].baseDiscount}%</span></p>
                   
                   <div className="mb-4">
-                    <h5 className="font-semibold mb-2">Return Bonuses:</h5>
-                    <ul className="space-y-1">
+                    <h5 className="font-semibold mb-2 text-white">Return Bonuses:</h5>
+                    <ul className="space-y-1 text-gray-200">
                       <li className="flex justify-between">
                         <span>Within 24 hours:</span>
                         <span className="font-bold">+{tiers[activeTier].returnBonus['24h']}%</span>
@@ -258,7 +270,7 @@ const LoyaltyEngagement = () => {
                   </div>
                 </div>
                 <div className="flex-1">
-                  <h5 className="font-semibold mb-3">Tier Benefits:</h5>
+                  <h5 className="font-semibold mb-3 text-white">Tier Benefits:</h5>
                   <ul className="space-y-2">
                     {tiers[activeTier].features.map((feature, index) => (
                       <motion.li 
@@ -266,12 +278,12 @@ const LoyaltyEngagement = () => {
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.1 }}
-                        className="flex items-center"
+                        className="flex items-center text-gray-200"
                       >
-                        <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <svg className="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        {feature}
+                        <span>{feature}</span>
                       </motion.li>
                     ))}
                   </ul>
@@ -281,6 +293,7 @@ const LoyaltyEngagement = () => {
           </AnimatePresence>
         </motion.div>
 
+
         {/* Interactive Discount Calculator */}
         <motion.div 
           className="mb-20"
@@ -289,14 +302,14 @@ const LoyaltyEngagement = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h3 className="text-2xl font-bold text-center mb-8">Discount Calculator</h3>
+          <h3 className="text-2xl font-bold text-center mb-8 text-white">Discount Calculator</h3>
           
-          <div className="bg-white rounded-lg shadow-lg p-6 md:p-8 max-w-4xl mx-auto">
+          <div className="bg-indigo-900 dark:bg-gray-800 rounded-lg shadow-lg p-6 md:p-8 max-w-4xl mx-auto border border-indigo-700 dark:border-gray-700">
             <div className="flex flex-col lg:flex-row gap-8">
               {/* Calculator Controls */}
               <div className="flex-1">
                 <div className="mb-6">
-                  <label className="block text-gray-700 font-medium mb-2">Total Visits</label>
+                  <label className="block text-white font-medium mb-2">Total Visits</label>
                   <div className="flex items-center">
                     <input
                       type="range"
@@ -304,17 +317,17 @@ const LoyaltyEngagement = () => {
                       max="40"
                       value={calculatorState.visits}
                       onChange={(e) => handleCalculatorChange('visits', e.target.value)}
-                      className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                      className="w-full h-2 bg-indigo-700 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer"
                     />
-                    <span className="ml-4 w-10 text-center font-semibold">{calculatorState.visits}</span>
+                    <span className="ml-4 w-10 text-center font-semibold text-white">{calculatorState.visits}</span>
                   </div>
-                  <div className="text-xs text-gray-500 mt-1">
+                  <div className="text-xs text-gray-300 mt-1">
                     Tier: {tiers[calculateTier(calculatorState.visits)].name}
                   </div>
                 </div>
                 
                 <div className="mb-6">
-                  <label className="block text-gray-700 font-medium mb-2">Days Since Last Visit</label>
+                  <label className="block text-white font-medium mb-2">Days Since Last Visit</label>
                   <div className="flex items-center">
                     <input
                       type="range"
@@ -322,11 +335,11 @@ const LoyaltyEngagement = () => {
                       max="10"
                       value={calculatorState.daysSinceLastVisit}
                       onChange={(e) => handleCalculatorChange('daysSinceLastVisit', e.target.value)}
-                      className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                      className="w-full h-2 bg-indigo-700 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer"
                     />
-                    <span className="ml-4 w-10 text-center font-semibold">{calculatorState.daysSinceLastVisit}</span>
+                    <span className="ml-4 w-10 text-center font-semibold text-white">{calculatorState.daysSinceLastVisit}</span>
                   </div>
-                  <div className="text-xs text-gray-500 mt-1">
+                  <div className="text-xs text-gray-300 mt-1">
                     {calculatorState.daysSinceLastVisit <= 1 
                       ? "Within 24 hours - Maximum bonus!" 
                       : calculatorState.daysSinceLastVisit <= 3 
@@ -338,7 +351,7 @@ const LoyaltyEngagement = () => {
                 </div>
                 
                 <div className="mb-6">
-                  <label className="block text-gray-700 font-medium mb-2">Order Total ($)</label>
+                  <label className="block text-white font-medium mb-2">Order Total ($)</label>
                   <div className="flex items-center">
                     <input
                       type="range"
@@ -347,18 +360,18 @@ const LoyaltyEngagement = () => {
                       step="5"
                       value={calculatorState.orderTotal}
                       onChange={(e) => handleCalculatorChange('orderTotal', e.target.value)}
-                      className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                      className="w-full h-2 bg-indigo-700 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer"
                     />
-                    <span className="ml-4 w-16 text-center font-semibold">${calculatorState.orderTotal}</span>
+                    <span className="ml-4 w-16 text-center font-semibold text-white">${calculatorState.orderTotal}</span>
                   </div>
                 </div>
               </div>
               
               {/* Results Display */}
               <div className="flex-1 flex flex-col justify-center">
-                <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
+                <div className="bg-indigo-800 dark:bg-gray-700 rounded-lg p-6 border border-indigo-600 dark:border-gray-600">
                   <div className="text-center mb-4">
-                    <p className="text-gray-600">Your Discount</p>
+                    <p className="text-gray-200">Your Discount</p>
                     <motion.div 
                       key={currentDiscount}
                       initial={{ scale: 0.8 }}
@@ -370,19 +383,19 @@ const LoyaltyEngagement = () => {
                   </div>
                   
                   <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
+                    <div className="flex justify-between text-sm text-gray-200">
                       <span>Base tier discount:</span>
                       <span className="font-medium">{tiers[calculateTier(calculatorState.visits)].baseDiscount}%</span>
                     </div>
                     {calculatorState.daysSinceLastVisit <= 5 && (
-                      <div className="flex justify-between text-sm">
+                      <div className="flex justify-between text-sm text-gray-200">
                         <span>Return bonus:</span>
                         <span className="font-medium">
                           +{currentDiscount - tiers[calculateTier(calculatorState.visits)].baseDiscount}%
                         </span>
                       </div>
                     )}
-                    <div className="border-t border-gray-200 pt-2 mt-2">
+                    <div className="border-t border-indigo-600 dark:border-gray-600 pt-2 mt-2 text-gray-200">
                       <div className="flex justify-between">
                         <span>Order Total:</span>
                         <span className="font-medium">${calculatorState.orderTotal.toFixed(2)}</span>
@@ -423,13 +436,13 @@ const LoyaltyEngagement = () => {
           viewport={{ once: true }}
           variants={containerVariants}
         >
-          <h3 className="text-2xl font-bold text-center mb-8">Customer Loyalty Journey</h3>
+          <h3 className="text-2xl font-bold text-center mb-8 text-white">Customer Loyalty Journey</h3>
           
           <div className="max-w-5xl mx-auto">
             {/* Journey path visualization */}
             <div className="relative mb-10">
               {/* Path line */}
-              <div className="absolute top-12 left-0 w-full h-1 bg-gray-200 hidden md:block"></div>
+              <div className="absolute top-12 left-0 w-full h-1 bg-indigo-700 dark:bg-gray-700 hidden md:block"></div>
               
               {/* Journey steps */}
               <div className="flex flex-col md:flex-row justify-between relative z-10">
@@ -441,15 +454,15 @@ const LoyaltyEngagement = () => {
                     custom={index}
                   >
                     {/* Step icon */}
-                    <div className="w-24 h-24 rounded-full bg-white shadow-md flex items-center justify-center mb-4 text-3xl border-2 border-primary">
+                    <div className="w-24 h-24 rounded-full bg-indigo-800 dark:bg-gray-700 shadow-md flex items-center justify-center mb-4 text-3xl border-2 border-indigo-500 dark:border-gray-500">
                       {step.icon}
                     </div>
                     
                     {/* Step title */}
-                    <h4 className="font-bold text-lg mb-1 text-center">{step.title}</h4>
+                    <h4 className="font-bold text-lg mb-1 text-center text-white">{step.title}</h4>
                     
                     {/* Step description */}
-                    <p className="text-sm text-gray-600 text-center max-w-[150px]">
+                    <p className="text-sm text-gray-300 text-center max-w-[150px]">
                       {step.description}
                     </p>
                   </motion.div>
@@ -459,17 +472,18 @@ const LoyaltyEngagement = () => {
             
             {/* Call to action */}
             <motion.div 
-              className="text-center p-6 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg"
+              className="text-center p-6 bg-gradient-to-r from-indigo-800/70 to-indigo-600/70 dark:from-gray-800 dark:to-gray-700 rounded-lg"
               variants={itemVariants}
             >
-              <h4 className="text-xl font-bold mb-2">Begin Your Loyalty Journey Today</h4>
-              <p className="mb-4">Start earning rewards from your very first visit and watch your benefits grow!</p>
+              <h4 className="text-xl font-bold mb-2 text-white">Begin Your Loyalty Journey Today</h4>
+              <p className="mb-4 text-gray-200">Start earning rewards from your very first visit and watch your benefits grow!</p>
               <button className="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-6 rounded-full transition-colors">
                 Learn More
               </button>
             </motion.div>
           </div>
         </motion.div>
+      </div>
       </div>
     </section>
   );

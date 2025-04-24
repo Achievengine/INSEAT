@@ -38,10 +38,10 @@ const Navbar = () => {
             <a href="#features" className="text-gray-600 hover:text-primary transition-colors">QR Ordering</a>
             <a href="#how-it-works" className="text-gray-600 hover:text-primary transition-colors">How It Works</a>
             <a href="#loyalty" className="text-gray-600 hover:text-primary transition-colors">Loyalty</a>
-            <a href="#kitchen" className="text-gray-600 hover:text-primary transition-colors">Kitchen</a>
-            <a href="#staff-tools" className="text-gray-600 hover:text-primary transition-colors">Staff Tools</a>
+            {/* <a href="#kitchen" className="text-gray-600 hover:text-primary transition-colors">Kitchen</a>
+            <a href="#staff-tools" className="text-gray-600 hover:text-primary transition-colors">Staff Tools</a> */}
             <a href="#pricing" className="text-gray-600 hover:text-primary transition-colors">Pricing</a>
-            <a href="#testimonials" className="text-gray-600 hover:text-primary transition-colors">Testimonials</a>
+            {/* <a href="#testimonials" className="text-gray-600 hover:text-primary transition-colors">Testimonials</a> */}
           </motion.div>
           
           <motion.div

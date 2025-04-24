@@ -1,9 +1,7 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
+import EnhancedPhoneMockup from "./EnhancedPhoneMockup"; // Import the new component
 
 const Hero = () => {
-  const [isHovering, setIsHovering] = useState(false);
-
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -25,43 +23,32 @@ const Hero = () => {
     }
   };
 
-  const qrCodeVariants = {
-    idle: { scale: 1 },
-    hover: { scale: 1.05, boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.1)" }
-  };
-
-  const phoneVariants = {
-    idle: { y: 0 },
-    animate: { y: [0, -10, 0], transition: { duration: 4, repeat: Infinity, ease: "easeInOut" } }
-  };
-
   return (
-    <section className="relative py-12 md:py-20 overflow-hidden bg-gradient-to-b from-white to-gray-50">
-      {/* Background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-primary/5"></div>
-        <div className="absolute top-1/3 -left-32 w-64 h-64 rounded-full bg-accent/5"></div>
-        <div className="absolute -bottom-32 right-1/4 w-80 h-80 rounded-full bg-secondary/5"></div>
-        
-        {/* Grid pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="h-full w-full bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSA2MCAwIEwgMCAwIDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iZ3JheSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiAvPjwvc3ZnPg==')]"></div>
-        </div>
+    // Reduced bottom padding: pb-24 md:pb-32
+    <section className="relative pt-12 md:pt-20 pb-4 md:pb-12 bg-gradient-to-b from-white to-gray-50 overflow-visible">
+      {/* Background elements - Adjusted positions */}
+      <div className="absolute inset-0 overflow-hidden -z-10">
+        <div className="absolute -top-48 -right-48 w-96 h-96 md:w-[500px] md:h-[500px] rounded-full bg-primary/5"></div>
+        <div className="absolute top-1/4 -left-48 w-64 h-64 md:w-80 md:h-80 rounded-full bg-accent/5"></div>
+        <div className="absolute -bottom-48 right-1/4 w-80 h-80 md:w-96 md:h-96 rounded-full bg-secondary/5"></div>
+        {/* Removed grid background */}
       </div>
 
       <div className="container-custom relative">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
-          
-          {/* Left column: Text content */}
+        {/* Adjusted grid layout and alignment */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+
+          {/* Left column: Text content - Spanning 2 columns */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="text-center lg:text-left"
+            className="text-center lg:text-left lg:col-span-2 pt-8 md:pt-16" // Adjusted padding
           >
-            <motion.h1 
-              variants={itemVariants} 
-              className="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight text-secondary"
+            {/* Image removed from here */}
+            <motion.h1
+              variants={itemVariants}
+              className="text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-display font-bold leading-tight text-secondary" // Adjusted text size
             >
               Transform Your Restaurant with 
               <span className="text-primary block mt-2">QR Code Ordering</span>
@@ -103,110 +90,35 @@ const Hero = () => {
               </p>
             </motion.div>
           </motion.div>
-          
-          {/* Right column: Visuals */}
-          <div className="relative">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="relative z-10"
-            >
-              {/* Phone Mockup */}
+
+          {/* Right column: Visuals - Spanning 3 columns */}
+          <div className="relative lg:col-span-3 h-[500px] md:h-[650px] lg:h-[750px]">
+            {/* Container for absolute positioning */}
+            <div className="absolute inset-0 flex items-center justify-center lg:justify-start">
+
+              {/* Food Image - Positioned absolutely */}
+              <motion.img
+                initial={{ opacity: 0, x: 100, scale: 0.8 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                transition={{ duration: 0.7, delay: 0.4, type: 'spring', stiffness: 50 }}
+                src="https://res.cloudinary.com/dptx5wjus/image/upload/v1745445040/Red_and_Yellow_Modern_Healthy_Food_Instagram_Post_1_azrwh1.png"
+                alt="Healthy Food"
+                // Made image bigger: w-[320px] md:w-[450px] lg:w-[600px]
+                // Moved image down: top-[10%]
+                className="absolute right-[-5%] md:right-[-10%] lg:right-[-15%] top-[10%] w-[360px] h-auto md:w-[490px] lg:w-[680px] z-10"
+              />
+
+              {/* Phone Mockup - Positioned absolutely, overlapping */}
               <motion.div
-                variants={phoneVariants}
-                initial="idle"
-                animate="animate"
-                className="lg:absolute -left-12 top-10 z-10 shadow-xl rounded-3xl"
+                initial={{ opacity: 0, y: 100, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="absolute left-[-20%] md:left-[-25%] lg:left-[25%] bottom-[75%] md:bottom-[70%] lg:bottom-[72%] z-20 transform scale-90 md:scale-100"
               >
-                <div className="relative w-48 md:w-56 overflow-hidden rounded-3xl border-8 border-gray-800 shadow-lg">
-                  <div className="relative bg-white pb-[200%]">
-                    {/* Phone Screen Content */}
-                    <img
-                      className="absolute top-0 left-0 w-full"
-                      src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzdGF1cmFudHxlbnwwfHwwfHx8MA%3D%3D"
-                      alt="Restaurant app"
-                    />
-                    <div className="absolute top-0 left-0 right-0 bg-black/60 text-white p-2 text-xs">
-                      Scanning QR Code...
-                    </div>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-32 h-32 border-2 border-white rounded-lg flex items-center justify-center">
-                        <div className="animate-pulse bg-primary/30 w-24 h-24"></div>
-                      </div>
-                    </div>
-                    <div className="absolute bottom-0 left-0 right-0 bg-white p-3">
-                      <div className="h-2 bg-gray-300 rounded-full w-3/4 mb-2"></div>
-                      <div className="h-2 bg-gray-300 rounded-full w-1/2"></div>
-                    </div>
-                  </div>
-                </div>
+                <EnhancedPhoneMockup />
               </motion.div>
 
-              {/* QR Code */}
-              <motion.div
-                onHoverStart={() => setIsHovering(true)}
-                onHoverEnd={() => setIsHovering(false)}
-                variants={qrCodeVariants}
-                initial="idle"
-                animate={isHovering ? "hover" : "idle"}
-                className="relative mx-auto lg:ml-auto lg:mr-0 w-64 md:w-80 bg-white rounded-xl overflow-hidden shadow-xl border border-gray-100"
-              >
-                <div className="p-6 bg-white">
-                  <div className="text-center mb-4">
-                    <div className="inline-block p-2 bg-primary/10 rounded-lg text-primary mb-2">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
-                      </svg>
-                    </div>
-                    <h3 className="text-secondary font-bold">Scan to Order</h3>
-                  </div>
-                  
-                  {/* QR Code SVG */}
-                  <div className="flex justify-center">
-                    <svg 
-                      className="w-40 h-40" 
-                      viewBox="0 0 100 100" 
-                      fill="none" 
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <rect x="10" y="10" width="20" height="20" rx="3" fill="#2E294E" />
-                      <rect x="10" y="40" width="10" height="10" rx="2" fill="#2E294E" />
-                      <rect x="30" y="40" width="10" height="10" rx="2" fill="#2E294E" />
-                      <rect x="70" y="10" width="20" height="20" rx="3" fill="#2E294E" />
-                      <rect x="50" y="10" width="10" height="10" rx="2" fill="#2E294E" />
-                      <rect x="50" y="30" width="10" height="10" rx="2" fill="#2E294E" />
-                      <rect x="70" y="40" width="10" height="10" rx="2" fill="#2E294E" />
-                      <rect x="10" y="70" width="20" height="20" rx="3" fill="#2E294E" />
-                      <rect x="40" y="50" width="20" height="20" rx="2" fill="#FF6B35" className={`transition-all duration-300 ${isHovering ? 'opacity-100' : 'opacity-80'}`} />
-                      <rect x="70" y="60" width="20" height="10" rx="2" fill="#2E294E" />
-                      <rect x="40" y="80" width="10" height="10" rx="2" fill="#2E294E" />
-                      <rect x="60" y="80" width="30" height="10" rx="2" fill="#2E294E" />
-                    </svg>
-                  </div>
-                  
-                  <div className="text-center mt-2 text-sm text-gray-500">
-                    {isHovering ? 'Scan me!' : 'Hover to interact'}
-                  </div>
-                </div>
-                
-                <div className="bg-gray-50 p-4 border-t">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-xs text-gray-500">Demo Restaurant</p>
-                      <p className="font-medium text-secondary">Table #12</p>
-                    </div>
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="bg-primary text-white text-sm py-2 px-4 rounded-lg"
-                    >
-                      View Menu
-                    </motion.button>
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>
@@ -215,4 +127,3 @@ const Hero = () => {
 };
 
 export default Hero;
-

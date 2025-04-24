@@ -184,7 +184,7 @@ const Pricing = () => {
   };
 
   return (
-    <section id="pricing" className="py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white">
+    <section id="pricing" className="py-16 md:py-24 bg-indigo-950 dark:bg-gray-900 text-white">
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="text-center mb-12 md:mb-16">
           <motion.h2 
@@ -192,7 +192,7 @@ const Pricing = () => {
             whileInView={{ opacity: 1, y: 0 }} 
             viewport={{ once: true }} 
             transition={{ duration: 0.5 }} 
-            className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+            className="text-3xl md:text-4xl font-bold text-white mb-4"
           >
             Flexible Pricing Plans
           </motion.h2>
@@ -201,16 +201,16 @@ const Pricing = () => {
             whileInView={{ opacity: 1, y: 0 }} 
             viewport={{ once: true }} 
             transition={{ duration: 0.5, delay: 0.1 }} 
-            className="text-xl text-gray-600 max-w-3xl mx-auto mb-8"
+            className="text-xl text-white/80 max-w-3xl mx-auto mb-8"
           >
             Choose the right plan for your restaurant's needs and scale as you grow.
           </motion.p>
           
           {/* View mode toggle */}
           <div className="flex justify-center mb-8">
-            <div className="bg-gray-100 p-1 rounded-full flex">
+            <div className="bg-white/10 p-1 rounded-full flex">
               <motion.button
-                className={`px-4 py-2 rounded-full text-sm md:text-base ${viewMode === 'pricing' ? 'bg-white shadow-md' : ''}`}
+                className={`px-4 py-2 rounded-full text-sm md:text-base ${viewMode === 'pricing' ? 'bg-white text-secondary shadow-md' : 'text-white'}`}
                 onClick={() => setViewMode('pricing')}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -218,7 +218,7 @@ const Pricing = () => {
                 Pricing Plans
               </motion.button>
               <motion.button
-                className={`px-4 py-2 rounded-full text-sm md:text-base ${viewMode === 'comparison' ? 'bg-white shadow-md' : ''}`}
+                className={`px-4 py-2 rounded-full text-sm md:text-base ${viewMode === 'comparison' ? 'bg-white text-secondary shadow-md' : 'text-white'}`}
                 onClick={() => setViewMode('comparison')}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -251,7 +251,7 @@ const Pricing = () => {
                     transition={{ duration: 0.3 }}
                     onClick={() => tier.id !== 'enterprise' && setSelectedPlan(tier.id)}
                     className={`bg-white rounded-lg shadow-lg overflow-hidden flex flex-col 
-                      ${tier.recommended ? 'border-2 border-primary' : 'border border-gray-200'} 
+                      ${tier.recommended ? 'border-2 border-primary' : 'border border-gray-200'}`} 
                   >
                     {/* Recommended badge */}
                     {tier.recommended && (
@@ -538,5 +538,26 @@ const Pricing = () => {
                           <td key={`${tier.id}-${index}`} className="py-3 px-6 border-t border-gray-200 text-center">
                             {tier.features[index].included ? (
                               <svg className="w-6 h-6 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7
-d !== 'enterprise' ? 'cursor-pointer' : ''}`}
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                              </svg>
+                            ) : (
+                              <svg className="w-6 h-6 text-gray-300 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                              </svg>
+                            )}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </section>
+  );
+};
+
+export default Pricing;

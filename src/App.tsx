@@ -12,6 +12,7 @@ import AdminDashboard from './components/AdminDashboard';
 import DemoForm from './components/DemoForm';
 import Footer from './components/Footer';
 import Pricing from './components/Pricing';
+import ContactUs from './components/ContactUs';
 
 // Styles
 import './App.css';
@@ -267,6 +268,7 @@ function App() {
         <Pricing />
         <Testimonials />
         <DemoForm />
+        <ContactUs />
       </main>
       <Footer />
     </>

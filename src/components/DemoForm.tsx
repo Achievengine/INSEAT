@@ -1,10 +1,12 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useForm } from 'react-hook-form';
+import QRPhoneMockup from './QRPhoneMockup';
 
 type FormData = {
   restaurantName: string;
   email: string;
+  logo: File | null;
 };
 
 const DemoForm = () => {
@@ -21,7 +23,8 @@ const DemoForm = () => {
     mode: 'onChange',
     defaultValues: {
       restaurantName: '',
-      email: ''
+      email: '',
+      logo: null
     }
   });
 
@@ -263,52 +266,18 @@ const DemoForm = () => {
               <p className="text-gray-600">Here's how your customized QR menu will look</p>
             </div>
 
-            {/* Phone Mockup with QR Preview */}
-            <motion.div
-              whileHover={{ y: -5 }}
-              className="relative w-64 md:w-72 mx-auto"
-            >
-              <div className="relative bg-gray-900 rounded-[40px] p-3 shadow-xl">
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-1/2 h-6 bg-gray-900 rounded-b-xl"></div>
-                <div className="bg-gradient-to-b from-primary/10 to-white rounded-[28px] overflow-hidden">
-                  {/* Phone Content */}
-                  <div className="relative pt-10 pb-16">
-                    {/* Preview Header */}
-                    <div className="px-5 pt-2 pb-4 flex items-center space-x-3">
-                      {logoPreview ? (
-                        <div className="h-10 w-10 rounded-full overflow-hidden">
-                          <img src={logoPreview} alt="Logo" className="h-full w-full object-cover" />
-                        </div>
-                      ) : (
-                        <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
-                          <svg className="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
-                          </svg>
-                        </div>
-                      )}
-                      <div>
-                        <h3 className="font-bold text-secondary">
-                          {register('restaurantName').value || 'Your Restaurant'}
-                        </h3>
-                        <p className="text-xs text-gray-500">Digital Menu & Ordering</p>
-                      </div>
-                    </div>
-
-                    {/* Menu Categories */}
-                    <div className="px-5">
-                      <div className="flex space-x-3 overflow-x-auto pb-2">
-                        <div className="px-3 py-1 bg-primary/90 text-white rounded-full text-sm whitespace-nowrap">
-                          All Items
-                        </div>
-                        <div className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm whitespace-nowrap">
-                          Appetizers
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            {/* QR Menu Preview */}
+            <div className="mt-8 bg-white rounded-xl shadow-md p-5 border border-gray-200">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-bold text-gray-800">Preview Your QR Menu</h3>
               </div>
-            </motion.div>
+              <div className="flex justify-center">
+                <QRPhoneMockup 
+                  logoPreview={logoPreview || null}
+                  restaurantName={register('restaurantName').value || 'Taste of Paradise'}
+                />
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>
@@ -317,4 +286,3 @@ const DemoForm = () => {
 };
 
 export default DemoForm;
-
