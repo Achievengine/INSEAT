@@ -23,7 +23,7 @@ const ContactUs = () => {
   ];
 
   return (
-    <section className="bg-gray-50 py-20">
+    <section className="bg-gray-900 py-20">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <motion.div 
@@ -34,7 +34,7 @@ const ContactUs = () => {
             className="text-center mb-12"
           >
             <h2 className="text-4xl font-bold text-secondary mb-4">Contact Us</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+                <p className="text-gray-600 max-w-2xl mx-auto">
               We'd love to hear from you! Whether you have questions, need support, or want to explore partnership opportunities, our team is here to help.
             </p>
           </motion.div>
