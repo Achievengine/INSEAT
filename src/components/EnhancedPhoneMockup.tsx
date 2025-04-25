@@ -90,7 +90,7 @@ const EnhancedPhoneMockup = () => {
         </div>
         
         {/* Phone screen */}
-        <div className="relative bg-gray-900 h-[560px] md:h-[660px] flex flex-col items-center justify-center p-4 overflow-hidden rounded-[18px]"> 
+        <div className="relative bg-gray-900 h-[450px] md:h-[660px] flex flex-col items-center justify-center p-4 overflow-hidden rounded-[18px]"> 
           {/* Status bar */}
           <div className="absolute top-0 left-0 w-full bg-black/30 backdrop-blur-sm p-2 flex justify-between items-center z-20 text-xs text-white">
             <div className="ml-6">{currentTime}</div>

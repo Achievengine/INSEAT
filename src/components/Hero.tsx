@@ -117,7 +117,7 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 100, scale: 0.9 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="absolute left-[-20%] md:left-[-25%] lg:left-[25%] bottom-[75%] md:bottom-[70%] lg:bottom-[72%] z-20 transform scale-90 md:scale-100"
+                className="absolute left-[-1%] md:left-[-25%] lg:left-[25%] top-[10%] md:top-[25%] lg:bottom-[72%] z-20 transform scale-80 md:scale-100 lg:scale-100"
               >
                 <EnhancedPhoneMockup />
               </motion.div>
