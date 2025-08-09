@@ -1,5 +1,9 @@
+"use client";
+
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ContainerScroll } from "./ui/container-scroll-animation";
+import Image from "next/image";
 
 const AdminDashboard = () => {
   // Active view state
@@ -140,34 +144,28 @@ const AdminDashboard = () => {
   };
   
   return (
-    <section id="admin-dashboard" className="py-16 md:py-24 bg-gradient-to-b from-white to-gray-50">
-      <div className="container mx-auto px-4 max-w-7xl">
-        <div className="text-center mb-12">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }} 
-            whileInView={{ opacity: 1, y: 0 }} 
-            viewport={{ once: true }} 
-            transition={{ duration: 0.5 }} 
-            className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
-          >
-            Admin & Analytics Dashboard
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }} 
-            whileInView={{ opacity: 1, y: 0 }} 
-            viewport={{ once: true }} 
-            transition={{ duration: 0.5, delay: 0.1 }} 
-            className="text-xl text-gray-600 max-w-3xl mx-auto"
-          >
-            Gain complete control and visibility over your restaurant operations and performance.
-          </motion.p>
+    <div className="flex flex-col overflow-hidden">
+      <ContainerScroll
+        titleComponent={
+          <>
+            <h1 className="text-4xl font-semibold text-black dark:text-white">
+              Admin Dashboard <br />
+              <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none">
+                INSEAT Management
+              </span>
+            </h1>
+          </>
+        }
+      >
+        <div className="px-4 max-w-7xl mx-auto w-full">
+
         </div>
         
         {/* Dashboard demo */}
-        <div className="bg-white rounded-lg shadow-xl overflow-hidden border border-gray-200">
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200 mt-4">
           <div className="flex flex-col md:flex-row min-h-[600px]">
             {/* Sidebar navigation */}
-            <div className="w-full md:w-64 bg-gray-50 border-r border-gray-200 p-4">
+            <div className="w-full md:w-72 bg-gray-50 border-r border-gray-200 p-4">
               <div className="flex items-center mb-6 p-2">
                 <div className="w-10 h-10 rounded-lg bg-primary text-white flex items-center justify-center font-bold text-xl">
                   I
@@ -178,11 +176,73 @@ const AdminDashboard = () => {
                 </div>
               </div>
               
+              <div className="mb-4 px-3 py-2">
+                <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Main</h3>
+              </div>
+              <nav className="space-y-1 mb-6">
+                {[
+                  { id: 'analytics', label: 'Dashboard', icon: '📊' },
+                  { id: 'reservations', label: 'Reservations', icon: '📅' },
+                  { id: 'orders', label: 'Orders', icon: '🍽️' }
+                ].map((item) => (
+                  <motion.button
+                    key={item.id}
+                    onClick={() => setActiveView(item.id)}
+                    className={`flex items-center px-3 py-3 w-full rounded-md text-left text-sm transition-colors
+                      ${activeView === item.id ? 'bg-blue-50' : 'hover:bg-gray-100'}`}
+                    animate={activeView === item.id ? 'active' : 'inactive'}
+                    variants={navItemVariants}
+                  >
+                    <span className="mr-3 text-lg">{item.icon}</span>
+                    <span>{item.label}</span>
+                    {activeView === item.id && (
+                      <motion.div 
+                        className="ml-auto w-1.5 h-1.5 rounded-full bg-primary"
+                        layoutId="activeIndicator"
+                      />
+                    )}
+                  </motion.button>
+                ))}
+              </nav>
+              
+              <div className="mb-4 px-3 py-2">
+                <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Management</h3>
+              </div>
+              <nav className="space-y-1 mb-6">
+                {[
+                  { id: 'users', label: 'User Management', icon: '👥' },
+                  { id: 'menu', label: 'Menu Items', icon: '🍕' },
+                  { id: 'inventory', label: 'Inventory', icon: '📦' }
+                ].map((item) => (
+                  <motion.button
+                    key={item.id}
+                    onClick={() => setActiveView(item.id)}
+                    className={`flex items-center px-3 py-3 w-full rounded-md text-left text-sm transition-colors
+                      ${activeView === item.id ? 'bg-blue-50' : 'hover:bg-gray-100'}`}
+                    animate={activeView === item.id ? 'active' : 'inactive'}
+                    variants={navItemVariants}
+                  >
+                    <span className="mr-3 text-lg">{item.icon}</span>
+                    <span>{item.label}</span>
+                    {activeView === item.id && (
+                      <motion.div 
+                        className="ml-auto w-1.5 h-1.5 rounded-full bg-primary"
+                        layoutId="activeIndicator"
+                      />
+                    )}
+                  </motion.button>
+                ))}
+              </nav>
+              
+              <div className="mb-4 px-3 py-2">
+                <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Configuration</h3>
+              </div>
               <nav className="space-y-1">
                 {[
-                  { id: 'analytics', label: 'Analytics & Insights', icon: '📊' },
-                  { id: 'users', label: 'User Management', icon: '👥' },
-                  { id: 'settings', label: 'System Settings', icon: '⚙️' }
+                  { id: 'settings', label: 'System Settings', icon: '⚙️' },
+                  { id: 'integrations', label: 'Integrations', icon: '🔌' },
+                  { id: 'reports', label: 'Reports', icon: '📊' },
+                  { id: 'support', label: 'Support', icon: '🎫' }
                 ].map((item) => (
                   <motion.button
                     key={item.id}
@@ -223,8 +283,15 @@ const AdminDashboard = () => {
                 <div>
                   <h2 className="text-xl font-bold text-gray-900">
                     {activeView === 'analytics' && 'Dashboard Overview'}
+                    {activeView === 'reservations' && 'Reservations'}
+                    {activeView === 'orders' && 'Orders'}
                     {activeView === 'users' && 'User Management'}
+                    {activeView === 'menu' && 'Menu Management'}
+                    {activeView === 'inventory' && 'Inventory Management'}
                     {activeView === 'settings' && 'System Settings'}
+                    {activeView === 'integrations' && 'Integrations'}
+                    {activeView === 'reports' && 'Reports'}
+                    {activeView === 'support' && 'Support'}
                   </h2>
                   <p className="text-sm text-gray-500">
                     {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
@@ -236,8 +303,15 @@ const AdminDashboard = () => {
                   </button>
                   <button className="px-3 py-1.5 text-sm bg-primary text-white rounded-md hover:bg-primary/90">
                     {activeView === 'analytics' && 'Refresh Data'}
+                    {activeView === 'reservations' && 'New Reservation'}
+                    {activeView === 'orders' && 'View Orders'}
                     {activeView === 'users' && 'Add User'}
+                    {activeView === 'menu' && 'New Menu Item'}
+                    {activeView === 'inventory' && 'Update Stock'}
                     {activeView === 'settings' && 'Save Changes'}
+                    {activeView === 'integrations' && 'Connect New'}
+                    {activeView === 'reports' && 'Generate Report'}
+                    {activeView === 'support' && 'New Ticket'}
                   </button>
                 </div>
               </div>
@@ -689,8 +763,8 @@ const AdminDashboard = () => {
             </div>
           </div>
         </div>
-      </div>
-    </section>
+            </ContainerScroll>
+    </div>
   );
 };
 

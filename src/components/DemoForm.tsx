@@ -1,11 +1,13 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useForm } from 'react-hook-form';
-import QRPhoneMockup from './QRPhoneMockup';
 
 type FormData = {
+  fullName: string;
   restaurantName: string;
   email: string;
+  phoneNumber: string;
+  companyName: string;
   logo: File | null;
 };
 
@@ -22,8 +24,11 @@ const DemoForm = () => {
   } = useForm<FormData>({
     mode: 'onChange',
     defaultValues: {
+      fullName: '',
       restaurantName: '',
       email: '',
+      phoneNumber: '',
+      companyName: '',
       logo: null
     }
   });
@@ -48,10 +53,28 @@ const DemoForm = () => {
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      console.log('Form submitted:', { ...data, logo: logoPreview });
-      setFormStatus('success');
+      const response = await fetch('http://localhost:3001/api/demo/request', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fullName: data.fullName,
+          email: data.email,
+          phoneNumber: data.phoneNumber,
+          restaurantName: data.restaurantName,
+          companyName: data.companyName
+        })
+      });
+
+      const result = await response.json();
+      
+      if (response.ok && result.success) {
+        console.log('Demo created successfully:', result);
+        setFormStatus('success');
+      } else {
+        throw new Error(result.error || 'Failed to create demo account');
+      }
     } catch (error) {
       console.error('Submission error:', error);
       setFormStatus('error');
@@ -136,6 +159,71 @@ const DemoForm = () => {
                   </div>
                 </div>
 
+                {/* Full Name */}
+                <div>
+                  <label htmlFor="fullName" className="block text-sm font-medium text-white mb-1">
+                    Full Name <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    id="fullName"
+                    type="text"
+                    className={`w-full px-4 py-2 border border-white/20 rounded-lg bg-white/5 text-white focus:ring-2 focus:ring-primary focus:border-transparent ${errors.fullName ? 'border-red-500 focus:ring-red-200' : ''}`}
+                    placeholder="e.g., John Doe"
+                    {...register('fullName', {
+                      required: 'Full name is required',
+                      minLength: {
+                        value: 2,
+                        message: 'Name must be at least 2 characters'
+                      }
+                    })}
+                  />
+                  {errors.fullName && (
+                    <p className="mt-1 text-sm text-red-500">{errors.fullName.message}</p>
+                  )}
+                </div>
+
+                {/* Phone Number */}
+                <div>
+                  <label htmlFor="phoneNumber" className="block text-sm font-medium text-white mb-1">
+                    Phone Number <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    id="phoneNumber"
+                    type="tel"
+                    className={`w-full px-4 py-2 border border-white/20 rounded-lg bg-white/5 text-white focus:ring-2 focus:ring-primary focus:border-transparent ${errors.phoneNumber ? 'border-red-500 focus:ring-red-200' : ''}`}
+                    placeholder="e.g., +1 (555) 123-4567"
+                    {...register('phoneNumber', {
+                      required: 'Phone number is required'
+                    })}
+                  />
+                  {errors.phoneNumber && (
+                    <p className="mt-1 text-sm text-red-500">{errors.phoneNumber.message}</p>
+                  )}
+                </div>
+
+                {/* Company Name */}
+                <div>
+                  <label htmlFor="companyName" className="block text-sm font-medium text-white mb-1">
+                    Company Name <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    id="companyName"
+                    type="text"
+                    className={`w-full px-4 py-2 border border-white/20 rounded-lg bg-white/5 text-white focus:ring-2 focus:ring-primary focus:border-transparent ${errors.companyName ? 'border-red-500 focus:ring-red-200' : ''}`}
+                    placeholder="e.g., Luigi's Restaurant Group"
+                    {...register('companyName', {
+                      required: 'Company name is required',
+                      minLength: {
+                        value: 2,
+                        message: 'Company name must be at least 2 characters'
+                      }
+                    })}
+                  />
+                  {errors.companyName && (
+                    <p className="mt-1 text-sm text-red-500">{errors.companyName.message}</p>
+                  )}
+                </div>
+
                 {/* Restaurant Name */}
                 <div>
                   <label htmlFor="restaurantName" className="block text-sm font-medium text-white mb-1">
@@ -216,7 +304,7 @@ const DemoForm = () => {
                     <svg className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
-                    Your QR menu demo is ready! Check your email inbox.
+                    Demo created successfully! Check your email for login credentials and setup instructions.
                   </motion.div>
                 )}
 
@@ -255,9 +343,10 @@ const DemoForm = () => {
                   <h3 className="font-bold text-gray-800">Preview Your QR Menu</h3>
                 </div>
                 <div className="flex justify-center">
-                  <QRPhoneMockup 
-                    logoPreview={logoPreview || null}
-                    restaurantName={register('restaurantName').value || 'Taste of Paradise'}
+                  <img 
+                    src="/inseat.jpg" 
+                    alt="InSeat QR Menu Preview" 
+                    className="w-[200px] md:w-[250px] h-auto rounded-3xl shadow-lg"
                   />
                 </div>
               </div>

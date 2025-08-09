@@ -264,12 +264,12 @@ function App() {
         <HowItWorks />
         <LoyaltyEngagement />
         {/* Replaced KitchenManagement and StaffTools with the new component */}
-        <ManagementTools /> 
+        {/* <ManagementTools />  */}
         <AdminDashboard />
         <Pricing />
         <Testimonials />
         <DemoForm />
-        <ContactUs />
+        {/* <ContactUs /> */}
         <AboutUs />
       </main>
       <Footer />
