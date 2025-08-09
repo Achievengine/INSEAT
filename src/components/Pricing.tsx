@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Pricing = () => {
@@ -9,10 +9,10 @@ const Pricing = () => {
   const [selectedPlan, setSelectedPlan] = useState('pro');
   
   // Add-ons state
-  const [selectedAddons, setSelectedAddons] = useState({
+  /* const [selectedAddons, setSelectedAddons] = useState({
     kds: false,
     pos: false
-  });
+  }); */
   
   // Enhanced pricing tiers with transaction-based model
   const pricingTiers = [
@@ -67,7 +67,7 @@ const Pricing = () => {
   ];
 
   // Add-ons pricing
-  const addons = [
+  /* const addons = [
     {
       id: 'kds',
       name: 'Kitchen Display System (KDS)',
@@ -80,27 +80,27 @@ const Pricing = () => {
       price: 150,
       description: 'Complete POS system integration'
     }
-  ];
+  ]; */
 
   // Toggle add-on selection
-  const toggleAddon = (addonId) => {
+  /* const toggleAddon = (addonId: string) => {
     setSelectedAddons(prev => ({
       ...prev,
       [addonId]: !prev[addonId]
     }));
-  };
+  }; */
 
   // Calculate total monthly cost including add-ons
-  const calculateTotalCost = (tier) => {
+  const calculateTotalCost = (tier: any) => {
     if (tier.monthlyFee === 'Custom') return 'Custom';
     
     let total = tier.monthlyFee;
     
     // Add selected add-ons based on plan
-    if (tier.id !== 'enterprise') {
+    /* if (tier.id !== 'enterprise') {
       if (selectedAddons.kds) total += 150;
       if (selectedAddons.pos) total += 150;
-    }
+    } */
     
     return total;
   };
@@ -116,10 +116,10 @@ const Pricing = () => {
     }
   };
 
-  const itemVariants = {
+  /* const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 }
-  };
+  }; */
 
   const cardVariants = {
     hidden: { opacity: 0, y: 30 },
@@ -195,7 +195,7 @@ const Pricing = () => {
               >
                 {/* Pricing Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  {pricingTiers.map((tier, index) => (
+                  {pricingTiers.map((tier) => (
                     <motion.div
                       key={tier.id}
                       variants={cardVariants}
@@ -240,13 +240,13 @@ const Pricing = () => {
                         <div className="space-y-4 mb-8 flex-grow">
                           {tier.features.map((feature, fIndex) => (
                             <div key={fIndex} className="flex items-center justify-between">
-                              {feature.addon && tier.id !== 'enterprise' ? (
+                              {(feature as any).addon && tier.id !== 'enterprise' ? (
                                 <div className="flex items-center flex-1">
                                   <input
                                     id={`${tier.id}-${feature.name.toLowerCase()}`}
                                     type="checkbox"
-                                    checked={selectedAddons[feature.name.toLowerCase()]}
-                                    onChange={() => toggleAddon(feature.name.toLowerCase())}
+                                    checked={false}
+                                    onChange={() => {}}
                                     className="w-4 h-4 text-orange-500 border-gray-300 rounded focus:ring-orange-500 mr-3"
                                   />
                                   <label htmlFor={`${tier.id}-${feature.name.toLowerCase()}`} className="text-gray-700 font-medium">

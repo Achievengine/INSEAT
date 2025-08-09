@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ContainerScroll } from "./ui/container-scroll-animation";
-import Image from "next/image";
 
 const AdminDashboard = () => {
   // Active view state
@@ -123,15 +122,6 @@ const AdminDashboard = () => {
   ];
   
   // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
   
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },

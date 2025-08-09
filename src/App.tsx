@@ -7,12 +7,12 @@ import Hero from './components/Hero';
 import Features from './components/Features'; // Focus on QR Ordering here
 import LoyaltyEngagement from './components/LoyaltyEngagement';
 // Removed KitchenManagement and StaffTools imports
-import ManagementTools from './components/ManagementTools'; // Import the new combined component
+// import ManagementTools from './components/ManagementTools'; // Import the new combined component
 import AdminDashboard from './components/AdminDashboard';
 import DemoForm from './components/DemoForm';
 import Footer from './components/Footer';
 import Pricing from './components/Pricing';
-import ContactUs from './components/ContactUs';
+// import ContactUs from './components/ContactUs';
 import AboutUs from './components/AboutUs';
 
 // Styles

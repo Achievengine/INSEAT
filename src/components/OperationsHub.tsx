@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const OperationsHub = () => {
@@ -149,7 +149,7 @@ const OperationsHub = () => {
                   animate="visible"
                   className="grid grid-cols-1 md:grid-cols-2 gap-4"
                 >
-                  {features[activeTab].map((feature, index) => (
+                  {features[activeTab as keyof typeof features].map((feature: any, index: number) => (
                     <motion.div
                       key={index}
                       variants={featureCardVariants}
