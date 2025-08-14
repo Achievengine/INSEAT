@@ -34,7 +34,7 @@ const AboutUs = () => {
       id: 2,
       name: "Fiker",
       role: "CEO",
-      bio: "Key partner in shaping Inseat's business strategy and operations."
+      bio: "Strategic leader, guiding the company’s business strategy and operations with expertise and dedication."
     },
     {
       id: 3,
