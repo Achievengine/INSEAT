@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react'
+import { sanityClient, featuresQuery } from '../lib/sanityClient'
 
 const Features = () => {
   // Animation variants
@@ -21,7 +23,13 @@ const Features = () => {
     }
   };
 
-  const features = [
+  const [cms, setCms] = useState<{ headline?: string; subheadline?: string; items?: any[] } | null>(null)
+
+  useEffect(() => {
+    sanityClient.fetch(featuresQuery).then(setCms).catch(() => {})
+  }, [])
+
+  const features = cms?.items || [
     {
       id: 1,
       title: 'Contactless Ordering',
@@ -101,10 +109,10 @@ const Features = () => {
             transition={{ duration: 0.5 }}
           >
             <h2 className="section-heading">
-              Powerful Features For Your Restaurant
+              {cms?.headline || 'Powerful Features For Your Restaurant'}
             </h2>
             <p className="section-subheading text-gray-300">
-              Revolutionize your restaurant operations with our comprehensive QR code ordering system
+              {cms?.subheadline || 'Revolutionize your restaurant operations with our comprehensive QR code ordering system'}
             </p>
           </motion.div>
         </div>
@@ -116,15 +124,22 @@ const Features = () => {
           viewport={{ once: true, margin: "-100px" }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
         >
-          {features.map((feature) => (
+          {features.map((feature: any) => (
             <motion.div
-              key={feature.id}
+              key={feature.id || feature.title}
               variants={itemVariants}
               whileHover={{ y: -5, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
               className="card p-6 h-full border border-gray-100 flex flex-col hover:border-primary/20 transition-all duration-300"
             >
-              <div className={`${feature.color} p-3 rounded-lg w-fit mb-4`}>
-                {feature.icon}
+              <div className={`${feature.color || 'bg-primary/10 text-primary'} p-3 rounded-lg w-fit mb-4`}>
+                {/* If CMS icon not provided, render a default */}
+                {feature.icon ? (
+                  <span className="text-current">{feature.icon}</span>
+                ) : (
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6a2 2 0 012-2h2a2 2 0 012 2v13m-6 0h6" />
+                  </svg>
+                )}
               </div>
               <h3 className="text-xl font-bold text-secondary mb-3">{feature.title}</h3>
               <p className="text-gray-600 flex-grow">{feature.description}</p>

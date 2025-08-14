@@ -27,13 +27,13 @@ const AboutUs = () => {
     {
       id: 1,
       name: "Dharmaraj",
-      role: "CEO & Founder",
-      bio: "Visionary leader and founder of Inseat, driving the company's growth and strategic direction."
+      role: "Cofounder",
+      bio: "Visionary leader and cofounder of Inseat, driving the company's growth and strategic direction."
     },
     {
       id: 2,
-      name: "Fez",
-      role: "Co-Founder & Partner",
+      name: "Fiker",
+      role: "CEO",
       bio: "Key partner in shaping Inseat's business strategy and operations."
     },
     {

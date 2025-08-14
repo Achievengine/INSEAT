@@ -1,7 +1,14 @@
 import { motion } from "framer-motion";
 import EnhancedPhoneMockup from "./EnhancedPhoneMockup"; // Import the new component
+import { useEffect, useState } from 'react'
+import { sanityClient, heroQuery } from '../lib/sanityClient'
 
 const Hero = () => {
+  const [cms, setCms] = useState<{ title?: string; subtitle?: string } | null>(null)
+
+  useEffect(() => {
+    sanityClient.fetch(heroQuery).then((data) => setCms(data)).catch(() => {})
+  }, [])
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -53,16 +60,20 @@ const Hero = () => {
               variants={itemVariants}
               className="text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-display font-bold leading-tight text-secondary"
             >
-              Transform Your Restaurant
-               <br />
-               with <span className="text-primary">QR Code Ordering</span>
+              {cms?.title || (
+                <>
+                  Transform Your Restaurant
+                  <br />
+                  with <span className="text-primary">QR Code Ordering</span>
+                </>
+              )}
             </motion.h1>
             
             <motion.p 
               variants={itemVariants}
               className="mt-6 text-xl text-gray-600 max-w-lg mx-auto lg:mx-0"
             >
-              Streamline your dining experience with our contactless QR code menu and ordering system. Reduce wait times, increase table turnover, and boost your profits.
+              {cms?.subtitle || 'Streamline your dining experience with our contactless QR code menu and ordering system. Reduce wait times, increase table turnover, and boost your profits.'}
             </motion.p>
             
             <motion.div 

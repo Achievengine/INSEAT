@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
+import { sanityClient } from './lib/sanityClient';
 
 // Component imports
 import Navbar from './components/Navbar';
@@ -14,6 +15,8 @@ import Footer from './components/Footer';
 import Pricing from './components/Pricing';
 // import ContactUs from './components/ContactUs';
 import AboutUs from './components/AboutUs';
+import VisualEditingOverlay from './components/VisualEditingOverlay';
+import ScrollToTop from './components/ScrollToTop';
 
 // Styles
 import './App.css';
@@ -140,7 +143,24 @@ const HowItWorks = () => {
 
 // Testimonial section
 const Testimonials = () => {
-  const testimonials = [
+  const [testimonialsData, setTestimonialsData] = useState<any>(null);
+
+  useEffect(() => {
+    const testimonialsQuery = `*[_type == "testimonialsSection"][0]{
+      headline,
+      subheadline,
+      testimonials[]{
+        quote,
+        author,
+        role,
+        company,
+        "avatarUrl": avatar.asset->url
+      }
+    }`;
+    sanityClient.fetch(testimonialsQuery).then(setTestimonialsData).catch(() => {});
+  }, []);
+
+  const testimonials = testimonialsData?.testimonials || [
     {
       id: 1,
       quote: "Inseat has completely transformed how we handle orders. Our staff can focus on service instead of taking orders, and our customers love the convenience!",
@@ -175,7 +195,7 @@ const Testimonials = () => {
             transition={{ duration: 0.5 }}
             className="section-heading"
           >
-            What Our Customers Say
+            {testimonialsData?.headline || 'What Our Customers Say'}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -184,7 +204,7 @@ const Testimonials = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="section-subheading"
           >
-            Hear from restaurant owners who have transformed their business with Inseat
+            {testimonialsData?.subheadline || 'Hear from restaurant owners who have transformed their business with Inseat'}
           </motion.p>
         </div>
 
@@ -206,13 +226,15 @@ const Testimonials = () => {
               <p className="text-gray-600 mb-6 flex-grow italic">{testimonial.quote}</p>
               <div className="flex items-center">
                 <img
-                  src={testimonial.avatar}
+                  src={testimonial.avatarUrl || testimonial.avatar}
                   alt={testimonial.author}
                   className="w-12 h-12 rounded-full mr-4"
                 />
                 <div>
                   <h4 className="font-bold text-secondary">{testimonial.author}</h4>
-                  <p className="text-sm text-gray-500">{testimonial.role}</p>
+                  <p className="text-sm text-gray-500">
+                    {testimonial.role}{testimonial.company ? `, ${testimonial.company}` : ''}
+                  </p>
                 </div>
               </div>
             </motion.div>
@@ -255,7 +277,7 @@ function App() {
   }, []);
 
   return (
-    <>
+    <VisualEditingOverlay>
       <ScrollProgress />
       <Navbar />
       <main>
@@ -273,7 +295,8 @@ function App() {
         <AboutUs />
       </main>
       <Footer />
-    </>
+      <ScrollToTop />
+    </VisualEditingOverlay>
   );
 }
 

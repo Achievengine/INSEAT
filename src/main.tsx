@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import { StagewiseToolbar } from '@stagewise/toolbar-react'
+import { initSanityOverlays } from './sanity/overlays'
 
 // Create main app root
 createRoot(document.getElementById('root')!).render(
@@ -26,3 +27,6 @@ if (import.meta.env.MODE === 'development') {
     <StagewiseToolbar config={stagewiseConfig} />
   )
 }
+
+// Initialize optional Sanity Visual Editing overlays (if enabled)
+initSanityOverlays()

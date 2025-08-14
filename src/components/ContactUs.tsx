@@ -1,12 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { sanityClient, contactQuery } from '../lib/sanityClient'
 
 const ContactUs = () => {
+  const [cms, setCms] = useState<any | null>(null)
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    sanityClient.fetch(contactQuery).then(setCms).catch(() => {})
+  }, [])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,9 +39,9 @@ const ContactUs = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl font-bold text-secondary mb-4">Contact Us</h2>
+            <h2 className="text-4xl font-bold text-secondary mb-4">{cms?.headline || 'Contact Us'}</h2>
                 <p className="text-gray-600 max-w-2xl mx-auto">
-              We'd love to hear from you! Whether you have questions, need support, or want to explore partnership opportunities, our team is here to help.
+              {cms?.intro || "We'd love to hear from you! Whether you have questions, need support, or want to explore partnership opportunities, our team is here to help."}
             </p>
           </motion.div>
 
@@ -59,7 +65,7 @@ const ContactUs = () => {
                     </div>
                     <div>
                       <h4 className="font-medium text-gray-900">Location</h4>
-                      <p className="text-gray-600">Addis Ababa, Ethiopia</p>
+                      <p className="text-gray-600">{cms?.location || 'Addis Ababa, Ethiopia'}</p>
                     </div>
                   </div>
 
@@ -72,8 +78,8 @@ const ContactUs = () => {
                     <div>
                       <h4 className="font-medium text-gray-900">Phone</h4>
                       <p className="text-gray-600">
-                        <span className="block">Ethiopia: +251 94 215 0275</span>
-                        <span className="block">UAE: +971 50 731 3961</span>
+                        <span className="block">{cms?.phonePrimary || 'Ethiopia: +251 94 215 0275'}</span>
+                        <span className="block">{cms?.phoneSecondary || 'UAE: +971 50 731 3961'}</span>
                       </p>
                     </div>
                   </div>
@@ -86,7 +92,7 @@ const ContactUs = () => {
                     </div>
                     <div>
                       <h4 className="font-medium text-gray-900">Email</h4>
-                      <p className="text-gray-600">contact@achievengine.com</p>
+                      <p className="text-gray-600">{cms?.email || 'contact@achievengine.com'}</p>
                     </div>
                   </div>
 
@@ -98,7 +104,7 @@ const ContactUs = () => {
                     </div>
                     <div>
                       <h4 className="font-medium text-gray-900">Business Hours</h4>
-                      <p className="text-gray-600">Monday - Friday: 9 AM - 6 PM</p>
+                      <p className="text-gray-600">{cms?.businessHours || 'Monday - Friday: 9 AM - 6 PM'}</p>
                     </div>
                   </div>
                 </div>

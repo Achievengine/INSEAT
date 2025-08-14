@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { sanityClient, pricingQuery } from '../lib/sanityClient'
 
 const Pricing = () => {
   // View mode state (calculator or comparison)
@@ -14,57 +15,17 @@ const Pricing = () => {
     pos: false
   }); */
   
-  // Enhanced pricing tiers with transaction-based model
-  const pricingTiers = [
-    { 
-      id: 'transaction',
-      name: 'Transaction Based', 
-      monthlyFee: 0,
-      transactionFee: 15,
-      recommended: false,
-      description: 'Pay per transaction with higher commission rates.',
-      features: [
-        { name: 'QR Ordering', included: true },
-        { name: 'Loyalty Bronze Tier', included: true },
-        { name: 'Basic Analytics', included: true },
-        { name: 'Digital Menu Management', included: true },
-        { name: 'KDS', included: false, addon: true },
-        { name: 'POS', included: false, addon: true }
-      ]
-    },
-    { 
-      id: 'pro',
-      name: 'Pro', 
-      monthlyFee: 500,
-      transactionFee: 5,
-      recommended: true,
-      description: 'Our most popular plan. Perfect for restaurants looking to boost efficiency and loyalty.',
-      features: [
-        { name: 'QR Ordering', included: true },
-        { name: 'Loyalty Bronze Tier', included: true },
-        { name: 'Basic Analytics', included: true },
-        { name: 'Digital Menu Management', included: true },
-        { name: 'KDS', included: false, addon: true },
-        { name: 'POS', included: false, addon: true }
-      ]
-    },
-    { 
-      id: 'enterprise',
-      name: 'Enterprise', 
-      monthlyFee: 'Custom',
-      transactionFee: 'Custom',
-      recommended: false,
-      description: 'For large or multi-location restaurants requiring custom solutions and dedicated support.',
-      features: [
-        { name: 'QR Ordering', included: true },
-        { name: 'Loyalty Bronze Tier', included: true },
-        { name: 'Basic Analytics', included: true },
-        { name: 'Digital Menu Management', included: true },
-        { name: 'KDS', included: true },
-        { name: 'POS', included: true }
-      ]
-    }
-  ];
+  const [pricingFromCms, setPricingFromCms] = useState<any | null>(null)
+
+  useEffect(() => {
+    sanityClient.fetch(pricingQuery).then(setPricingFromCms).catch(() => {})
+  }, [])
+
+  const pricingTiers = pricingFromCms?.tiers || [
+    { id: 'transaction', name: 'Transaction Based', monthlyFee: 0, transactionFee: 15, recommended: false, description: 'Pay per transaction with higher commission rates.', features: [ { name: 'QR Ordering', included: true }, { name: 'Loyalty Bronze Tier', included: true }, { name: 'Basic Analytics', included: true }, { name: 'Digital Menu Management', included: true }, { name: 'KDS', included: false, addon: true }, { name: 'POS', included: false, addon: true } ] },
+    { id: 'pro', name: 'Pro', monthlyFee: 500, transactionFee: 5, recommended: true, description: 'Our most popular plan. Perfect for restaurants looking to boost efficiency and loyalty.', features: [ { name: 'QR Ordering', included: true }, { name: 'Loyalty Bronze Tier', included: true }, { name: 'Basic Analytics', included: true }, { name: 'Digital Menu Management', included: true }, { name: 'KDS', included: false, addon: true }, { name: 'POS', included: false, addon: true } ] },
+    { id: 'enterprise', name: 'Enterprise', monthlyFee: 'Custom', transactionFee: 'Custom', recommended: false, description: 'For large or multi-location restaurants requiring custom solutions and dedicated support.', features: [ { name: 'QR Ordering', included: true }, { name: 'Loyalty Bronze Tier', included: true }, { name: 'Basic Analytics', included: true }, { name: 'Digital Menu Management', included: true }, { name: 'KDS', included: true }, { name: 'POS', included: true } ] }
+  ]
 
   // Add-ons pricing
   /* const addons = [
@@ -147,7 +108,7 @@ const Pricing = () => {
               transition={{ duration: 0.5 }} 
               className="text-3xl md:text-4xl font-bold text-white mb-4"
             >
-              Flexible Pricing Plans
+              {pricingFromCms?.headline || 'Flexible Pricing Plans'}
             </motion.h2>
             <motion.p 
               initial={{ opacity: 0, y: 20 }} 
@@ -156,7 +117,7 @@ const Pricing = () => {
               transition={{ duration: 0.5, delay: 0.1 }} 
               className="text-xl text-white/80 max-w-3xl mx-auto mb-8"
             >
-              Choose the right plan for your restaurant's needs and scale as you grow.
+              {pricingFromCms?.subheadline || "Choose the right plan for your restaurant's needs and scale as you grow."}
             </motion.p>
             
             {/* View mode toggle */}
@@ -388,11 +349,21 @@ const Pricing = () => {
                 whileInView={{ opacity: 1, y: 0 }} 
                 viewport={{ once: true }} 
                 transition={{ duration: 0.5, delay: 0.2 }} 
-                className="text-white text-xl max-w-3xl mx-auto mb-2"
+                className="text-white text-xl max-w-3xl mx-auto mb-6"
               >
                 Our comprehensive food delivery solution with advanced logistics, 
                 driver management, and customer experience features is currently in development. 
                 Stay tuned for competitive pricing and exciting features!
+              </motion.p>
+              
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }} 
+                whileInView={{ opacity: 1, y: 0 }} 
+                viewport={{ once: true }} 
+                transition={{ duration: 0.5, delay: 0.3 }} 
+                className="text-white text-2xl md:text-3xl font-semibold"
+              >
+                Coming Soon
               </motion.p>
             </div>
           </div>

@@ -1,8 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { sanityClient, navbarQuery } from '../lib/sanityClient';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [navData, setNavData] = useState<any>(null);
+
+  useEffect(() => {
+    sanityClient.fetch(navbarQuery).then(setNavData).catch(() => {});
+  }, []);
 
   return (
     <nav className="bg-white shadow-sm py-4 sticky top-0 z-50">
@@ -24,7 +30,7 @@ const Navbar = () => {
               <path d="M7 17h.01" />
             </svg>
           </div>
-          <span className="text-xl font-bold text-secondary">Inseat</span>
+          <span className="text-xl font-bold text-secondary">{navData?.logo || 'Inseat'}</span>
         </motion.div>
 
         {/* Desktop Navigation */}
@@ -35,14 +41,20 @@ const Navbar = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="flex space-x-6"
           >
-            <a href="#features" className="text-gray-600 hover:text-primary transition-colors">QR Ordering</a>
-            <a href="#how-it-works" className="text-gray-600 hover:text-primary transition-colors">How It Works</a>
-            <a href="#loyalty" className="text-gray-600 hover:text-primary transition-colors">Loyalty</a>
-            {/* <a href="#kitchen" className="text-gray-600 hover:text-primary transition-colors">Kitchen</a>
-            <a href="#staff-tools" className="text-gray-600 hover:text-primary transition-colors">Staff Tools</a> */}
-            <a href="#pricing" className="text-gray-600 hover:text-primary transition-colors">Pricing</a>
-            <a href="#about-us" className="text-gray-600 hover:text-primary transition-colors">About Us</a>
-            {/* <a href="#testimonials" className="text-gray-600 hover:text-primary transition-colors">Testimonials</a> */}
+            {(navData?.navigationItems || [
+              { label: 'Features', href: '#features' },
+              { label: 'Pricing', href: '#pricing' },
+              { label: 'How It Works', href: '#how-it-works' },
+              { label: 'About', href: '#about' }
+            ]).map((item: any, index: number) => (
+              <a 
+                key={index}
+                href={item.href} 
+                className="text-gray-600 hover:text-primary transition-colors"
+              >
+                {item.label}
+              </a>
+            ))}
           </motion.div>
           
           <motion.div
@@ -50,7 +62,9 @@ const Navbar = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <a href="#demo" className="btn-primary">Get Started</a>
+            <a href={navData?.ctaButton?.href || '#demo'} className="btn-primary">
+              {navData?.ctaButton?.text || 'Get Started'}
+            </a>
           </motion.div>
         </div>
 
@@ -88,15 +102,26 @@ const Navbar = () => {
           transition={{ duration: 0.3 }}
           className="md:hidden px-4 py-3 space-y-3 bg-gray-50 mt-2"
         >
-          <a href="#features" className="block py-2 text-gray-600 hover:text-primary transition-colors">QR Ordering</a>
-          <a href="#how-it-works" className="block py-2 text-gray-600 hover:text-primary transition-colors">How It Works</a>
-          <a href="#loyalty" className="block py-2 text-gray-600 hover:text-primary transition-colors">Loyalty</a>
-          <a href="#kitchen" className="block py-2 text-gray-600 hover:text-primary transition-colors">Kitchen</a>
-          <a href="#staff-tools" className="block py-2 text-gray-600 hover:text-primary transition-colors">Staff Tools</a>
-          <a href="#pricing" className="block py-2 text-gray-600 hover:text-primary transition-colors">Pricing</a>
-          <a href="#about-us" className="block py-2 text-gray-600 hover:text-primary transition-colors">About Us</a>
-          <a href="#testimonials" className="block py-2 text-gray-600 hover:text-primary transition-colors">Testimonials</a>
-          <a href="#demo" className="btn-primary inline-block mt-2">Get Started</a>
+          {(navData?.navigationItems || [
+              { label: 'Features', href: '#features' },
+              { label: 'Pricing', href: '#pricing' },
+              { label: 'How It Works', href: '#how-it-works' },
+              { label: 'About', href: '#about' }
+            ]).map((item: any, index: number) => (
+              <a 
+                key={index}
+                href={item.href} 
+                className="block py-2 text-gray-600 hover:text-primary transition-colors"
+              >
+                {item.label}
+              </a>
+            ))}
+          <a 
+            href={navData?.ctaButton?.href || '#demo'} 
+            className="btn-primary inline-block mt-2"
+          >
+            {navData?.ctaButton?.text || 'Get Started'}
+          </a>
         </motion.div>
       )}
     </nav>
