@@ -135,17 +135,6 @@ const LoyaltyEngagement = () => {
 
   return (
     <section id="loyalty" className="pt-16 pb-0 relative">
-      {/* Mobile mockup that overlaps with feature section */}
-      <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-16 z-10 scale-90">
-        <motion.img 
-          src="/images/mobile-mockup.png" 
-          alt="Mobile App Mockup" 
-          className="max-h-[600px] w-auto"
-          initial={{ y: 0 }}
-          animate={{ y: [0, -10, 0] }}
-          transition={{ repeat: Infinity, duration: 3 }}
-        />
-      </div>
 
       {/* Dark background for the main feature section like pricing */}
       <div className="bg-indigo-950 dark:bg-gray-900 text-white py-14 pt-12 mt-3 rounded-t-3xl">

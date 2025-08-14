@@ -349,7 +349,7 @@ const Pricing = () => {
                 whileInView={{ opacity: 1, y: 0 }} 
                 viewport={{ once: true }} 
                 transition={{ duration: 0.5, delay: 0.2 }} 
-                className="text-white text-xl max-w-3xl mx-auto mb-6"
+                className="text-white text-xl max-w-3xl mx-auto mb-12"
               >
                 Our comprehensive food delivery solution with advanced logistics, 
                 driver management, and customer experience features is currently in development. 
@@ -361,7 +361,7 @@ const Pricing = () => {
                 whileInView={{ opacity: 1, y: 0 }} 
                 viewport={{ once: true }} 
                 transition={{ duration: 0.5, delay: 0.3 }} 
-                className="text-white text-2xl md:text-3xl font-semibold"
+                className="text-orange-500 text-2xl md:text-3xl font-semibold"
               >
                 Coming Soon
               </motion.p>
