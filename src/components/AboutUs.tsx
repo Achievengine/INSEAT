@@ -75,7 +75,7 @@ const AboutUs = () => {
               platform that addresses every aspect of restaurant management - from kitchen operations to customer loyalty programs.
             </p>
             <p className="text-gray-600">
-              Today, we're proud to serve over 500 restaurants worldwide, helping them increase efficiency, boost revenue, and create 
+              Today, we're proud to serve over 50 restaurants worldwide, helping them increase efficiency, boost revenue, and create 
               memorable dining experiences for their customers.
             </p>
           </motion.div>

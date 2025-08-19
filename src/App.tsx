@@ -164,9 +164,9 @@ const Testimonials = () => {
     {
       id: 1,
       quote: "Inseat has completely transformed how we handle orders. Our staff can focus on service instead of taking orders, and our customers love the convenience!",
-      author: "Maria Rodriguez",
-      role: "Owner, La Boca Restaurant",
-      avatar: "https://randomuser.me/api/portraits/women/48.jpg"
+      author: "Daniel",
+      role: "Owner, Take Juice",
+      avatar: "https://randomuser.me/api/portraits/men/75.jpg"
     },
     {
       id: 2,

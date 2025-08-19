@@ -53,7 +53,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <p className="text-gray-400">
-                    <span className="block">{footerData?.contactInfo?.phone || '+1 (555) 123-4567'}</span>
+                    <span className="block">{footerData?.contactInfo?.phone || '+251942150275'}</span>
                   </p>
                 </div>
               </div>
@@ -65,7 +65,7 @@ const Footer = () => {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-gray-400">{footerData?.contactInfo?.email || 'hello@inseat.com'}</p>
+                  <p className="text-gray-400">{footerData?.contactInfo?.email || 'abenezer.t@achievengine.com'}</p>
                 </div>
               </div>
 
