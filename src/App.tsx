@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Features from './components/Features'; // Focus on QR Ordering here
 import LoyaltyEngagement from './components/LoyaltyEngagement';
+import ReservationCallReceptionist from './components/ReservationCallReceptionist';
 // Removed KitchenManagement and StaffTools imports
 // import ManagementTools from './components/ManagementTools'; // Import the new combined component
 import AdminDashboard from './components/AdminDashboard';
@@ -285,6 +286,7 @@ function App() {
         <Features />
         <HowItWorks />
         <LoyaltyEngagement />
+        <ReservationCallReceptionist />
         {/* Replaced KitchenManagement and StaffTools with the new component */}
         {/* <ManagementTools />  */}
         <AdminDashboard />
