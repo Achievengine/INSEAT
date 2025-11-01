@@ -1,13 +1,35 @@
 import { motion } from "framer-motion";
-import EnhancedPhoneMockup from "./EnhancedPhoneMockup"; // Import the new component
+// Phone mockup markup is now inlined below (no separate component)
 import { useEffect, useState } from 'react'
 import { sanityClient, heroQuery } from '../lib/sanityClient'
 
 const Hero = () => {
   const [cms, setCms] = useState<{ title?: string; subtitle?: string } | null>(null)
+  // Inline phone mockup UI state
+  const [batteryLevel, setBatteryLevel] = useState(78)
+  const [currentTime, setCurrentTime] = useState('12:42')
+  const [scanProgress, setScanProgress] = useState(0)
 
   useEffect(() => {
     sanityClient.fetch(heroQuery).then((data) => setCms(data)).catch(() => {})
+  }, [])
+  // Simulate phone UI changes (non-blocking micro-interactions)
+  useEffect(() => {
+    const b = setInterval(() => setBatteryLevel((p) => Math.max(p - 1, 10)), 30000)
+    return () => clearInterval(b)
+  }, [])
+  useEffect(() => {
+    const t = setInterval(() => {
+      const now = new Date()
+      const h = now.getHours()
+      const m = now.getMinutes().toString().padStart(2, '0')
+      setCurrentTime(`${h}:${m}`)
+    }, 60000)
+    return () => clearInterval(t)
+  }, [])
+  useEffect(() => {
+    const s = setInterval(() => setScanProgress((p) => (p >= 100 ? 0 : p + 5)), 800)
+    return () => clearInterval(s)
   }, [])
   // Animation variants
   const containerVariants = {
@@ -30,10 +52,30 @@ const Hero = () => {
     }
   };
 
+  // Phone animation variants (subtle float)
+  const phoneVariants = {
+    idle: { rotate: 22, y: 0 },
+    animate: {
+      rotate: [22, 26, 22],
+      y: [-3, 3, -3],
+      transition: {
+        rotate: { repeat: Infinity, duration: 6, ease: 'easeInOut' },
+        y: { repeat: Infinity, duration: 5, ease: 'easeInOut' }
+      }
+    }
+  } as const
+
+  const scanLineVariants = {
+    scanning: {
+      y: [0, 550, 0],
+      transition: { y: { repeat: Infinity, duration: 3, ease: 'easeInOut' } }
+    }
+  } as const
+
   return (
     // Reduced bottom padding: pb-24 md:pb-32
     // Added background grid pattern (made even fainter)
-    <section className="relative z-30 pt-12 md:pt-20 pb-0 bg-white overflow-x-hidden">
+    <section className="relative z-[200] pt-12 md:pt-20 pb-32 lg:pb-40 bg-white overflow-x-hidden overflow-y-visible">
       {/* Background elements - Adjusted positions & opacity based on new image */}
       {/* Re-added z-index to ensure circles are behind content */}
       <div className="absolute inset-0 overflow-hidden -z-10">
@@ -44,27 +86,102 @@ const Hero = () => {
         {/* Removed the third circle to better match the reference image */}
       </div>
 
-      {/* Restaurant illustration - positioned relative to viewport, ON TOP, overlapping significantly */}
+      {/* Restaurant illustration - overlaps the black section slightly */}
       <motion.img
         initial={{ opacity: 0, x: 100, scale: 0.95 }}
         animate={{ opacity: 1, x: 0, scale: 1 }}
         transition={{ duration: 0.6, delay: 0.2, type: 'spring', stiffness: 60 }}
         src="/restaurant.png"
         alt="Inseat restaurant illustration"
-        className="hidden lg:block absolute right-0 bottom-0 h-[780px] xl:h-[800px] 2xl:h-[780px] w-auto z-[100] pointer-events-none"
+        className="hidden lg:block absolute right-0 -bottom-32 xl:-bottom-40 h-[720px] xl:h-[740px] 2xl:h-[720px] w-auto z-[90] pointer-events-none"
         loading="eager"
         decoding="async"
       />
 
-      {/* Phone mockup - overlap at the section intersection (lifted) */}
-      <div className="hidden lg:block absolute bottom-0 left-1/2 -translate-x-1/2 -translate-y-[50%] z-[120] pointer-events-none">
+      {/* Phone mockup - sticks out of the hero without elongating it */}
+      <div className="hidden lg:block absolute left-1/2 -translate-x-1/2 -bottom-36 z-[120] pointer-events-none">
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, rotate: 0 }}
-          animate={{ opacity: 1, scale: 0.7, rotate: 15 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="transform"
+          variants={phoneVariants}
+          initial="idle"
+          animate="animate"
+          className="transform scale-[0.58] xl:scale-[0.62]"
         >
-          <EnhancedPhoneMockup />
+          <div className="relative w-72 overflow-hidden rounded-[28px] border-[10px] border-gray-800 shadow-2xl bg-gray-800">
+            {/* Phone notch */}
+            <div className="absolute top-0 left-0 right-0 z-30 flex justify-center">
+              <div className="w-32 h-6 bg-gray-800 rounded-b-xl flex items-center justify-center">
+                <div className="w-3 h-3 bg-gray-700 rounded-full mx-1"></div>
+                <div className="w-10 h-3 bg-gray-700 rounded-full mx-1"></div>
+                <div className="w-3 h-3 bg-gray-700 rounded-full mx-1"></div>
+              </div>
+            </div>
+
+            {/* Phone screen */}
+            <div className="relative bg-gray-900 h-[660px] flex flex-col items-center justify-center p-4 overflow-hidden rounded-[18px]">
+              {/* Status bar */}
+              <div className="absolute top-0 left-0 w-full bg-black/30 backdrop-blur-sm p-2 flex justify-between items-center z-20 text-xs text-white">
+                <div className="ml-6">{currentTime}</div>
+                <div className="flex items-center space-x-2 mr-2">
+                  <div className="flex items-center">
+                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12,21L12,21c-0.6,0-1-0.4-1-1v-2c0-0.6,0.4-1,1-1h0c0.6,0,1,0.4,1,1v2C13,20.6,12.6,21,12,21z" />
+                      <path d="M15,21L15,21c-0.6,0-1-0.4-1-1v-5c0-0.6,0.4-1,1-1h0c0.6,0,1,0.4,1,1v5C16,20.6,15.6,21,15,21z" />
+                      <path d="M9,21L9,21c-0.6,0-1-0.4-1-1v-7c0-0.6,0.4-1,1-1h0c0.6,0,1,0.4,1,1v7C10,20.6,9.6,21,9,21z" />
+                      <path d="M6,21L6,21c-0.6,0-1-0.4-1-1v-4c0-0.6,0.4-1,1-1h0c0.6,0,1,0.4,1,1v4C7,20.6,6.6,21,6,21z" />
+                    </svg>
+                    <svg className="w-3 h-3 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M1,9l2,2c4.97-4.97,13.03-4.97,18,0l2-2C16.93,2.93,7.08,2.93,1,9z" />
+                      <path d="M5,13l2,2c2.76-2.76,7.24-2.76,10,0l2-2C15.14,9.14,8.87,9.14,5,13z" />
+                      <path d="M9,17l1.5,1.5c0.83-0.83,2.17-0.83,3,0L15,17C13.34,15.34,10.66,15.34,9,17z" />
+                    </svg>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-6 h-3 bg-white rounded-sm relative overflow-hidden">
+                      <div className="absolute top-0 right-0 bottom-0 bg-green-500" style={{ width: `${batteryLevel}%` }}></div>
+                    </div>
+                    <span className="ml-1 text-xs">{batteryLevel}%</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Camera UI core (simplified) */}
+              <div className="w-full h-full flex flex-col relative">
+                {/* Main QR preview */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <div className="w-32 h-32 bg-white p-1.5 rounded-lg border border-gray-300 mb-6 shadow-md relative">
+                    <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="15" y="15" width="20" height="20" rx="2" fill="#333" />
+                      <rect x="65" y="15" width="20" height="20" rx="2" fill="#333" />
+                      <rect x="15" y="65" width="20" height="20" rx="2" fill="#333" />
+                      <rect x="40" y="40" width="20" height="20" rx="1" fill="#555" />
+                      <rect x="65" y="45" width="10" height="10" rx="1" fill="#333" />
+                      <rect x="45" y="65" width="10" height="10" rx="1" fill="#333" />
+                    </svg>
+                    {/* Corners highlight */}
+                    <div className="absolute inset-0 border-2 border-primary/0 animate-pulse">
+                      <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-primary"></div>
+                      <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-primary"></div>
+                      <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-primary"></div>
+                      <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-primary"></div>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-400 animate-pulse">Scanning for QR Code...</p>
+                  <div className="w-48 h-1 bg-gray-700 rounded-full mt-4 relative overflow-hidden">
+                    <div className="absolute left-0 top-0 bottom-0 bg-primary" style={{ width: `${scanProgress}%` }}></div>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-1">Position QR code within frame</p>
+                </div>
+              </div>
+
+              {/* Scan line animation */}
+              <motion.div className="absolute top-0 left-0 w-full h-1 bg-primary/60 rounded" variants={scanLineVariants} animate="scanning"></motion.div>
+            </div>
+
+            {/* Phone bottom bar */}
+            <div className="absolute bottom-1 left-0 right-0 z-30 flex justify-center">
+              <div className="w-24 h-1 bg-gray-600 rounded-full"></div>
+            </div>
+          </div>
         </motion.div>
       </div>
 

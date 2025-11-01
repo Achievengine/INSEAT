@@ -99,7 +99,10 @@ const Features = () => {
   ];
 
   return (
-    <section id="features" className="pt-32 pb-8 md:pt-40 md:pb-12 bg-black text-white relative z-0 mb-24 lg:-mt-32"> {/* Balanced pull-up so hero overlaps without covering heading */}
+    <section
+      id="features"
+      className="bg-black text-white relative z-0 pt-[6.5rem] md:pt-[7.5rem] lg:pt-[9rem] pb-16 md:pb-20"
+    >
       <div className="container-custom">
         <div className="text-center mb-12 md:mb-16">
           <motion.div
@@ -160,7 +163,7 @@ const Features = () => {
 
         {/* Trusted Section - Styled like Loyalty CTA */}
         <motion.div
-          className="mt-16 md:mt-20 text-center p-6 bg-primary rounded-lg max-w-4xl mx-auto relative z-10 -mb-32"
+          className="mt-16 md:mt-20 text-center p-6 bg-primary rounded-lg max-w-4xl mx-auto relative z-10"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }} /* Added negative bottom margin */

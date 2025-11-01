@@ -77,9 +77,9 @@ const EnhancedPhoneMockup = () => {
       variants={phoneVariants}
       initial="idle"
       animate="animate"
-      className="lg:absolute lg:-left-12 lg:top-0 z-20 shadow-xl rounded-3xl mx-auto lg:mx-0" 
+      className="z-20 shadow-xl rounded-3xl mx-auto" 
     >
-      <div className="relative w-64 md:w-72 overflow-hidden rounded-[28px] border-[10px] border-gray-800 shadow-2xl bg-gray-800"> 
+      <div className="relative w-60 md:w-64 lg:w-72 overflow-hidden rounded-[28px] border-[10px] border-gray-800 shadow-2xl bg-gray-800"> 
         {/* Phone notch */}
         <div className="absolute top-0 left-0 right-0 z-30 flex justify-center">
           <div className="w-32 h-6 bg-gray-800 rounded-b-xl flex items-center justify-center">
@@ -90,7 +90,7 @@ const EnhancedPhoneMockup = () => {
         </div>
         
         {/* Phone screen */}
-        <div className="relative bg-gray-900 h-[450px] md:h-[660px] flex flex-col items-center justify-center p-4 overflow-hidden rounded-[18px]"> 
+        <div className="relative bg-black h-[420px] md:h-[560px] lg:h-[620px] flex flex-col items-center justify-center p-4 overflow-hidden rounded-[18px]"> 
           {/* Status bar */}
           <div className="absolute top-0 left-0 w-full bg-black/30 backdrop-blur-sm p-2 flex justify-between items-center z-20 text-xs text-white">
             <div className="ml-6">{currentTime}</div>
@@ -122,8 +122,8 @@ const EnhancedPhoneMockup = () => {
 
           {/* Camera UI */}
           <div className="w-full h-full flex flex-col relative">
-            {/* Camera controls - top */}
-            <div className="absolute top-8 left-0 w-full flex justify-between px-4 z-10">
+          {/* Camera controls - top (hidden to match design) */}
+            <div className="absolute top-8 left-0 w-full flex justify-between px-4 z-10 hidden">
               <div className="flex items-center space-x-2">
                 <div className="w-8 h-8 bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center">
                   <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -147,35 +147,13 @@ const EnhancedPhoneMockup = () => {
 
             {/* Main camera content */}
             <div className="flex-1 flex flex-col items-center justify-center">
-              <svg className="w-16 h-16 text-gray-400 mb-6 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              {/* <svg className="w-16 h-16 text-gray-400 mb-6 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
-              </svg>
+              </svg> */}
               
-              <div className="w-32 h-32 bg-white p-1.5 rounded-lg border border-gray-300 mb-6 shadow-md relative">
-                <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="15" y="15" width="20" height="20" rx="2" fill="#333" />
-                  <rect x="65" y="15" width="20" height="20" rx="2" fill="#333" />
-                  <rect x="15" y="65" width="20" height="20" rx="2" fill="#333" />
-                  <rect x="45" y="15" width="10" height="10" rx="1" fill="#333" />
-                  <rect x="15" y="45" width="10" height="10" rx="1" fill="#333" />
-                  <rect x="40" y="40" width="20" height="20" rx="1" fill="#555" />
-                  <rect x="65" y="45" width="10" height="10" rx="1" fill="#333" />
-                  <rect x="45" y="65" width="10" height="10" rx="1" fill="#333" />
-                  <rect x="65" y="75" width="10" height="10" rx="1" fill="#333" />
-                  <rect x="75" y="65" width="10" height="10" rx="1" fill="#333" />
-                  <rect x="55" y="55" width="10" height="10" rx="1" fill="#333" />
-                  <rect x="45" y="25" width="10" height="10" rx="1" fill="#333" />
-                  <rect x="25" y="55" width="10" height="10" rx="1" fill="#333" />
-                </svg>
-                
-                {/* QR code scan highlight */}
-                <div className="absolute inset-0 border-2 border-primary/0 animate-pulse">
-                  <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-primary"></div>
-                  <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-primary"></div>
-                  <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-primary"></div>
-                  <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-primary"></div>
-                </div>
+              <div className="w-44 h-44 md:w-56 md:h-56 mb-6 relative flex items-center justify-center">
+                <img src="/qr-3d.png" alt="QR" className="w-full h-full object-contain" />
               </div>
               
               <p className="text-sm text-gray-400 animate-pulse">Scanning for QR Code...</p>
@@ -218,7 +196,7 @@ const EnhancedPhoneMockup = () => {
 
           {/* Scan line animation */}
           <motion.div 
-            className="absolute top-0 left-0 w-full h-1 bg-primary/60 rounded shadow-[0_0_15px_3px_rgba(255,107,53,0.5)]"
+            className="absolute top-0 left-0 w-full h-1 bg-primary/60 rounded shadow-[0_0_15px_3px_rgba(122,87,209,0.5)]"
             variants={scanLineVariants}
             animate="scanning"
           ></motion.div>
