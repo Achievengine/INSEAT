@@ -28,7 +28,7 @@ main {
 
 /* Better focus styles for accessibility */
 :focus-visible {
-  outline: 2px solid #FF6B35;
+  outline: 2px solid #6106eb;
   outline-offset: 2px;
 }
 
@@ -50,7 +50,7 @@ main {
   position: absolute;
   height: 3px;
   width: 80%;
-  background: linear-gradient(to right, transparent, #FF6B35, transparent);
+  background: linear-gradient(to right, transparent, #6106eb, transparent);
   top: 0;
   left: 10%;
   border-radius: 50%;

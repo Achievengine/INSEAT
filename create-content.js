@@ -18,7 +18,7 @@ async function createContent() {
       subtitle: 'Streamline your dining experience with our contactless QR code menu and ordering system. Reduce wait times, increase table turnover, and boost your profits.',
       ctaPrimary: 'Try Free Demo',
       ctaSecondary: 'How It Works',
-      socialProof: '500+ restaurants already using Inseat',
+    
       stats: [
         { label: 'Restaurants Served', value: '500+' },
         { label: 'Average Revenue Increase', value: '25%' },

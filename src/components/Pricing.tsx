@@ -22,9 +22,69 @@ const Pricing = () => {
   }, [])
 
   const pricingTiers = pricingFromCms?.tiers || [
-    { id: 'transaction', name: 'Transaction Based', monthlyFee: 0, transactionFee: 15, recommended: false, description: 'Pay per transaction with higher commission rates.', features: [ { name: 'QR Ordering', included: true }, { name: 'Loyalty Bronze Tier', included: true }, { name: 'Basic Analytics', included: true }, { name: 'Digital Menu Management', included: true }, { name: 'KDS', included: false, addon: true }, { name: 'POS', included: false, addon: true } ] },
-    { id: 'pro', name: 'Pro', monthlyFee: 500, transactionFee: 5, recommended: true, description: 'Our most popular plan. Perfect for restaurants looking to boost efficiency and loyalty.', features: [ { name: 'QR Ordering', included: true }, { name: 'Loyalty Bronze Tier', included: true }, { name: 'Basic Analytics', included: true }, { name: 'Digital Menu Management', included: true }, { name: 'KDS', included: false, addon: true }, { name: 'POS', included: false, addon: true } ] },
-    { id: 'enterprise', name: 'Enterprise', monthlyFee: 'Custom', transactionFee: 'Custom', recommended: false, description: 'For large or multi-location restaurants requiring custom solutions and dedicated support.', features: [ { name: 'QR Ordering', included: true }, { name: 'Loyalty Bronze Tier', included: true }, { name: 'Basic Analytics', included: true }, { name: 'Digital Menu Management', included: true }, { name: 'KDS', included: true }, { name: 'POS', included: true } ] }
+    {
+      id: 'transaction',
+      name: 'Transaction Based',
+      monthlyFee: 0,
+      transactionFee: 2.5,
+      recommended: false,
+      description: 'Pay per transaction with a low commission rate.',
+      features: [
+        { name: 'QR Ordering', included: true },
+        { name: 'Loyalty Program', included: true },
+        { name: 'Basic Analytics', included: true },
+        { name: 'Digital Menu Management', included: true },
+        { name: 'KDS', included: true },
+        { name: 'POS', included: true },
+        { name: 'Admin Mobile App', included: true },
+        { name: 'Waiter Application', included: false },
+        { name: 'AI Reservation Assistant', included: false },
+        { name: 'AI Recommendations', included: false },
+        { name: 'Promotions', included: false },
+      ]
+    },
+    {
+      id: 'pro',
+      name: 'Pro',
+      monthlyFee: 399,
+      transactionFee: 0,
+      recommended: true,
+      description: 'Our most popular plan with AI and growth features included.',
+      features: [
+        { name: 'QR Ordering', included: true },
+        { name: 'Loyalty Program', included: true },
+        { name: 'Basic Analytics', included: true },
+        { name: 'Digital Menu Management', included: true },
+        { name: 'KDS', included: true },
+        { name: 'POS', included: true },
+        { name: 'Waiter Application', included: true },
+        { name: 'Admin Mobile App', included: true },
+        { name: 'AI Reservation Assistant', included: true },
+        { name: 'AI Recommendations', included: true },
+        { name: 'Promotions', included: true },
+      ]
+    },
+    {
+      id: 'enterprise',
+      name: 'Enterprise',
+      monthlyFee: 'Custom',
+      transactionFee: 'Custom',
+      recommended: false,
+      description: 'All features plus custom integrations, multi-location, and more.',
+      features: [
+        { name: 'QR Ordering', included: true },
+        { name: 'Loyalty Program', included: true },
+        { name: 'Basic Analytics', included: true },
+        { name: 'Digital Menu Management', included: true },
+        { name: 'KDS', included: true },
+        { name: 'POS', included: true },
+        { name: 'Waiter Application', included: true },
+        { name: 'Admin Mobile App', included: true },
+        { name: 'AI Reservation Assistant', included: true },
+        { name: 'AI Recommendations', included: true },
+        { name: 'Promotions', included: true },
+      ]
+    }
   ]
 
   // Add-ons pricing
@@ -98,7 +158,7 @@ const Pricing = () => {
 
   return (
     <div>
-      <section id="pricing" className="py-16 md:py-24 bg-indigo-950 dark:bg-gray-900 text-white">
+      <section id="pricing" className="py-16 md:py-24 bg-black dark:bg-black text-white">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="text-center mb-12 md:mb-16">
             <motion.h2 
@@ -165,11 +225,11 @@ const Pricing = () => {
                       transition={{ duration: 0.3 }}
                       onClick={() => tier.id !== 'enterprise' && setSelectedPlan(tier.id)}
                       className={`bg-white rounded-xl shadow-xl overflow-hidden flex flex-col min-h-[600px] 
-                        ${tier.recommended ? 'border-2 border-orange-500' : 'border border-gray-200'}`} 
+                        ${tier.recommended ? 'border-2 border-primary' : 'border border-gray-200'}`} 
                     >
                       {/* Recommended badge */}
                       {tier.recommended && (
-                        <div className="bg-orange-500 text-white py-2 px-4 text-sm font-semibold uppercase tracking-wider absolute top-0 right-0 rounded-bl-lg">
+                        <div className="bg-primary text-white py-2 px-4 text-sm font-semibold uppercase tracking-wider absolute top-0 right-0 rounded-bl-lg">
                           Recommended
                         </div>
                       )}
@@ -182,7 +242,7 @@ const Pricing = () => {
                           <div className="mb-8">
                             <div className="flex flex-col space-y-3">
                               <div>
-                                <span className="text-3xl font-bold text-orange-500">
+                                <span className="text-3xl font-bold text-primary">
                                   {tier.monthlyFee === 'Custom' ? 'Custom' : `${calculateTotalCost(tier)} AED`}
                                 </span>
                                 {tier.monthlyFee !== 'Custom' && (
@@ -190,7 +250,7 @@ const Pricing = () => {
                                 )}
                               </div>
                               <div className="text-base text-gray-700">
-                                Transaction Fee: <span className="font-semibold text-orange-500 text-lg">
+                                Transaction Fee: <span className="font-semibold text-primary text-lg">
                                   {tier.transactionFee === 'Custom' ? 'Custom' : `${tier.transactionFee}%`}
                                 </span>
                               </div>
@@ -208,7 +268,7 @@ const Pricing = () => {
                                     type="checkbox"
                                     checked={false}
                                     onChange={() => {}}
-                                    className="w-4 h-4 text-orange-500 border-gray-300 rounded focus:ring-orange-500 mr-3"
+                                    className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary mr-3"
                                   />
                                   <label htmlFor={`${tier.id}-${feature.name.toLowerCase()}`} className="text-gray-700 font-medium">
                                     {feature.name}
@@ -223,7 +283,7 @@ const Pricing = () => {
                                       </div>
                                     </div>
                                   </div>
-                                  <span className="text-orange-500 font-semibold ml-auto">+150 AED</span>
+                                  <span className="text-primary font-semibold ml-auto">+150 AED</span>
                                 </div>
                               ) : (
                                 <div className="flex items-start">
@@ -247,7 +307,7 @@ const Pricing = () => {
                             className={`w-full py-4 px-6 rounded-lg font-semibold text-lg transition-colors
                               ${tier.id === 'enterprise' 
                                 ? 'bg-gray-200 text-gray-700 hover:bg-gray-300' 
-                                : 'bg-orange-500 text-white hover:bg-orange-600'}`}
+                                : 'bg-primary text-white hover:bg-primary/90'}`}
                           >
                             {tier.id === 'enterprise' ? 'Contact Sales' : 'Get Started'}
                           </motion.button>
@@ -273,7 +333,7 @@ const Pricing = () => {
                         <th className="py-4 px-6 text-left text-gray-900 font-medium">Features</th>
                         {pricingTiers.map(tier => (
                           <th key={tier.id} className="py-4 px-6 text-center">
-                            <div className={`font-bold text-xl mb-1 ${tier.recommended ? 'text-orange-500' : 'text-gray-900'}`}>
+                            <div className={`font-bold text-xl mb-1 ${tier.recommended ? 'text-primary' : 'text-gray-900'}`}>
                               {tier.name}
                             </div>
                             <div className="text-lg font-semibold">
@@ -283,7 +343,7 @@ const Pricing = () => {
                               {tier.transactionFee === 'Custom' ? 'Custom fee' : `${tier.transactionFee}% transaction`}
                             </div>
                             {tier.recommended && (
-                              <span className="inline-block bg-orange-100 text-orange-500 text-xs font-medium px-2 py-1 rounded-full mt-1">
+                              <span className="inline-block bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full mt-1">
                                 Recommended
                               </span>
                             )}
@@ -321,7 +381,7 @@ const Pricing = () => {
       </section>
 
       {/* Coming Soon Section */}
-      <section className="bg-indigo-950 dark:bg-gray-900">
+      <section className="bg-black dark:bg-black">
         <div className="pt-6 md:pt-8 pb-0">
           <div className="container mx-auto px-4 max-w-7xl">
             <div className="text-center mb-3">
@@ -344,24 +404,24 @@ const Pricing = () => {
                 Food Ordering App
               </motion.p>
               
-              <motion.p 
-                initial={{ opacity: 0, y: 20 }} 
-                whileInView={{ opacity: 1, y: 0 }} 
-                viewport={{ once: true }} 
-                transition={{ duration: 0.5, delay: 0.2 }} 
-                className="text-white text-xl max-w-3xl mx-auto mb-12"
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="text-white text-xl max-w-3xl mx-auto mb-4"
               >
-                Our comprehensive food delivery solution with advanced logistics, 
-                driver management, and customer experience features is currently in development. 
+                Our comprehensive food delivery solution with advanced logistics,
+                driver management, and customer experience features is currently in development.
                 Stay tuned for competitive pricing and exciting features!
               </motion.p>
-              
-              <motion.p 
-                initial={{ opacity: 0, y: 20 }} 
-                whileInView={{ opacity: 1, y: 0 }} 
-                viewport={{ once: true }} 
-                transition={{ duration: 0.5, delay: 0.3 }} 
-                className="text-orange-500 text-2xl md:text-3xl font-semibold"
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="text-primary text-2xl md:text-3xl font-semibold mb-2"
               >
                 Coming Soon
               </motion.p>
@@ -378,7 +438,9 @@ const Pricing = () => {
             <img 
               src="/MOCKUP-INSEAT.png" 
               alt="INSEAT Food Ordering App Mockup" 
-              className="w-full h-auto"
+              className="w-full h-auto max-w-4xl mx-auto"
+              loading="eager"
+              decoding="async"
             />
           </motion.div>
         </div>
@@ -408,7 +470,7 @@ const Pricing = () => {
             </motion.p>
           </div>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* INSEAT KDS */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -418,7 +480,7 @@ const Pricing = () => {
               className="bg-white rounded-2xl p-8 border border-gray-200 shadow-xl"
             >
               <div className="flex items-center mb-6">
-                <div className="bg-orange-500 p-3 rounded-xl mr-4">
+                <div className="bg-primary p-3 rounded-xl mr-4">
                   <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2h2a2 2 0 002-2z"></path>
                   </svg>
@@ -427,22 +489,19 @@ const Pricing = () => {
               </div>
               
               <p className="text-gray-600 text-lg mb-8">
-                Kitchen Display System - Advanced kitchen management and order tracking
+                Calm, coordinated, and consistent back of house.
               </p>
               
               <div className="space-y-4">
                 {[
-                  'Real-time Order Visualization',
-                  'Live Order Tracking',
-                  'Smart Ticket Prioritization',
-                  'Preparation Timeline Management',
-                  'Kitchen Performance Analytics',
-                  'Multi-Station Order Routing',
-                  'Order Status Updates',
-                  'Kitchen Communication Hub'
+                  'Receive live orders instantly from all channels',
+                  'Print KOT (Kitchen Order Tickets) automatically for each station',
+                  'Smart order routing — each item goes to its relevant kitchen station',
+                  'Prioritize by course or prep time to keep dishes landing together',
+                  'Clear visual status reduces noise and improves teamwork'
                 ].map((feature, index) => (
                   <div key={index} className="flex items-center">
-                    <div className="w-2 h-2 bg-orange-500 rounded-full mr-4"></div>
+                    <div className="w-2 h-2 bg-primary rounded-full mr-4"></div>
                     <span className="text-gray-700 font-medium">{feature}</span>
                   </div>
                 ))}
@@ -458,7 +517,7 @@ const Pricing = () => {
               className="bg-white rounded-2xl p-8 border border-gray-200 shadow-xl"
             >
               <div className="flex items-center mb-6">
-                <div className="bg-orange-500 p-3 rounded-xl mr-4">
+                <div className="bg-primary p-3 rounded-xl mr-4">
                   <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                   </svg>
@@ -467,22 +526,54 @@ const Pricing = () => {
               </div>
               
               <p className="text-gray-600 text-lg mb-8">
-                Point of Sale System - Complete restaurant management and ordering solution
+                Speed and simplicity for the front line.
               </p>
               
               <div className="space-y-4">
                 {[
-                  'Table-side Ordering Interface',
-                  'Waiter Call Features',
-                  'Bill Request Management',
-                  'Order Modification System',
-                  'Payment Processing Integration',
-                  'Customer Service Tools',
-                  'INSEAT-POS Integration',
-                  'Staff Communication Hub'
+                  'Take orders quickly with clear categories, modifiers, and specials',
+                  'Print pickup slips, manage waiter calls, and handle bill requests',
+                  'Add reservations and manage table assignments on the fly',
+                  'Built for the rush: smooth, intuitive flow that keeps lines moving'
                 ].map((feature, index) => (
                   <div key={index} className="flex items-center">
-                    <div className="w-2 h-2 bg-orange-500 rounded-full mr-4"></div>
+                    <div className="w-2 h-2 bg-primary rounded-full mr-4"></div>
+                    <span className="text-gray-700 font-medium">{feature}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* INSEAT Waiter (Mobile) */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="bg-white rounded-2xl p-8 border border-gray-200 shadow-xl"
+            >
+              <div className="flex items-center mb-6">
+                <div className="bg-primary p-3 rounded-xl mr-4">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </div>
+                <h3 className="text-3xl font-bold text-gray-900">INSEAT Waiter (Mobile)</h3>
+              </div>
+              
+              <p className="text-gray-600 text-lg mb-8">
+                Streamlined service management at your fingertips.
+              </p>
+              
+              <div className="space-y-4">
+                {[
+                  'Receive and respond to waiter call requests instantly',
+                  'Control table availability and seating status in real time',
+                  'View order status across all tables',
+                  'Coordinate service priorities efficiently'
+                ].map((feature, index) => (
+                  <div key={index} className="flex items-center">
+                    <div className="w-2 h-2 bg-primary rounded-full mr-4"></div>
                     <span className="text-gray-700 font-medium">{feature}</span>
                   </div>
                 ))}
@@ -493,7 +584,7 @@ const Pricing = () => {
       </section>
 
       {/* Contact Us Section */}
-      <section className="py-16 md:py-24 bg-slate-900">
+      <section className="py-16 md:py-24 bg-black">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-12">
             <motion.h2 
@@ -530,8 +621,8 @@ const Pricing = () => {
               
               <div className="space-y-6">
                 <div className="flex items-start">
-                  <div className="bg-orange-100 p-3 rounded-lg mr-4 mt-1">
-                    <svg className="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="bg-primary/10 p-3 rounded-lg mr-4 mt-1">
+                    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
@@ -543,8 +634,8 @@ const Pricing = () => {
                 </div>
                 
                 <div className="flex items-start">
-                  <div className="bg-orange-100 p-3 rounded-lg mr-4 mt-1">
-                    <svg className="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="bg-primary/10 p-3 rounded-lg mr-4 mt-1">
+                    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                     </svg>
                   </div>
@@ -556,8 +647,8 @@ const Pricing = () => {
                 </div>
                 
                 <div className="flex items-start">
-                  <div className="bg-orange-100 p-3 rounded-lg mr-4 mt-1">
-                    <svg className="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="bg-primary/10 p-3 rounded-lg mr-4 mt-1">
+                    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                     </svg>
                   </div>
@@ -569,8 +660,8 @@ const Pricing = () => {
                 </div>
                 
                 <div className="flex items-start">
-                  <div className="bg-orange-100 p-3 rounded-lg mr-4 mt-1">
-                    <svg className="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="bg-primary/10 p-3 rounded-lg mr-4 mt-1">
+                    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                   </div>
@@ -600,7 +691,7 @@ const Pricing = () => {
                   <input
                     type="text"
                     id="name"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                     placeholder="Your Name"
                   />
                 </div>
@@ -612,7 +703,7 @@ const Pricing = () => {
                   <input
                     type="email"
                     id="email"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                     placeholder="your.email@example.com"
                   />
                 </div>
@@ -624,7 +715,7 @@ const Pricing = () => {
                   <input
                     type="tel"
                     id="phone"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                     placeholder="Your Phone Number"
                   />
                 </div>
@@ -635,7 +726,7 @@ const Pricing = () => {
                   </label>
                   <select
                     id="subject"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                   >
                     <option value="">Select a subject</option>
                     <option value="sales">Sales Inquiry</option>
@@ -653,7 +744,7 @@ const Pricing = () => {
                   <textarea
                     id="message"
                     rows={5}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                     placeholder="Tell us about your needs..."
                   />
                 </div>
@@ -662,7 +753,7 @@ const Pricing = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   type="submit"
-                  className="w-full bg-orange-500 text-white py-3 px-6 rounded-lg font-semibold hover:bg-orange-600 transition-colors"
+                  className="w-full bg-primary text-white py-3 px-6 rounded-lg font-semibold hover:bg-primary/90 transition-colors"
                 >
                   Send Message
                 </motion.button>

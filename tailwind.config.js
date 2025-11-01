@@ -7,9 +7,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#FF6B35", // Bright orange for CTA and accents
-        secondary: "#2E294E", // Deep purple for backgrounds
-        accent: "#1B998B", // Teal for highlights
+        primary: "#6106eb", // Purple for CTA and accents
+        secondary: "#000000", // Black for backgrounds and text
+        accent: "#6106eb", // Purple for highlights
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],

@@ -134,14 +134,14 @@ const AdminDashboard = () => {
   };
   
   return (
-    <div className="flex flex-col overflow-hidden">
+    <div className="flex flex-col overflow-hidden min-h-screen bg-[#372F7B]">
       <ContainerScroll
         titleComponent={
           <>
             <h1 className="text-4xl font-semibold text-black dark:text-white">
-              Admin Dashboard <br />
+             
               <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none">
-                INSEAT Management
+                INSEAT Admin
               </span>
             </h1>
           </>

@@ -46,13 +46,14 @@ const Navbar = () => {
     >
       <div className="container-custom flex justify-between items-center">
         {/* Logo */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="flex items-center gap-2"
         >
-          <img src="/logo.png" alt="Inseat Logo" className="h-12 w-auto" />
+          <img src="/logo.png" alt="Inseat Logo" className="h-10 w-auto" />
+          <span className="text-xl font-bold text-secondary">{navData?.logo || 'Inseat'}</span>
         </motion.div>
 
         {/* Desktop Navigation */}

@@ -83,7 +83,7 @@ const Features = () => {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
         </svg>
       ),
-      color: 'bg-purple-100 text-purple-600'
+      color: 'bg-primary/10 text-primary'
     },
     {
       id: 6,
@@ -94,12 +94,12 @@ const Features = () => {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
         </svg>
       ),
-      color: 'bg-blue-100 text-blue-600'
+      color: 'bg-primary/10 text-primary'
     }
   ];
 
   return (
-    <section id="features" className="pt-16 pb-8 md:pt-24 md:pb-12 bg-indigo-950 dark:bg-gray-900 text-white relative mb-24"> {/* Reduced bottom padding, added overall bottom margin */}
+    <section id="features" className="pt-32 pb-8 md:pt-40 md:pb-12 bg-black text-white relative z-0 mb-24 lg:-mt-32"> {/* Balanced pull-up so hero overlaps without covering heading */}
       <div className="container-custom">
         <div className="text-center mb-12 md:mb-16">
           <motion.div
@@ -160,15 +160,15 @@ const Features = () => {
 
         {/* Trusted Section - Styled like Loyalty CTA */}
         <motion.div
-          className="mt-16 md:mt-20 text-center p-6 bg-gradient-to-r from-indigo-800/70 to-indigo-600/70 dark:from-gray-800 dark:to-gray-700 rounded-lg max-w-4xl mx-auto relative z-10 -mb-32"
+          className="mt-16 md:mt-20 text-center p-6 bg-primary rounded-lg max-w-4xl mx-auto relative z-10 -mb-32"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }} /* Added negative bottom margin */
           transition={{ duration: 0.7, delay: 0.2 }}
         >
           <h4 className="text-xl md:text-2xl font-bold mb-3 text-white">Trusted by restaurants worldwide</h4>
-          <p className="mb-6 text-gray-200 max-w-xl mx-auto">Join thousands of restaurants already using our QR code ordering system to boost efficiency and customer satisfaction.</p>
-          <button className="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-6 rounded-full transition-colors">
+          <p className="mb-6 text-white max-w-xl mx-auto">Join thousands of restaurants already using our QR code ordering system to boost efficiency and customer satisfaction.</p>
+          <button className="bg-white hover:bg-gray-100 text-primary font-medium py-2 px-6 rounded-full transition-colors">
             Get Started
           </button>
         </motion.div>

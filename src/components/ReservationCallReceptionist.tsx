@@ -393,7 +393,7 @@ const ReservationCallReceptionist = () => {
           </motion.div>
 
           {/* Call to Action */}
-          <motion.div 
+          {/* <motion.div 
             className="text-center p-6 bg-gradient-to-r from-indigo-800/70 to-indigo-600/70 dark:from-gray-800 dark:to-gray-700 rounded-lg"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -416,7 +416,7 @@ const ReservationCallReceptionist = () => {
                 Try Online Form
               </button>
             </div>
-          </motion.div>
+          </motion.div> */}
         </div>
       </div>
 
