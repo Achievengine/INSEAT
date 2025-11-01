@@ -93,7 +93,7 @@ const Hero = () => {
         transition={{ duration: 0.6, delay: 0.2, type: 'spring', stiffness: 60 }}
         src="/restaurant.png"
         alt="Inseat restaurant illustration"
-        className="hidden lg:block absolute right-0 bottom-0 h-[800px] xl:h-[850px] 2xl:h-[900px] w-auto z-[90] pointer-events-none"
+        className="hidden lg:block absolute right-0 bottom-[-40px] h-[800px] xl:h-[850px] 2xl:h-[900px] w-auto z-[90] pointer-events-none"
         loading="eager"
         decoding="async"
       />
@@ -148,15 +148,8 @@ const Hero = () => {
               <div className="w-full h-full flex flex-col relative">
                 {/* Main QR preview */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <div className="w-32 h-32 bg-white p-1.5 rounded-lg border border-gray-300 mb-6 shadow-md relative">
-                    <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <rect x="15" y="15" width="20" height="20" rx="2" fill="#333" />
-                      <rect x="65" y="15" width="20" height="20" rx="2" fill="#333" />
-                      <rect x="15" y="65" width="20" height="20" rx="2" fill="#333" />
-                      <rect x="40" y="40" width="20" height="20" rx="1" fill="#555" />
-                      <rect x="65" y="45" width="10" height="10" rx="1" fill="#333" />
-                      <rect x="45" y="65" width="10" height="10" rx="1" fill="#333" />
-                    </svg>
+                  <div className="w-32 h-32 mb-6 relative">
+                    <img src="/qr-3d.png" alt="QR Code" className="w-full h-full object-contain" />
                     {/* Corners highlight */}
                     <div className="absolute inset-0 border-2 border-primary/0 animate-pulse">
                       <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-primary"></div>
@@ -230,7 +223,7 @@ const Hero = () => {
                 Download Product Overview
               </a>
               <a
-                href="https://wa.me/251985068040?text=Hello%20Inseat%20Team%2C%20I%E2%80%99d%20like%20to%20learn%20more.%20Please%20reach%20me%20at%20abenezer.t@achievengine.com"
+                href="https://wa.me/message/DN54E4VPUIO6K1"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary w-full sm:w-auto flex items-center justify-center gap-2"

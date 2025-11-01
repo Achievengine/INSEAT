@@ -74,14 +74,14 @@ const AboutUs = () => {
               Our QR code ordering system began as a solution to streamline the ordering process, but quickly evolved into a comprehensive 
               platform that addresses every aspect of restaurant management - from kitchen operations to customer loyalty programs.
             </p>
-            <p className="text-gray-600">
+            {/* <p className="text-gray-600">
               Today, we're proud to serve over 50 restaurants worldwide, helping them increase efficiency, boost revenue, and create 
               memorable dining experiences for their customers.
-            </p>
+            </p> */}
           </motion.div>
 
           {/* Achievements */}
-          <motion.div variants={itemVariants} className="mb-16">
+          {/* <motion.div variants={itemVariants} className="mb-16">
             <h3 className="text-2xl font-bold text-secondary mb-4">Our Achievements</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="bg-gray-50 p-6 rounded-lg text-center">
@@ -97,7 +97,7 @@ const AboutUs = () => {
                 <p className="text-gray-600">Orders Processed</p>
               </div>
             </div>
-          </motion.div>
+          </motion.div> */}
 
           {/* Team members */}
           <motion.div variants={itemVariants}>
