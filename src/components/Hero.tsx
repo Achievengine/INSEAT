@@ -93,18 +93,18 @@ const Hero = () => {
         transition={{ duration: 0.6, delay: 0.2, type: 'spring', stiffness: 60 }}
         src="/restaurant.png"
         alt="Inseat restaurant illustration"
-        className="hidden lg:block absolute right-0 -bottom-32 xl:-bottom-40 h-[720px] xl:h-[740px] 2xl:h-[720px] w-auto z-[90] pointer-events-none"
+        className="hidden lg:block absolute right-0 bottom-0 h-[800px] xl:h-[850px] 2xl:h-[900px] w-auto z-[90] pointer-events-none"
         loading="eager"
         decoding="async"
       />
 
       {/* Phone mockup - sticks out of the hero without elongating it */}
-      <div className="hidden lg:block absolute left-1/2 -translate-x-1/2 -bottom-36 z-[120] pointer-events-none">
+      <div className="hidden lg:block absolute left-1/2 -translate-x-1/2 bottom-8 z-[120] pointer-events-none">
         <motion.div
           variants={phoneVariants}
           initial="idle"
           animate="animate"
-          className="transform scale-[0.58] xl:scale-[0.62]"
+          className="transform scale-[0.45] xl:scale-[0.48]"
         >
           <div className="relative w-72 overflow-hidden rounded-[28px] border-[10px] border-gray-800 shadow-2xl bg-gray-800">
             {/* Phone notch */}
