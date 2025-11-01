@@ -134,7 +134,7 @@ const AdminDashboard = () => {
   };
   
   return (
-    <div className="flex flex-col overflow-hidden min-h-screen bg-[#372F7B]">
+    <div className="hidden md:flex flex-col overflow-hidden min-h-screen bg-[#372F7B]">
       <ContainerScroll
         titleComponent={
           <>

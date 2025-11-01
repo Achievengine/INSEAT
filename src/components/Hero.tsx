@@ -196,9 +196,7 @@ const Hero = () => {
             >
               {cms?.title || (
                 <>
-                  Transform Your Restaurant
-                  <br />
-                  with <span className="text-primary">QR Code Ordering</span>
+                  Elevate Your <span className="text-primary">F&B Operations</span>
                 </>
               )}
             </motion.h1>
@@ -207,7 +205,7 @@ const Hero = () => {
               variants={itemVariants}
               className="mt-6 text-xl text-gray-600 max-w-lg mx-auto lg:mx-0"
             >
-              {cms?.subtitle || 'Streamline your dining experience with our contactless QR code menu and ordering system. Reduce wait times, increase table turnover, and boost your profits.'}
+              {cms?.subtitle || 'An all-in-one, connected platform that speeds up service, reduces mistakes, and keeps every outlet running smoothly.'}
             </motion.p>
 
             <motion.div
