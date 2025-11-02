@@ -59,7 +59,7 @@ const AboutUs = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">About Inseat</h2>
             <div className="w-20 h-1 bg-primary mx-auto mb-6"></div>
             <p className="text-gray-600 text-lg max-w-3xl mx-auto">
-              Revolutionizing the restaurant industry with innovative technology solutions since 2020.
+              Revolutionizing the restaurant industry with innovative technology solutions since 2025.
             </p>
           </motion.div>
 
