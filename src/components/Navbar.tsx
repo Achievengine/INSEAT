@@ -7,6 +7,13 @@ const Navbar = () => {
   const [navData, setNavData] = useState<any>(null);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const defaultNavItems = [
+    { label: 'Features', href: '/features' },
+    { label: 'Pricing', href: '/pricing' },
+    { label: 'Integrations', href: '/integrations' },
+    { label: 'Blog', href: '/blog' }
+  ];
+  const navItems = navData?.navigationItems || defaultNavItems;
 
   useEffect(() => {
     sanityClient.fetch(navbarQuery).then(setNavData).catch(() => {});
@@ -64,12 +71,7 @@ const Navbar = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="flex space-x-6"
           >
-            {(navData?.navigationItems || [
-              { label: 'Features', href: '#features' },
-              { label: 'Pricing', href: '#pricing' },
-              { label: 'How It Works', href: '#how-it-works' },
-              { label: 'About', href: '#about' }
-            ]).map((item: any, index: number) => (
+            {navItems.map((item: any, index: number) => (
               <a 
                 key={index}
                 href={item.href} 
@@ -125,12 +127,7 @@ const Navbar = () => {
           transition={{ duration: 0.3 }}
           className="md:hidden px-4 py-3 space-y-3 bg-gray-50 mt-2"
         >
-          {(navData?.navigationItems || [
-              { label: 'Features', href: '#features' },
-              { label: 'Pricing', href: '#pricing' },
-              { label: 'How It Works', href: '#how-it-works' },
-              { label: 'About', href: '#about' }
-            ]).map((item: any, index: number) => (
+          {navItems.map((item: any, index: number) => (
               <a 
                 key={index}
                 href={item.href} 
@@ -152,4 +149,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

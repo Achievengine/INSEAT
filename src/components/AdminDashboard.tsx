@@ -120,6 +120,126 @@ const AdminDashboard = () => {
       options: ['User Roles', 'Access Control', 'Data Privacy', 'Audit Logs'] 
     }
   ];
+
+  const websiteBuilderSections = [
+    {
+      id: 'hero-branding',
+      title: 'Hero & Branding',
+      description: 'Set the bakery identity, hero story, and conversion-focused above-the-fold CTA.',
+      status: 'Required',
+      enabled: true,
+      fields: ['Brand logo', 'Hero headline', 'Hero background image', 'Primary CTA button']
+    },
+    {
+      id: 'about',
+      title: 'About Section',
+      description: 'Tell Hananeel Pastry\'s story, craftsmanship values, and specialties.',
+      status: 'Required',
+      enabled: true,
+      fields: ['Founder story', 'Bakery mission', 'Craft process highlights', 'Signature promise']
+    },
+    {
+      id: 'menu',
+      title: 'Menu Categories & Items',
+      description: 'Configure category groups and item cards with pricing, tags, and availability.',
+      status: 'Required',
+      enabled: true,
+      fields: ['Category ordering', 'Item pricing', 'Dietary tags', 'Stock visibility']
+    },
+    {
+      id: 'gallery',
+      title: 'Gallery',
+      description: 'Showcase product photography for cakes, pastries, and in-store moments.',
+      status: 'Recommended',
+      enabled: true,
+      fields: ['Gallery layout', 'Image captions', 'Featured collection', 'Photo alt text']
+    },
+    {
+      id: 'contact-location',
+      title: 'Contact & Location',
+      description: 'Expose phone, email, address, and map details for local discovery.',
+      status: 'Required',
+      enabled: true,
+      fields: ['Store address', 'Map link', 'Support email', 'Primary phone']
+    },
+    {
+      id: 'opening-hours',
+      title: 'Opening Hours',
+      description: 'Define daily business hours and special holiday schedules.',
+      status: 'Required',
+      enabled: true,
+      fields: ['Weekday hours', 'Weekend hours', 'Holiday exceptions', 'Timezone']
+    },
+    {
+      id: 'order-flow',
+      title: 'Order Online (Cart & Checkout)',
+      description: 'Enable direct ordering with cart controls, checkout methods, and confirmation flow.',
+      status: 'Required',
+      enabled: true,
+      fields: ['Cart rules', 'Checkout fields', 'Payment options', 'Order confirmation']
+    },
+    {
+      id: 'custom-cake-cta',
+      title: 'Custom Cake Order CTA',
+      description: 'Drive custom cake requests with a dedicated CTA and intake form.',
+      status: 'Recommended',
+      enabled: true,
+      fields: ['CTA copy', 'Inquiry form link', 'Lead destination', 'Response SLA note']
+    },
+    {
+      id: 'lead-capture',
+      title: 'Phone/Email Capture',
+      description: 'Collect customer contact details for order updates and remarketing.',
+      status: 'Required',
+      enabled: true,
+      fields: ['Email capture', 'Phone capture', 'Consent text', 'CRM routing']
+    },
+    {
+      id: 'call-to-order',
+      title: 'Call-to-Order',
+      description: 'Display click-to-call actions for customers who prefer phone ordering.',
+      status: 'Required',
+      enabled: true,
+      fields: ['Call button label', 'Order hotline', 'Availability message', 'Fallback routing']
+    }
+  ];
+
+  const menuCategoryBreakdown = [
+    { name: 'Signature Cakes', items: 8, featured: 'Triple Chocolate Celebration' },
+    { name: 'Cupcakes & Minis', items: 12, featured: 'Red Velvet Cream Cheese Cupcake' },
+    { name: 'Pastries', items: 9, featured: 'Almond Croissant' },
+    { name: 'Seasonal Specials', items: 5, featured: 'Strawberry Basque Cheesecake' }
+  ];
+
+  const galleryCollections = [
+    { title: 'Wedding Cakes', assets: 14, status: 'Live' },
+    { title: 'Everyday Pastries', assets: 26, status: 'Live' },
+    { title: 'Custom Celebration Cakes', assets: 11, status: 'Needs Review' }
+  ];
+
+  const openingHours = [
+    { day: 'Monday', hours: '8:00 AM - 8:00 PM', enabled: true },
+    { day: 'Tuesday', hours: '8:00 AM - 8:00 PM', enabled: true },
+    { day: 'Wednesday', hours: '8:00 AM - 8:00 PM', enabled: true },
+    { day: 'Thursday', hours: '8:00 AM - 8:00 PM', enabled: true },
+    { day: 'Friday', hours: '8:00 AM - 9:00 PM', enabled: true },
+    { day: 'Saturday', hours: '9:00 AM - 9:00 PM', enabled: true },
+    { day: 'Sunday', hours: '10:00 AM - 6:00 PM', enabled: true }
+  ];
+
+  const orderFlowSteps = [
+    { title: 'Browse Menu', detail: 'Customers choose categories and select pastries or cakes.' },
+    { title: 'Add to Cart', detail: 'Modifier options and quantities update cart totals in real time.' },
+    { title: 'Checkout', detail: 'Pickup or delivery selection with payment and contact capture.' },
+    { title: 'Confirmation', detail: 'Order confirmation page shares status and pickup instructions.' }
+  ];
+
+  const leadCaptureChannels = [
+    { label: 'Email capture on checkout', enabled: true },
+    { label: 'Phone capture for order updates', enabled: true },
+    { label: 'Newsletter opt-in on custom cake form', enabled: false },
+    { label: 'SMS callback consent for call-to-order', enabled: true }
+  ];
   
   // Animation variants
   
@@ -229,6 +349,7 @@ const AdminDashboard = () => {
               </div>
               <nav className="space-y-1">
                 {[
+                  { id: 'websiteBuilder', label: 'Website Builder', icon: '🧁' },
                   { id: 'settings', label: 'System Settings', icon: '⚙️' },
                   { id: 'integrations', label: 'Integrations', icon: '🔌' },
                   { id: 'reports', label: 'Reports', icon: '📊' },
@@ -278,6 +399,7 @@ const AdminDashboard = () => {
                     {activeView === 'users' && 'User Management'}
                     {activeView === 'menu' && 'Menu Management'}
                     {activeView === 'inventory' && 'Inventory Management'}
+                    {activeView === 'websiteBuilder' && 'Website Builder'}
                     {activeView === 'settings' && 'System Settings'}
                     {activeView === 'integrations' && 'Integrations'}
                     {activeView === 'reports' && 'Reports'}
@@ -298,6 +420,7 @@ const AdminDashboard = () => {
                     {activeView === 'users' && 'Add User'}
                     {activeView === 'menu' && 'New Menu Item'}
                     {activeView === 'inventory' && 'Update Stock'}
+                    {activeView === 'websiteBuilder' && 'Publish Website'}
                     {activeView === 'settings' && 'Save Changes'}
                     {activeView === 'integrations' && 'Connect New'}
                     {activeView === 'reports' && 'Generate Report'}
@@ -618,6 +741,295 @@ const AdminDashboard = () => {
                         </button>
                       </div>
                     </div>
+                  </motion.div>
+                )}
+
+                {/* Website Builder View */}
+                {activeView === 'websiteBuilder' && (
+                  <motion.div
+                    key="websiteBuilder"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3 }}
+                    className="space-y-6"
+                  >
+                    <motion.div
+                      variants={itemVariants}
+                      initial="hidden"
+                      animate="visible"
+                      className="bg-white rounded-lg shadow-sm border border-gray-200 p-5"
+                    >
+                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-5">
+                        <div>
+                          <h3 className="font-semibold text-gray-800">Hananeel Pastry Website Builder</h3>
+                          <p className="text-sm text-gray-500">Configure storefront sections, ordering journey, and lead capture from one place.</p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="px-2 py-1 text-xs font-medium rounded-full bg-yellow-100 text-yellow-700">Draft</span>
+                          <button className="px-3 py-1.5 text-sm border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">Preview Site</button>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                          <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Site Name</label>
+                          <input
+                            type="text"
+                            defaultValue="Hananeel Pastry"
+                            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Primary CTA Label</label>
+                          <input
+                            type="text"
+                            defaultValue="Order Online"
+                            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Order Hotline</label>
+                          <input
+                            type="text"
+                            defaultValue="+1 (404) 555-0148"
+                            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                          />
+                        </div>
+                      </div>
+                    </motion.div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {websiteBuilderSections.map((section, index) => (
+                        <motion.div
+                          key={section.id}
+                          variants={itemVariants}
+                          initial="hidden"
+                          animate="visible"
+                          transition={{ delay: index * 0.03 }}
+                          className="bg-white rounded-lg shadow-sm border border-gray-200 p-4"
+                        >
+                          <div className="flex items-start justify-between mb-2">
+                            <div>
+                              <h4 className="font-semibold text-gray-800">{section.title}</h4>
+                              <p className="text-sm text-gray-500 mt-1">{section.description}</p>
+                            </div>
+                            <input
+                              type="checkbox"
+                              defaultChecked={section.enabled}
+                              className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded mt-1"
+                            />
+                          </div>
+                          <div className="flex items-center justify-between mt-3">
+                            <span className={`text-xs font-medium px-2 py-1 rounded-full ${
+                              section.status === 'Required'
+                                ? 'bg-blue-100 text-blue-700'
+                                : 'bg-emerald-100 text-emerald-700'
+                            }`}>
+                              {section.status}
+                            </span>
+                            <button className="text-xs text-primary font-medium hover:underline">Configure Section</button>
+                          </div>
+                          <div className="mt-3 space-y-1">
+                            {section.fields.map((field) => (
+                              <div key={field} className="text-xs text-gray-500 flex items-center">
+                                <span className="mr-2 text-primary">•</span>
+                                <span>{field}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <motion.div
+                        variants={itemVariants}
+                        initial="hidden"
+                        animate="visible"
+                        className="bg-white rounded-lg shadow-sm border border-gray-200 p-4"
+                      >
+                        <div className="flex items-center justify-between mb-4">
+                          <h3 className="font-semibold text-gray-800">Menu Categories & Items</h3>
+                          <button className="text-sm text-primary font-medium hover:underline">Manage Categories</button>
+                        </div>
+                        <div className="space-y-3">
+                          {menuCategoryBreakdown.map((category) => (
+                            <div key={category.name} className="border border-gray-200 rounded-md p-3">
+                              <div className="flex items-center justify-between">
+                                <h4 className="text-sm font-medium text-gray-800">{category.name}</h4>
+                                <span className="text-xs text-gray-500">{category.items} items</span>
+                              </div>
+                              <p className="text-xs text-gray-500 mt-1">Featured: {category.featured}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </motion.div>
+
+                      <motion.div
+                        variants={itemVariants}
+                        initial="hidden"
+                        animate="visible"
+                        className="bg-white rounded-lg shadow-sm border border-gray-200 p-4"
+                      >
+                        <div className="flex items-center justify-between mb-4">
+                          <h3 className="font-semibold text-gray-800">Gallery Collections</h3>
+                          <button className="text-sm text-primary font-medium hover:underline">Upload Assets</button>
+                        </div>
+                        <div className="space-y-3">
+                          {galleryCollections.map((collection) => (
+                            <div key={collection.title} className="flex items-center justify-between border border-gray-200 rounded-md p-3">
+                              <div>
+                                <p className="text-sm font-medium text-gray-800">{collection.title}</p>
+                                <p className="text-xs text-gray-500">{collection.assets} photos</p>
+                              </div>
+                              <span className={`text-xs font-medium px-2 py-1 rounded-full ${
+                                collection.status === 'Live'
+                                  ? 'bg-emerald-100 text-emerald-700'
+                                  : 'bg-amber-100 text-amber-700'
+                              }`}>
+                                {collection.status}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </motion.div>
+                    </div>
+
+                    <motion.div
+                      variants={itemVariants}
+                      initial="hidden"
+                      animate="visible"
+                      className="bg-white rounded-lg shadow-sm border border-gray-200 p-4"
+                    >
+                      <div className="flex items-center justify-between mb-4">
+                        <h3 className="font-semibold text-gray-800">Contact, Location & Opening Hours</h3>
+                        <button className="text-sm text-primary font-medium hover:underline">Edit Contact Details</button>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div className="border border-gray-200 rounded-md p-3">
+                          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Location</p>
+                          <p className="text-sm text-gray-800 mt-1">210 Bakers Street, Atlanta, GA 30303</p>
+                          <p className="text-xs text-gray-500 mt-1">Map link: maps.google.com/hananeel-pastry</p>
+                        </div>
+                        <div className="border border-gray-200 rounded-md p-3">
+                          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Contact</p>
+                          <p className="text-sm text-gray-800 mt-1">orders@hananeelpastry.com</p>
+                          <p className="text-sm text-gray-800">+1 (404) 555-0148</p>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+                        {openingHours.map((entry) => (
+                          <div key={entry.day} className="border border-gray-200 rounded-md px-3 py-2">
+                            <div className="flex items-center justify-between">
+                              <span className="text-sm font-medium text-gray-800">{entry.day}</span>
+                              <span className={`w-2 h-2 rounded-full ${entry.enabled ? 'bg-emerald-500' : 'bg-gray-300'}`} />
+                            </div>
+                            <p className="text-xs text-gray-500 mt-1">{entry.hours}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </motion.div>
+
+                    <motion.div
+                      variants={itemVariants}
+                      initial="hidden"
+                      animate="visible"
+                      className="bg-white rounded-lg shadow-sm border border-gray-200 p-4"
+                    >
+                      <div className="flex items-center justify-between mb-4">
+                        <h3 className="font-semibold text-gray-800">Order Online Flow (Cart & Checkout)</h3>
+                        <button className="text-sm text-primary font-medium hover:underline">Configure Checkout</button>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mb-4">
+                        {orderFlowSteps.map((step, index) => (
+                          <div key={step.title} className="border border-gray-200 rounded-md p-3">
+                            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold mb-2">
+                              {index + 1}
+                            </span>
+                            <h4 className="text-sm font-medium text-gray-800">{step.title}</h4>
+                            <p className="text-xs text-gray-500 mt-1">{step.detail}</p>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div className="border border-gray-200 rounded-md p-3">
+                          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Cart Rules</p>
+                          <p className="text-sm text-gray-800 mt-1">Minimum order: $18.00</p>
+                          <p className="text-xs text-gray-500">Item notes and quantity editing enabled.</p>
+                        </div>
+                        <div className="border border-gray-200 rounded-md p-3">
+                          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Checkout</p>
+                          <p className="text-sm text-gray-800 mt-1">Pickup, curbside, and local delivery</p>
+                          <p className="text-xs text-gray-500">Address validation and tax summary enabled.</p>
+                        </div>
+                        <div className="border border-gray-200 rounded-md p-3">
+                          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Payments</p>
+                          <p className="text-sm text-gray-800 mt-1">Card, Apple Pay, and cash on pickup</p>
+                          <p className="text-xs text-gray-500">Payment capture on checkout submission.</p>
+                        </div>
+                      </div>
+                    </motion.div>
+
+                    <motion.div
+                      variants={itemVariants}
+                      initial="hidden"
+                      animate="visible"
+                      className="bg-white rounded-lg shadow-sm border border-gray-200 p-4"
+                    >
+                      <div className="flex items-center justify-between mb-4">
+                        <h3 className="font-semibold text-gray-800">Custom Cake CTA + Lead Capture + Call-to-Order</h3>
+                        <button className="text-sm text-primary font-medium hover:underline">Edit CTA Rules</button>
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="border border-gray-200 rounded-md p-3">
+                          <h4 className="text-sm font-medium text-gray-800">Custom Cake Order CTA</h4>
+                          <p className="text-xs text-gray-500 mt-1">Button label: Request a Custom Cake</p>
+                          <p className="text-xs text-gray-500">Routing: /custom-cake-order</p>
+                          <div className="mt-3 space-y-2">
+                            {leadCaptureChannels.map((channel) => (
+                              <label key={channel.label} className="flex items-center justify-between text-sm text-gray-700">
+                                <span>{channel.label}</span>
+                                <input
+                                  type="checkbox"
+                                  defaultChecked={channel.enabled}
+                                  className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                                />
+                              </label>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="border border-gray-200 rounded-md p-3">
+                          <h4 className="text-sm font-medium text-gray-800">Call-to-Order</h4>
+                          <p className="text-xs text-gray-500 mt-1">Visible in hero, sticky footer, and checkout help panel.</p>
+                          <div className="mt-3 space-y-2">
+                            <div>
+                              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Button Label</label>
+                              <input
+                                type="text"
+                                defaultValue="Call to Order Now"
+                                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Phone Number</label>
+                              <input
+                                type="text"
+                                defaultValue="+1 (404) 555-0148"
+                                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                              />
+                            </div>
+                            <div className="bg-blue-50 border border-blue-100 rounded-md p-2">
+                              <p className="text-xs text-blue-700">Call center window: Monday-Saturday, 8:00 AM to 9:00 PM</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
                   </motion.div>
                 )}
                 
