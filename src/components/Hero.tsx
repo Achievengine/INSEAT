@@ -75,14 +75,14 @@ const Hero = () => {
   return (
     // Reduced bottom padding: pb-24 md:pb-32
     // Added background grid pattern (made even fainter)
-    <section className="relative z-[200] pt-12 md:pt-20 pb-32 lg:pb-40 bg-white overflow-x-hidden overflow-y-visible">
+    <section className="relative z-[200] overflow-hidden bg-white pb-20 pt-12 md:pt-20 lg:pb-32">
       {/* Background elements - Adjusted positions & opacity based on new image */}
       {/* Re-added z-index to ensure circles are behind content */}
       <div className="absolute inset-0 overflow-hidden -z-10">
         {/* Adjusted right circle size and position based on new image */}
-        <div className="absolute -top-48 -right-48 w-72 h-72 md:w-96 md:h-96 rounded-full bg-primary/5"></div>
+        <div className="absolute -top-48 -right-48 h-72 w-72 rounded-full bg-primary/10 md:h-96 md:w-96"></div>
         {/* Kept left circle size and position from previous attempt */}
-        <div className="absolute top-1/2 -translate-y-1/2 -left-64 w-[500px] h-[500px] md:w-[600px] md:h-[600px] rounded-full bg-accent/5"></div>
+        <div className="absolute top-1/2 -left-64 h-[500px] w-[500px] -translate-y-1/2 rounded-full bg-primary/10 md:h-[600px] md:w-[600px]"></div>
         {/* Removed the third circle to better match the reference image */}
       </div>
 
@@ -93,13 +93,13 @@ const Hero = () => {
         transition={{ duration: 0.6, delay: 0.2, type: 'spring', stiffness: 60 }}
         src="/restaurant.png"
         alt="Inseat restaurant illustration"
-        className="hidden lg:block absolute right-0 bottom-[-40px] h-[800px] xl:h-[850px] 2xl:h-[900px] w-auto z-[90] pointer-events-none"
+        className="hidden lg:block absolute right-[-80px] bottom-[-20px] h-[720px] xl:h-[780px] 2xl:h-[820px] w-auto z-[90] pointer-events-none"
         loading="eager"
         decoding="async"
       />
 
       {/* Phone mockup - sticks out of the hero without elongating it */}
-      <div className="hidden lg:block absolute left-1/2 -translate-x-1/2 bottom-8 z-[120] pointer-events-none">
+      <div className="hidden lg:block absolute left-[52%] -translate-x-1/2 bottom-8 z-[120] pointer-events-none">
         <motion.div
           variants={phoneVariants}
           initial="idle"
@@ -137,7 +137,7 @@ const Hero = () => {
                   </div>
                   <div className="flex items-center">
                     <div className="w-6 h-3 bg-white rounded-sm relative overflow-hidden">
-                      <div className="absolute top-0 right-0 bottom-0 bg-green-500" style={{ width: `${batteryLevel}%` }}></div>
+                      <div className="absolute top-0 right-0 bottom-0 bg-primary" style={{ width: `${batteryLevel}%` }}></div>
                     </div>
                     <span className="ml-1 text-xs">{batteryLevel}%</span>
                   </div>
@@ -180,14 +180,14 @@ const Hero = () => {
 
       <div className="container-custom relative">
         {/* Adjusted grid layout and alignment */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center min-h-[520px] md:min-h-[600px] lg:min-h-[640px]">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center min-h-[500px] md:min-h-[580px] lg:min-h-[620px]">
 
           {/* Left column: Text content - Spanning 2 columns */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="text-center lg:text-left lg:col-span-2 pt-8 md:pt-16 lg:-ml-16 xl:-ml-24 2xl:-ml-32" // Push content a bit further left on large screens
+              className="text-center lg:text-left lg:col-span-2 pt-8 md:pt-14"
           >
             {/* Image removed from here */}
             <motion.h1
@@ -203,7 +203,7 @@ const Hero = () => {
 
             <motion.p
               variants={itemVariants}
-              className="mt-6 text-xl text-gray-600 max-w-lg mx-auto lg:mx-0"
+              className="mt-6 max-w-lg text-xl text-black/70 mx-auto lg:mx-0"
             >
               {cms?.subtitle || 'An all-in-one, connected platform that speeds up service, reduces mistakes, and keeps every outlet running smoothly.'}
             </motion.p>

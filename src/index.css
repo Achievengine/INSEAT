@@ -1,54 +1,225 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    font-family: 'Inter', system-ui, sans-serif;
+    --inseat-purple: #6106eb;
+    --inseat-primary-rgb: 97 6 235;
+    --inseat-black: #050505;
+    --inseat-white: #ffffff;
+    font-family: 'Manrope', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
+
+  html,
   body {
-    @apply bg-white text-gray-900 min-h-screen;
+    width: 100%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply min-h-screen;
+    background-color: var(--inseat-white);
+    color: var(--inseat-black);
+    background-image: radial-gradient(circle at 10% 0%, rgb(var(--inseat-primary-rgb) / 0.08), transparent 38%);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  a,
+  button {
+    @apply outline-none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--inseat-purple);
+    outline-offset: 2px;
   }
 }
 
 @layer components {
   .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
   }
-  
-  .btn-primary {
-    @apply bg-primary text-white font-medium py-2 px-6 rounded-lg
-    transition-all duration-300 hover:bg-primary/90 hover:shadow-lg
-    active:transform active:scale-95;
-  }
-  
-  .btn-secondary {
-    @apply bg-white text-secondary border border-gray-300 font-medium py-2 px-6 rounded-lg
-    transition-all duration-300 hover:bg-gray-50 hover:shadow-md
-    active:transform active:scale-95;
-  }
-  
+
   .section-heading {
-    @apply text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-4 md:mb-6;
+    @apply text-3xl md:text-4xl lg:text-5xl font-display font-bold tracking-tight;
   }
-  
+
   .section-subheading {
-    @apply text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-8 md:mb-12;
+    @apply mt-4 max-w-3xl mx-auto text-base md:text-lg leading-relaxed;
+    color: rgb(5 5 5 / 0.72);
   }
-  
+
   .card {
-    @apply bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg;
+    @apply rounded-2xl border bg-white transition duration-300;
+    border-color: rgb(5 5 5 / 0.12);
+    box-shadow: 0 14px 40px -26px rgb(5 5 5 / 0.9);
   }
-  
-  .form-input {
-    @apply w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary
-    focus:ring-2 focus:ring-primary/20 outline-none transition-all;
-  }
-  
+
   .form-label {
-    @apply block text-sm font-medium text-gray-700 mb-1;
+    @apply block text-sm font-semibold mb-2;
+    color: rgb(5 5 5 / 0.82);
+  }
+
+  .form-input {
+    @apply w-full rounded-lg border px-4 py-2.5 transition-colors duration-200;
+    border-color: rgb(5 5 5 / 0.2);
+    color: var(--inseat-black);
+    background: var(--inseat-white);
+  }
+
+  .form-input::placeholder {
+    color: rgb(5 5 5 / 0.45);
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: rgb(var(--inseat-primary-rgb) / 0.45);
+    box-shadow: 0 0 0 4px rgb(var(--inseat-primary-rgb) / 0.14);
+  }
+
+  .inseat-shell {
+    background: var(--inseat-white);
+    color: var(--inseat-black);
+  }
+
+  .inseat-card {
+    @apply rounded-3xl transition duration-300;
+  }
+
+  .inseat-chip {
+    @apply inline-flex rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em];
+    border-color: rgb(5 5 5 / 0.2);
+    color: rgb(5 5 5 / 0.72);
+  }
+
+  .inseat-glow {
+    position: absolute;
+    width: 20rem;
+    height: 20rem;
+    border-radius: 9999px;
+    filter: blur(64px);
+    opacity: 0.2;
+    background: var(--inseat-purple);
+    pointer-events: none;
+  }
+
+  .inseat-glow-left {
+    top: -8rem;
+    left: -6rem;
+  }
+
+  .inseat-glow-right {
+    right: -7rem;
+    bottom: -8rem;
+  }
+
+  .btn-primary {
+    @apply rounded-full px-6 py-3 text-sm font-semibold uppercase tracking-wide transition duration-200;
+    background: var(--inseat-purple);
+    color: var(--inseat-white);
+    box-shadow: 0 12px 24px -14px rgb(var(--inseat-primary-rgb) / 0.8);
+  }
+
+  .btn-primary:hover {
+    filter: brightness(1.08) saturate(1.05);
+  }
+
+  .btn-secondary {
+    @apply rounded-full border px-6 py-3 text-sm font-semibold uppercase tracking-wide transition duration-200;
+    border-color: rgb(5 5 5 / 0.25);
+    color: var(--inseat-black);
+    background: var(--inseat-white);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--inseat-purple);
+    color: var(--inseat-purple);
+  }
+}
+
+@layer utilities {
+  .text-primary-100 {
+    color: rgb(var(--inseat-primary-rgb) / 0.78) !important;
+  }
+
+  .text-primary-200 {
+    color: rgb(var(--inseat-primary-rgb) / 0.64) !important;
+  }
+
+  .bg-indigo-950,
+  .bg-indigo-900,
+  .bg-indigo-800,
+  .bg-indigo-700,
+  .bg-blue-600,
+  .bg-blue-700,
+  .bg-blue-500,
+  .bg-green-600,
+  .bg-green-700,
+  .bg-green-500 {
+    background-color: var(--inseat-purple) !important;
+  }
+
+  .bg-blue-50,
+  .bg-blue-100,
+  .bg-blue-200,
+  .bg-green-50,
+  .bg-green-100,
+  .bg-yellow-50,
+  .bg-yellow-100,
+  .bg-amber-100,
+  .bg-emerald-100,
+  .bg-red-50 {
+    background-color: rgb(var(--inseat-primary-rgb) / 0.1) !important;
+  }
+
+  .text-blue-700,
+  .text-blue-800,
+  .text-green-300,
+  .text-green-500,
+  .text-green-600,
+  .text-green-700,
+  .text-green-800,
+  .text-yellow-700,
+  .text-yellow-800,
+  .text-red-500,
+  .text-red-600,
+  .text-red-700,
+  .text-amber-700,
+  .text-emerald-700,
+  .text-indigo-900 {
+    color: var(--inseat-purple) !important;
+  }
+
+  .border-blue-100,
+  .border-green-100,
+  .border-red-100,
+  .border-red-300,
+  .border-red-500,
+  .border-yellow-100,
+  .border-green-200,
+  .border-green-700,
+  .border-indigo-300,
+  .border-indigo-500,
+  .border-indigo-600,
+  .border-indigo-700 {
+    border-color: rgb(var(--inseat-primary-rgb) / 0.35) !important;
+  }
+
+  .focus\:ring-blue-500:focus {
+    --tw-ring-color: rgb(var(--inseat-primary-rgb) / 0.45) !important;
   }
 }

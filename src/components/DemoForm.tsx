@@ -162,12 +162,12 @@ const DemoForm = () => {
                 {/* Full Name */}
                 <div>
                   <label htmlFor="fullName" className="block text-sm font-medium text-white mb-1">
-                    Full Name <span className="text-red-500">*</span>
+                    Full Name <span className="text-primary">*</span>
                   </label>
                   <input
                     id="fullName"
                     type="text"
-                    className={`w-full px-4 py-2 border border-white/20 rounded-lg bg-white/5 text-white focus:ring-2 focus:ring-primary focus:border-transparent ${errors.fullName ? 'border-red-500 focus:ring-red-200' : ''}`}
+                    className={`w-full px-4 py-2 border border-white/20 rounded-lg bg-white/5 text-white focus:ring-2 focus:ring-primary focus:border-transparent ${errors.fullName ? 'border-primary/50 focus:ring-primary/30' : ''}`}
                     placeholder="e.g., John Doe"
                     {...register('fullName', {
                       required: 'Full name is required',
@@ -178,38 +178,38 @@ const DemoForm = () => {
                     })}
                   />
                   {errors.fullName && (
-                    <p className="mt-1 text-sm text-red-500">{errors.fullName.message}</p>
+                    <p className="mt-1 text-sm text-primary">{errors.fullName.message}</p>
                   )}
                 </div>
 
                 {/* Phone Number */}
                 <div>
                   <label htmlFor="phoneNumber" className="block text-sm font-medium text-white mb-1">
-                    Phone Number <span className="text-red-500">*</span>
+                    Phone Number <span className="text-primary">*</span>
                   </label>
                   <input
                     id="phoneNumber"
                     type="tel"
-                    className={`w-full px-4 py-2 border border-white/20 rounded-lg bg-white/5 text-white focus:ring-2 focus:ring-primary focus:border-transparent ${errors.phoneNumber ? 'border-red-500 focus:ring-red-200' : ''}`}
+                    className={`w-full px-4 py-2 border border-white/20 rounded-lg bg-white/5 text-white focus:ring-2 focus:ring-primary focus:border-transparent ${errors.phoneNumber ? 'border-primary/50 focus:ring-primary/30' : ''}`}
                     placeholder="e.g., +1 (555) 123-4567"
                     {...register('phoneNumber', {
                       required: 'Phone number is required'
                     })}
                   />
                   {errors.phoneNumber && (
-                    <p className="mt-1 text-sm text-red-500">{errors.phoneNumber.message}</p>
+                    <p className="mt-1 text-sm text-primary">{errors.phoneNumber.message}</p>
                   )}
                 </div>
 
                 {/* Company Name */}
                 <div>
                   <label htmlFor="companyName" className="block text-sm font-medium text-white mb-1">
-                    Company Name <span className="text-red-500">*</span>
+                    Company Name <span className="text-primary">*</span>
                   </label>
                   <input
                     id="companyName"
                     type="text"
-                    className={`w-full px-4 py-2 border border-white/20 rounded-lg bg-white/5 text-white focus:ring-2 focus:ring-primary focus:border-transparent ${errors.companyName ? 'border-red-500 focus:ring-red-200' : ''}`}
+                    className={`w-full px-4 py-2 border border-white/20 rounded-lg bg-white/5 text-white focus:ring-2 focus:ring-primary focus:border-transparent ${errors.companyName ? 'border-primary/50 focus:ring-primary/30' : ''}`}
                     placeholder="e.g., Luigi's Restaurant Group"
                     {...register('companyName', {
                       required: 'Company name is required',
@@ -220,19 +220,19 @@ const DemoForm = () => {
                     })}
                   />
                   {errors.companyName && (
-                    <p className="mt-1 text-sm text-red-500">{errors.companyName.message}</p>
+                    <p className="mt-1 text-sm text-primary">{errors.companyName.message}</p>
                   )}
                 </div>
 
                 {/* Restaurant Name */}
                 <div>
                   <label htmlFor="restaurantName" className="block text-sm font-medium text-white mb-1">
-                    Restaurant Name <span className="text-red-500">*</span>
+                    Restaurant Name <span className="text-primary">*</span>
                   </label>
                   <input
                     id="restaurantName"
                     type="text"
-                    className={`w-full px-4 py-2 border border-white/20 rounded-lg bg-white/5 text-white focus:ring-2 focus:ring-primary focus:border-transparent ${errors.restaurantName ? 'border-red-500 focus:ring-red-200' : ''}`}
+                    className={`w-full px-4 py-2 border border-white/20 rounded-lg bg-white/5 text-white focus:ring-2 focus:ring-primary focus:border-transparent ${errors.restaurantName ? 'border-primary/50 focus:ring-primary/30' : ''}`}
                     placeholder="e.g., Luigi's Italian Bistro"
                     {...register('restaurantName', {
                       required: 'Restaurant name is required',
@@ -243,19 +243,19 @@ const DemoForm = () => {
                     })}
                   />
                   {errors.restaurantName && (
-                    <p className="mt-1 text-sm text-red-500">{errors.restaurantName.message}</p>
+                    <p className="mt-1 text-sm text-primary">{errors.restaurantName.message}</p>
                   )}
                 </div>
 
                 {/* Email */}
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-white mb-1">
-                    Business Email <span className="text-red-500">*</span>
+                    Business Email <span className="text-primary">*</span>
                   </label>
                   <input
                     id="email"
                     type="email"
-                    className={`w-full px-4 py-2 border border-white/20 rounded-lg bg-white/5 text-white focus:ring-2 focus:ring-primary focus:border-transparent ${errors.email ? 'border-red-500 focus:ring-red-200' : ''}`}
+                    className={`w-full px-4 py-2 border border-white/20 rounded-lg bg-white/5 text-white focus:ring-2 focus:ring-primary focus:border-transparent ${errors.email ? 'border-primary/50 focus:ring-primary/30' : ''}`}
                     placeholder="you@restaurant.com"
                     {...register('email', {
                       required: 'Email is required',
@@ -266,7 +266,7 @@ const DemoForm = () => {
                     })}
                   />
                   {errors.email && (
-                    <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
+                    <p className="mt-1 text-sm text-primary">{errors.email.message}</p>
                   )}
                 </div>
 
@@ -289,7 +289,7 @@ const DemoForm = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
-                    className="mt-4 p-3 bg-green-50 text-green-700 rounded-lg border border-green-100 flex items-center"
+                    className="mt-4 p-3 bg-primary/10 text-primary rounded-lg border border-primary/30 flex items-center"
                   >
                     <svg className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -303,7 +303,7 @@ const DemoForm = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
-                    className="mt-4 p-3 bg-red-50 text-red-700 rounded-lg border border-red-100 flex items-center"
+                    className="mt-4 p-3 bg-primary/10 text-primary rounded-lg border border-primary/30 flex items-center"
                   >
                     <svg className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

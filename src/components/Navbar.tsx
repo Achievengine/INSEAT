@@ -46,7 +46,7 @@ const Navbar = () => {
 
   return (
     <motion.nav 
-      className="bg-white shadow-sm py-4 sticky top-0 z-50"
+      className="sticky top-0 z-50 border-b border-black/10 bg-white/90 py-4 backdrop-blur-md supports-[backdrop-filter]:bg-white/80"
       initial={{ y: 0 }}
       animate={{ y: isVisible ? 0 : -100 }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
@@ -59,8 +59,8 @@ const Navbar = () => {
           transition={{ duration: 0.5 }}
           className="flex items-center gap-2"
         >
-          <img src="/logo.png" alt="Inseat Logo" className="h-10 w-auto" />
-          <span className="text-xl font-bold text-secondary">{navData?.logo || 'Inseat'}</span>
+          <img src="/logo.png" alt="Inseat Logo" className="h-10 w-auto rounded-md" />
+          <span className="text-xl font-bold tracking-tight text-secondary">{navData?.logo || 'Inseat'}</span>
         </motion.div>
 
         {/* Desktop Navigation */}
@@ -75,7 +75,7 @@ const Navbar = () => {
               <a 
                 key={index}
                 href={item.href} 
-                className="text-gray-600 hover:text-primary transition-colors"
+                className="font-medium text-black/70 hover:text-primary transition-colors"
               >
                 {item.label}
               </a>
@@ -98,7 +98,7 @@ const Navbar = () => {
           <button
             type="button"
             onClick={() => setIsOpen(!isOpen)}
-            className="text-gray-500 hover:text-primary focus:outline-none"
+            className="text-black/70 hover:text-primary focus:outline-none"
           >
             <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24">
               {isOpen ? (
@@ -125,13 +125,13 @@ const Navbar = () => {
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.3 }}
-          className="md:hidden px-4 py-3 space-y-3 bg-gray-50 mt-2"
+          className="md:hidden mt-2 space-y-3 rounded-xl border border-black/10 bg-white px-4 py-3 shadow-lg"
         >
           {navItems.map((item: any, index: number) => (
               <a 
                 key={index}
                 href={item.href} 
-                className="block py-2 text-gray-600 hover:text-primary transition-colors"
+                className="block py-2 font-medium text-black/70 hover:text-primary transition-colors"
               >
                 {item.label}
               </a>

@@ -1,13 +1,58 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEOHead from '../components/SEOHead';
 import Breadcrumbs from '../components/Breadcrumbs';
 
+// Exchange rates (approximate, pegged/stable)
+const EXCHANGE_RATES: Record<string, { symbol: string; rate: number; code: string }> = {
+  USD: { symbol: '$', rate: 1, code: 'USD' },
+  AED: { symbol: 'AED ', rate: 3.67, code: 'AED' },
+  ETB: { symbol: 'ETB ', rate: 155, code: 'ETB' },
+};
+
+// Map country code → currency
+const COUNTRY_CURRENCY: Record<string, string> = {
+  AE: 'AED',  // UAE
+  ET: 'ETB',  // Ethiopia
+};
+
+const ADMIN_URL = import.meta.env.VITE_ADMIN_URL || 'http://localhost:5174';
+
 const PricingPage = () => {
   const [isAnnual, setIsAnnual] = useState(true);
+  const [currency, setCurrency] = useState('USD');
+  const [isDetecting, setIsDetecting] = useState(true);
+
+  // Detect user's country via IP geolocation
+  useEffect(() => {
+    const detectLocation = async () => {
+      try {
+        const res = await fetch('https://ipapi.co/json/');
+        if (res.ok) {
+          const data = await res.json();
+          const countryCode = data?.country_code || data?.country;
+          if (countryCode && COUNTRY_CURRENCY[countryCode]) {
+            setCurrency(COUNTRY_CURRENCY[countryCode]);
+          }
+        }
+      } catch (err) {
+        console.warn('Location detection failed, defaulting to USD');
+      } finally {
+        setIsDetecting(false);
+      }
+    };
+    detectLocation();
+  }, []);
+
+  const cx = EXCHANGE_RATES[currency] || EXCHANGE_RATES.USD;
+
+  const formatPrice = (usdAmount: number) => {
+    const converted = Math.round(usdAmount * cx.rate);
+    return `${cx.symbol}${converted.toLocaleString()}`;
+  };
 
   const breadcrumbs = [
     { name: 'Home', url: 'https://inseat.achievengine.com/' },
@@ -17,7 +62,7 @@ const PricingPage = () => {
   const faqs = [
     {
       question: 'Do you have a plan for small restaurants?',
-      answer: 'Yes. Bronze Launch is $50/month and is designed for single-location restaurants launching their website storefront and online ordering.'
+      answer: `Yes. Bronze Launch is ${formatPrice(50)}/month and is designed for single-location restaurants launching their website storefront and online ordering.`
     },
     {
       question: 'Do you charge per order or reservation?',
@@ -47,6 +92,7 @@ const PricingPage = () => {
       description: 'Best for first-time launch of a branded restaurant website.',
       monthlyPrice: 50,
       annualPrice: 40,
+      tier: 'entry',
       features: [
         'Website builder with branded homepage',
         'Menu sync from INSEAT menu',
@@ -59,7 +105,7 @@ const PricingPage = () => {
         'Single location',
         'Single gateway'
       ],
-      cta: 'Start Bronze Launch',
+      cta: 'Start Free Trial',
       popular: false
     },
     {
@@ -67,6 +113,7 @@ const PricingPage = () => {
       description: 'For restaurants scaling online orders and payment options.',
       monthlyPrice: 99,
       annualPrice: 79,
+      tier: 'mid',
       features: [
         'Everything in Bronze Launch, plus:',
         'Multiple gateway setup (Stripe/MPGS/Chapa/Telebirr)',
@@ -76,14 +123,15 @@ const PricingPage = () => {
         'Priority support'
       ],
       limitations: [],
-      cta: 'Start Silver Growth',
+      cta: 'Start Free Trial',
       popular: true
     },
     {
       name: 'Custom Enterprise',
       description: 'For multi-location or deeply customized rollout needs.',
-      monthlyPrice: 'Custom',
-      annualPrice: 'Custom',
+      monthlyPrice: 'Custom' as string | number,
+      annualPrice: 'Custom' as string | number,
+      tier: 'custom',
       features: [
         'Everything in Silver Growth, plus:',
         'Unlimited locations',
@@ -116,7 +164,7 @@ const PricingPage = () => {
     <>
       <SEOHead
         title="Pricing - Website Builder and Ordering Plans"
-        description="Simple subscription pricing for INSEAT website builder and restaurant online ordering. Bronze Launch at $50, Silver Growth at $99, and Custom Enterprise."
+        description={`Simple subscription pricing for INSEAT website builder and restaurant online ordering. Bronze Launch at ${formatPrice(50)}, Silver Growth at ${formatPrice(99)}, and Custom Enterprise.`}
         keywords="restaurant website builder pricing, online ordering pricing, telebirr stripe chapa integration pricing, INSEAT subscription plans"
         url="https://inseat.achievengine.com/pricing"
         breadcrumbs={breadcrumbs}
@@ -152,7 +200,7 @@ const PricingPage = () => {
               </p>
 
               {/* Billing Toggle */}
-              <div className="flex items-center justify-center gap-4 mb-8">
+              <div className="flex items-center justify-center gap-4 mb-4">
                 <span className={`font-medium ${!isAnnual ? 'text-secondary' : 'text-gray-500'}`}>
                   Monthly
                 </span>
@@ -171,6 +219,24 @@ const PricingPage = () => {
                   </span>
                 </span>
               </div>
+
+              {/* Currency selector */}
+              <div className="flex items-center justify-center gap-2 mb-8">
+                <span className="text-sm text-gray-500">Prices in:</span>
+                {Object.keys(EXCHANGE_RATES).map((code) => (
+                  <button
+                    key={code}
+                    onClick={() => setCurrency(code)}
+                    className={`text-sm px-3 py-1 rounded-full font-medium transition-colors ${
+                      currency === code
+                        ? 'bg-primary text-white'
+                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    }`}
+                  >
+                    {code}
+                  </button>
+                ))}
+              </div>
             </motion.div>
           </div>
         </section>
@@ -179,101 +245,113 @@ const PricingPage = () => {
         <section className="py-12 bg-white">
           <div className="container-custom">
             <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              {plans.map((plan, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className={`relative rounded-2xl p-8 ${
-                    plan.popular
-                      ? 'bg-primary text-white ring-4 ring-primary/20'
-                      : 'bg-gray-50 text-secondary'
-                  }`}
-                >
-                  {plan.popular && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-secondary text-white text-sm font-semibold px-4 py-1 rounded-full">
-                      Most Popular
-                    </div>
-                  )}
+              {plans.map((plan, index) => {
+                const isCustom = plan.monthlyPrice === 'Custom';
+                const displayedPriceUSD = isAnnual ? plan.annualPrice : plan.monthlyPrice;
+                const annualPriceUSD = typeof plan.annualPrice === 'number' ? plan.annualPrice : 0;
 
-                  <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
-                  <p className={`text-sm mb-6 ${plan.popular ? 'text-primary-100' : 'text-gray-600'}`}>
-                    {plan.description}
-                  </p>
-
-                  <div className="mb-6">
-                    {(() => {
-                      const displayedPrice = isAnnual ? plan.annualPrice : plan.monthlyPrice;
-                      const isCustom = displayedPrice === 'Custom';
-                      const annualPriceNumber = typeof plan.annualPrice === 'number' ? plan.annualPrice : 0;
-                      return (
-                        <>
-                          <span className="text-4xl font-bold">
-                            {isCustom ? 'Custom' : `$${displayedPrice}`}
-                          </span>
-                          {!isCustom && (
-                            <span className={plan.popular ? 'text-primary-100' : 'text-gray-500'}>
-                              /month
-                            </span>
-                          )}
-                          {isAnnual && annualPriceNumber > 0 && !isCustom && (
-                            <p className={`text-sm mt-1 ${plan.popular ? 'text-primary-100' : 'text-gray-500'}`}>
-                              Billed annually (${annualPriceNumber * 12}/year)
-                            </p>
-                          )}
-                        </>
-                      );
-                    })()}
-                  </div>
-
-                  <Link
-                    to="/#demo"
-                    className={`block w-full py-3 px-6 rounded-lg font-semibold text-center mb-8 transition-colors ${
-                      plan.popular
-                        ? 'bg-white text-primary hover:bg-gray-100'
-                        : 'bg-primary text-white hover:bg-primary/90'
-                    }`}
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className={`relative rounded-2xl p-8 ${plan.popular
+                        ? 'bg-primary text-white ring-4 ring-primary/20'
+                        : 'bg-gray-50 text-secondary'
+                      }`}
                   >
-                    {plan.cta}
-                  </Link>
+                    {plan.popular && (
+                      <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-secondary text-white text-sm font-semibold px-4 py-1 rounded-full">
+                        Most Popular
+                      </div>
+                    )}
 
-                  <ul className="space-y-3">
-                    {plan.features.map((feature, fIndex) => (
-                      <li key={fIndex} className="flex items-start gap-2">
-                        <svg
-                          className={`w-5 h-5 mt-0.5 flex-shrink-0 ${plan.popular ? 'text-white' : 'text-green-500'}`}
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                        <span className={plan.popular ? 'text-white' : 'text-gray-700'}>{feature}</span>
-                      </li>
-                    ))}
-                    {plan.limitations.map((limitation, lIndex) => (
-                      <li key={lIndex} className="flex items-start gap-2">
-                        <svg
-                          className={`w-5 h-5 mt-0.5 flex-shrink-0 ${plan.popular ? 'text-primary-200' : 'text-gray-400'}`}
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                        <span className={plan.popular ? 'text-primary-200' : 'text-gray-500'}>{limitation}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-              ))}
+                    <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
+                    <p className={`text-sm mb-6 ${plan.popular ? 'text-primary-100' : 'text-gray-600'}`}>
+                      {plan.description}
+                    </p>
+
+                    <div className="mb-6">
+                      <span className="text-4xl font-bold">
+                        {isCustom ? 'Custom' : formatPrice(displayedPriceUSD as number)}
+                      </span>
+                      {!isCustom && (
+                        <span className={plan.popular ? 'text-primary-100' : 'text-gray-500'}>
+                          /month
+                        </span>
+                      )}
+                      {isAnnual && annualPriceUSD > 0 && !isCustom && (
+                        <p className={`text-sm mt-1 ${plan.popular ? 'text-primary-100' : 'text-gray-500'}`}>
+                          Billed annually ({formatPrice(annualPriceUSD * 12)}/year)
+                        </p>
+                      )}
+                      {!isCustom && (
+                        <p className={`text-xs mt-2 font-medium ${plan.popular ? 'text-white/80' : 'text-green-600'}`}>
+                          7-day free trial included
+                        </p>
+                      )}
+                    </div>
+
+                    {plan.tier === 'custom' ? (
+                      <Link
+                        to="/#demo"
+                        className={`block w-full py-3 px-6 rounded-lg font-semibold text-center mb-8 transition-all hover:scale-[1.02] active:scale-[0.98] ${plan.popular
+                            ? 'bg-white text-primary hover:bg-gray-100'
+                            : 'bg-primary text-white hover:bg-primary/90'
+                          }`}
+                      >
+                        {plan.cta}
+                      </Link>
+                    ) : (
+                      <a
+                        href={`${ADMIN_URL}/register?plan=${plan.tier}`}
+                        className={`block w-full py-3 px-6 rounded-lg font-semibold text-center mb-8 transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98] ${plan.popular
+                            ? 'bg-white text-primary hover:bg-gray-100'
+                            : 'bg-primary text-white hover:bg-primary/90'
+                          }`}
+                      >
+                        {plan.cta}
+                      </a>
+                    )}
+
+                    <ul className="space-y-3">
+                      {plan.features.map((feature, fIndex) => (
+                        <li key={fIndex} className="flex items-start gap-2">
+                          <svg
+                            className={`w-5 h-5 mt-0.5 flex-shrink-0 ${plan.popular ? 'text-white' : 'text-green-500'}`}
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                          <span className={plan.popular ? 'text-white' : 'text-gray-700'}>{feature}</span>
+                        </li>
+                      ))}
+                      {plan.limitations.map((limitation, lIndex) => (
+                        <li key={lIndex} className="flex items-start gap-2">
+                          <svg
+                            className={`w-5 h-5 mt-0.5 flex-shrink-0 ${plan.popular ? 'text-primary-200' : 'text-gray-400'}`}
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                          <span className={plan.popular ? 'text-primary-200' : 'text-gray-500'}>{limitation}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -381,7 +459,7 @@ const PricingPage = () => {
               transition={{ delay: 0.1 }}
               className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto"
             >
-              Try Inseat Professional free for 14 days. No credit card required. Cancel anytime.
+              Try INSEAT free for 7 days. No credit card required. Cancel anytime.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -389,9 +467,12 @@ const PricingPage = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
             >
-              <Link to="/#demo" className="bg-primary text-white px-8 py-4 rounded-lg font-semibold hover:bg-primary/90 transition-colors inline-block">
+              <a
+                href={`${ADMIN_URL}/register?plan=mid`}
+                className="bg-primary text-white px-8 py-4 rounded-lg font-semibold hover:bg-primary/90 transition-all hover:scale-[1.02] active:scale-[0.98] inline-block"
+              >
                 Start Free Trial
-              </Link>
+              </a>
             </motion.div>
           </div>
         </section>

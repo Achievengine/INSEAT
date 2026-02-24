@@ -36,109 +36,6 @@ const ScrollProgress = () => {
   );
 };
 
-// HowItWorks section
-const HowItWorks = () => {
-  const steps = [
-    {
-      id: 1,
-      title: 'Create Your Account',
-      description: 'Sign up and provide your restaurant details to get started with Inseat.',
-      icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-        </svg>
-      )
-    },
-    {
-      id: 2,
-      title: 'Upload Your Menu',
-      description: 'Import your existing menu or create a new one with our easy-to-use menu builder.',
-      icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-        </svg>
-      )
-    },
-    {
-      id: 3,
-      title: 'Generate QR Codes',
-      description: 'Create custom QR codes for your restaurant tables that link directly to your digital menu.',
-      icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
-        </svg>
-      )
-    },
-    {
-      id: 4,
-      title: 'Customers Scan & Order',
-      description: 'Customers scan the QR code, browse your menu, and place orders directly from their phones.',
-      icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-        </svg>
-      )
-    }
-  ];
-
-  return (
-    <section id="how-it-works" className="py-16 md:py-24 bg-gray-50">
-      <div className="container-custom">
-        <div className="text-center mb-12 md:mb-16">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="section-heading"
-          >
-            How Inseat Works
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="section-subheading"
-          >
-            Get your restaurant set up with contactless ordering in just a few simple steps
-          </motion.p>
-        </div>
-
-        <div className="max-w-5xl mx-auto">
-          {steps.map((step, index) => (
-            <motion.div
-              key={step.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-12 md:mb-16 last:mb-0"
-            >
-              <div className="flex-shrink-0 w-12 h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center">
-                {step.icon}
-              </div>
-              <div className="flex-grow">
-                <div className="flex items-start md:items-center justify-between flex-col md:flex-row">
-                  <div>
-                    <h3 className="text-xl font-bold text-secondary mb-2 flex items-center">
-                      <span className="text-primary font-normal mr-2">Step {step.id}:</span> {step.title}
-                    </h3>
-                    <p className="text-gray-600">{step.description}</p>
-                  </div>
-                </div>
-              </div>
-              {index < steps.length - 1 && (
-                <div className="hidden md:block h-16 border-l-2 border-dashed border-gray-300 ml-6 my-4"></div>
-              )}
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
 // Testimonial section
 const Testimonials = () => {
   const [testimonialsData, setTestimonialsData] = useState<any>(null);
@@ -281,7 +178,6 @@ function LandingPage() {
       <main>
         <Hero />
         <Features />
-        <HowItWorks />
         <LoyaltyEngagement />
         <ReservationCallReceptionist />
         <AdminDashboard />

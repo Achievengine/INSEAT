@@ -8,6 +8,7 @@ const Pricing = () => {
   
   // Selected plan state
   const [selectedPlan, setSelectedPlan] = useState('pro');
+  const [activeOperation, setActiveOperation] = useState('kds');
   
   // Add-ons state
   /* const [selectedAddons, setSelectedAddons] = useState({
@@ -156,6 +157,50 @@ const Pricing = () => {
     }
   };
 
+  const operationsSolutions = [
+    {
+      id: 'kds',
+      title: 'INSEAT KDS',
+      subtitle: 'Calm, coordinated, and consistent back of house.',
+      bullets: [
+        'Receive live orders instantly from all channels',
+        'Print KOT (Kitchen Order Tickets) automatically for each station',
+        'Smart order routing — each item goes to its relevant kitchen station',
+        'Prioritize by course or prep time to keep dishes landing together',
+        'Clear visual status reduces noise and improves teamwork'
+      ]
+    },
+    {
+      id: 'pos',
+      title: 'INSEAT POS',
+      subtitle: 'Speed and simplicity for the front line.',
+      bullets: [
+        'Take orders quickly with clear categories, modifiers, and specials',
+        'Print pickup slips, manage waiter calls, and handle bill requests',
+        'Add reservations and manage table assignments on the fly',
+        'Built for the rush: smooth, intuitive flow that keeps lines moving'
+      ]
+    },
+    {
+      id: 'waiter',
+      title: 'INSEAT Waiter (Mobile)',
+      subtitle: 'Streamlined service management at your fingertips.',
+      bullets: [
+        'Receive and respond to waiter call requests instantly',
+        'Control table availability and seating status in real time',
+        'View order status across all tables',
+        'Coordinate service priorities efficiently'
+      ]
+    }
+  ];
+
+  const operationLanes: Record<string, string[]> = {
+    kds: ['Kitchen Queue', 'Station Routing', 'Prep Coordination'],
+    pos: ['Order Entry', 'Table Assignment', 'Checkout Flow'],
+    waiter: ['Table Calls', 'Order Updates', 'Service Handover']
+  };
+
+  const activeOperationData = operationsSolutions.find((item) => item.id === activeOperation) || operationsSolutions[0];
   return (
     <div>
       <section id="pricing" className="py-16 md:py-24 bg-black dark:bg-black text-white">
@@ -215,8 +260,8 @@ const Pricing = () => {
                 className="flex flex-col gap-8"
               >
                 {/* Pricing Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  {pricingTiers.map((tier) => (
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                  {pricingTiers.map((tier, tierIndex) => (
                     <motion.div
                       key={tier.id}
                       variants={cardVariants}
@@ -224,33 +269,41 @@ const Pricing = () => {
                       animate={selectedPlan === tier.id ? "selected" : "visible"}
                       transition={{ duration: 0.3 }}
                       onClick={() => tier.id !== 'enterprise' && setSelectedPlan(tier.id)}
-                      className={`bg-white rounded-xl shadow-xl overflow-hidden flex flex-col min-h-[600px] 
-                        ${tier.recommended ? 'border-2 border-primary' : 'border border-gray-200'}`} 
+                      className={`relative overflow-hidden rounded-3xl border transition-colors ${
+                        tier.recommended
+                          ? 'border-primary bg-white text-black'
+                          : 'border-white/15 bg-black/60 text-white'
+                      } ${tier.id !== 'enterprise' ? 'cursor-pointer' : 'cursor-default'} flex min-h-[620px] flex-col shadow-[0_30px_60px_-45px_rgba(0,0,0,0.95)]`}
                     >
+                      <div className={`absolute left-0 right-0 top-0 h-1 ${tier.recommended ? 'bg-primary' : 'bg-white/15'}`} />
                       {/* Recommended badge */}
                       {tier.recommended && (
-                        <div className="bg-primary text-white py-2 px-4 text-sm font-semibold uppercase tracking-wider absolute top-0 right-0 rounded-bl-lg">
+                        <div className="absolute right-0 top-0 rounded-bl-2xl bg-primary px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white">
                           Recommended
                         </div>
                       )}
                       
-                      <div className="p-8 flex flex-col h-full">
+                      <div className="flex h-full flex-col p-7 md:p-8">
                         <div className="mb-6">
-                          <h3 className="text-2xl font-bold text-gray-900 mb-2">{tier.name}</h3>
-                          <p className="text-sm text-gray-500 mb-6">{tier.description}</p>
+                          <p className={`mb-3 text-xs font-semibold tracking-[0.2em] ${tier.recommended ? 'text-primary' : 'text-white/50'}`}>
+                            PLAN 0{tierIndex + 1}
+                          </p>
+                          <h3 className={`mb-2 text-3xl font-bold ${tier.recommended ? 'text-black' : 'text-white'}`}>{tier.name}</h3>
+                          <p className={`mb-6 text-sm ${tier.recommended ? 'text-black/70' : 'text-white/70'}`}>{tier.description}</p>
                           
                           <div className="mb-8">
                             <div className="flex flex-col space-y-3">
                               <div>
-                                <span className="text-3xl font-bold text-primary">
+                                <span className="text-4xl font-bold text-primary">
                                   {tier.monthlyFee === 'Custom' ? 'Custom' : `${calculateTotalCost(tier)} AED`}
                                 </span>
                                 {tier.monthlyFee !== 'Custom' && (
-                                  <span className="text-sm text-gray-500 ml-1">per month</span>
+                                  <span className={`ml-1 text-sm ${tier.recommended ? 'text-black/60' : 'text-white/60'}`}>per month</span>
                                 )}
                               </div>
-                              <div className="text-base text-gray-700">
-                                Transaction Fee: <span className="font-semibold text-primary text-lg">
+                              <div className={`text-base ${tier.recommended ? 'text-black/80' : 'text-white/80'}`}>
+                                Transaction Fee:{' '}
+                                <span className="text-lg font-semibold text-primary">
                                   {tier.transactionFee === 'Custom' ? 'Custom' : `${tier.transactionFee}%`}
                                 </span>
                               </div>
@@ -258,9 +311,9 @@ const Pricing = () => {
                           </div>
                         </div>
                         
-                        <div className="space-y-4 mb-8 flex-grow">
+                        <div className="mb-8 flex-grow space-y-3.5">
                           {tier.features.map((feature, fIndex) => (
-                            <div key={fIndex} className="flex items-center justify-between">
+                            <div key={fIndex} className="flex items-center justify-between border-b border-dashed pb-2 last:border-0">
                               {(feature as any).addon && tier.id !== 'enterprise' ? (
                                 <div className="flex items-center flex-1">
                                   <input
@@ -287,11 +340,11 @@ const Pricing = () => {
                                 </div>
                               ) : (
                                 <div className="flex items-start">
-                                  <svg className={`w-5 h-5 ${feature.included ? 'text-green-500' : 'text-gray-300'} mr-3 mt-0.5`} 
+                                  <svg className={`mr-3 mt-0.5 h-5 w-5 ${feature.included ? 'text-primary' : tier.recommended ? 'text-black/25' : 'text-white/25'}`}
                                       fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                                   </svg>
-                                  <span className={`${feature.included ? 'text-gray-700' : 'text-gray-400'} font-medium`}>
+                                  <span className={`${feature.included ? (tier.recommended ? 'text-black/90' : 'text-white/90') : (tier.recommended ? 'text-black/35' : 'text-white/35')} font-medium`}>
                                     {feature.name}
                                   </span>
                                 </div>
@@ -304,10 +357,12 @@ const Pricing = () => {
                           <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className={`w-full py-4 px-6 rounded-lg font-semibold text-lg transition-colors
+                            className={`w-full py-4 px-6 rounded-full font-semibold text-lg transition-colors
                               ${tier.id === 'enterprise' 
-                                ? 'bg-gray-200 text-gray-700 hover:bg-gray-300' 
-                                : 'bg-primary text-white hover:bg-primary/90'}`}
+                                ? 'bg-white/10 text-white hover:bg-white/20'
+                                : tier.recommended
+                                  ? 'bg-black text-white hover:bg-black/90'
+                                  : 'bg-primary text-white hover:bg-primary/90'}`}
                           >
                             {tier.id === 'enterprise' ? 'Contact Sales' : 'Get Started'}
                           </motion.button>
@@ -326,24 +381,24 @@ const Pricing = () => {
                 exit={{ opacity: 0, y: -20 }}
                 variants={containerVariants}
               >
-                <div className="overflow-x-auto">
-                  <table className="w-full min-w-[768px] bg-white rounded-lg overflow-hidden shadow-lg">
+                <div className="overflow-x-auto rounded-2xl border border-white/15">
+                  <table className="w-full min-w-[768px] overflow-hidden bg-black text-white">
                     <thead>
-                      <tr className="bg-gray-50">
-                        <th className="py-4 px-6 text-left text-gray-900 font-medium">Features</th>
+                      <tr className="bg-white/5">
+                        <th className="px-6 py-4 text-left font-medium text-white">Features</th>
                         {pricingTiers.map(tier => (
                           <th key={tier.id} className="py-4 px-6 text-center">
-                            <div className={`font-bold text-xl mb-1 ${tier.recommended ? 'text-primary' : 'text-gray-900'}`}>
+                            <div className={`mb-1 text-xl font-bold ${tier.recommended ? 'text-primary' : 'text-white'}`}>
                               {tier.name}
                             </div>
                             <div className="text-lg font-semibold">
                               {tier.monthlyFee === 'Custom' ? 'Custom' : `${tier.monthlyFee} AED/mo`}
                             </div>
-                            <div className="text-sm text-gray-600">
+                            <div className="text-sm text-white/65">
                               {tier.transactionFee === 'Custom' ? 'Custom fee' : `${tier.transactionFee}% transaction`}
                             </div>
                             {tier.recommended && (
-                              <span className="inline-block bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full mt-1">
+                              <span className="mt-1 inline-block rounded-full bg-primary/20 px-2 py-1 text-xs font-medium text-primary">
                                 Recommended
                               </span>
                             )}
@@ -354,16 +409,16 @@ const Pricing = () => {
                     <tbody>
                       {/* Generate rows for each feature */}
                       {pricingTiers[0].features.map((feature, index) => (
-                        <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                          <td className="py-3 px-6 border-t border-gray-200 font-medium text-gray-900">{feature.name}</td>
+                        <tr key={index} className={index % 2 === 0 ? 'bg-transparent' : 'bg-white/[0.03]'}>
+                          <td className="border-t border-white/10 px-6 py-3 font-medium text-white">{feature.name}</td>
                           {pricingTiers.map(tier => (
-                            <td key={`${tier.id}-${index}`} className="py-3 px-6 border-t border-gray-200 text-center">
+                            <td key={`${tier.id}-${index}`} className="border-t border-white/10 px-6 py-3 text-center">
                               {tier.features[index]?.included ? (
-                                <svg className="w-6 h-6 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <svg className="w-6 h-6 text-primary mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                                 </svg>
                               ) : (
-                                <svg className="w-6 h-6 text-gray-300 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <svg className="mx-auto h-6 w-6 text-white/25" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
                                 </svg>
                               )}
@@ -380,206 +435,123 @@ const Pricing = () => {
         </div>
       </section>
 
-      {/* Coming Soon Section */}
-      <section className="bg-black dark:bg-black">
-        <div className="pt-6 md:pt-8 pb-0">
-          <div className="container mx-auto px-4 max-w-7xl">
-            <div className="text-center mb-3">
-              <motion.h2 
-                initial={{ opacity: 0, y: 20 }} 
-                whileInView={{ opacity: 1, y: 0 }} 
-                viewport={{ once: true }} 
-                transition={{ duration: 0.5 }} 
-                className="text-6xl md:text-8xl font-bold text-white mb-2"
-              >
-                INSEAT
-              </motion.h2>
-              <motion.p 
-                initial={{ opacity: 0, y: 20 }} 
-                whileInView={{ opacity: 1, y: 0 }} 
-                viewport={{ once: true }} 
-                transition={{ duration: 0.5, delay: 0.1 }} 
-                className="text-3xl md:text-4xl text-white mb-3"
-              >
-                Food Ordering App
-              </motion.p>
-              
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-white text-xl max-w-3xl mx-auto mb-4"
-              >
-                Our comprehensive food delivery solution with advanced logistics,
-                driver management, and customer experience features is currently in development.
-                Stay tuned for competitive pricing and exciting features!
-              </motion.p>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="text-primary text-2xl md:text-3xl font-semibold mb-2"
-              >
-                Coming Soon
-              </motion.p>
-            </div>
-          </div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="w-full"
-          >
-            <img 
-              src="/MOCKUP-INSEAT.png" 
-              alt="INSEAT Food Ordering App Mockup" 
-              className="w-full h-auto max-w-4xl mx-auto"
-              loading="eager"
-              decoding="async"
-            />
-          </motion.div>
-        </div>
-      </section>
+      {/* INSEAT food ordering app section and mockup are intentionally disabled for now. */}
 
       {/* INSEAT KDS & POS Section */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="container mx-auto px-4 max-w-7xl">
-          <div className="text-center mb-16">
-            <motion.h2 
-              initial={{ opacity: 0, y: 20 }} 
-              whileInView={{ opacity: 1, y: 0 }} 
-              viewport={{ once: true }} 
-              transition={{ duration: 0.5 }} 
-              className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
+      <section className="relative overflow-hidden bg-black py-16 md:py-24">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(97,6,235,0.2),transparent_42%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(97,6,235,0.15),transparent_40%)]" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
+
+        <div className="container relative z-10 mx-auto max-w-7xl px-4">
+          <div className="mb-14 text-center">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="mb-5 text-4xl font-bold text-white md:text-5xl"
             >
               Power Your Operations
             </motion.h2>
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }} 
-              whileInView={{ opacity: 1, y: 0 }} 
-              viewport={{ once: true }} 
-              transition={{ duration: 0.5, delay: 0.1 }} 
-              className="text-xl text-gray-600 max-w-3xl mx-auto"
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="mx-auto max-w-3xl text-xl text-white/72"
             >
               Streamline your restaurant operations with our integrated KDS and POS solutions
             </motion.p>
           </div>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* INSEAT KDS */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="bg-white rounded-2xl p-8 border border-gray-200 shadow-xl"
-            >
-              <div className="flex items-center mb-6">
-                <div className="bg-primary p-3 rounded-xl mr-4">
-                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2h2a2 2 0 002-2z"></path>
-                  </svg>
-                </div>
-                <h3 className="text-3xl font-bold text-gray-900">INSEAT KDS</h3>
-              </div>
-              
-              <p className="text-gray-600 text-lg mb-8">
-                Calm, coordinated, and consistent back of house.
-              </p>
-              
-              <div className="space-y-4">
-                {[
-                  'Receive live orders instantly from all channels',
-                  'Print KOT (Kitchen Order Tickets) automatically for each station',
-                  'Smart order routing — each item goes to its relevant kitchen station',
-                  'Prioritize by course or prep time to keep dishes landing together',
-                  'Clear visual status reduces noise and improves teamwork'
-                ].map((feature, index) => (
-                  <div key={index} className="flex items-center">
-                    <div className="w-2 h-2 bg-primary rounded-full mr-4"></div>
-                    <span className="text-gray-700 font-medium">{feature}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
 
-            {/* INSEAT POS */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="bg-white rounded-2xl p-8 border border-gray-200 shadow-xl"
-            >
-              <div className="flex items-center mb-6">
-                <div className="bg-primary p-3 rounded-xl mr-4">
-                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                </div>
-                <h3 className="text-3xl font-bold text-gray-900">INSEAT POS</h3>
-              </div>
-              
-              <p className="text-gray-600 text-lg mb-8">
-                Speed and simplicity for the front line.
-              </p>
-              
-              <div className="space-y-4">
-                {[
-                  'Take orders quickly with clear categories, modifiers, and specials',
-                  'Print pickup slips, manage waiter calls, and handle bill requests',
-                  'Add reservations and manage table assignments on the fly',
-                  'Built for the rush: smooth, intuitive flow that keeps lines moving'
-                ].map((feature, index) => (
-                  <div key={index} className="flex items-center">
-                    <div className="w-2 h-2 bg-primary rounded-full mr-4"></div>
-                    <span className="text-gray-700 font-medium">{feature}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* INSEAT Waiter (Mobile) */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="bg-white rounded-2xl p-8 border border-gray-200 shadow-xl"
-            >
-              <div className="flex items-center mb-6">
-                <div className="bg-primary p-3 rounded-xl mr-4">
-                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                </div>
-                <h3 className="text-3xl font-bold text-gray-900">INSEAT Waiter (Mobile)</h3>
-              </div>
-              
-              <p className="text-gray-600 text-lg mb-8">
-                Streamlined service management at your fingertips.
-              </p>
-              
-              <div className="space-y-4">
-                {[
-                  'Receive and respond to waiter call requests instantly',
-                  'Control table availability and seating status in real time',
-                  'View order status across all tables',
-                  'Coordinate service priorities efficiently'
-                ].map((feature, index) => (
-                  <div key={index} className="flex items-center">
-                    <div className="w-2 h-2 bg-primary rounded-full mr-4"></div>
-                    <span className="text-gray-700 font-medium">{feature}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
+          <div className="mb-6 grid grid-cols-1 gap-3 md:grid-cols-3">
+            {operationsSolutions.map((solution, index) => {
+              const active = activeOperation === solution.id;
+              return (
+                <button
+                  key={solution.id}
+                  type="button"
+                  onClick={() => setActiveOperation(solution.id)}
+                  className={`relative overflow-hidden rounded-2xl border px-5 py-4 text-left transition-colors ${
+                    active ? 'border-primary bg-primary/18 text-white' : 'border-white/15 bg-black/55 text-white/82 hover:border-primary/40'
+                  }`}
+                >
+                  <div className="mb-1 text-xs font-semibold tracking-[0.18em] text-primary">{`MODULE 0${index + 1}`}</div>
+                  <div className="text-2xl font-bold leading-tight">{solution.title}</div>
+                  <div className="mt-1.5 text-sm text-white/72">{solution.subtitle}</div>
+                </button>
+              );
+            })}
           </div>
+
+          <AnimatePresence mode="wait">
+            <motion.article
+              key={activeOperationData.id}
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -14 }}
+              transition={{ duration: 0.22 }}
+              className="relative overflow-hidden rounded-3xl border border-primary/40 bg-black p-7 text-white md:p-8"
+            >
+              <div className="absolute right-[-120px] top-[-120px] h-64 w-64 rounded-full bg-primary/25 blur-3xl" />
+              <div className="absolute bottom-[-120px] left-[-120px] h-56 w-56 rounded-full bg-primary/18 blur-3xl" />
+              <div className="absolute inset-0 bg-[linear-gradient(transparent_95%,rgba(255,255,255,0.08)_95%),linear-gradient(90deg,transparent_95%,rgba(255,255,255,0.06)_95%)] bg-[size:22px_22px]" />
+
+              <div className="relative z-10 grid grid-cols-1 gap-6 lg:grid-cols-12">
+                <div className="lg:col-span-7">
+                  <p className="text-xs font-semibold tracking-[0.22em] text-primary">ACTIVE MODULE</p>
+                  <h3 className="mt-2 text-4xl font-bold">{activeOperationData.title}</h3>
+                  <p className="mt-3 max-w-3xl text-white/76">{activeOperationData.subtitle}</p>
+
+                  <div className="mt-7 space-y-2.5">
+                    {activeOperationData.bullets.map((feature, index) => (
+                      <div key={`${activeOperationData.id}-${feature}`} className="flex items-start gap-3 rounded-2xl border border-white/12 bg-white/[0.05] p-4">
+                        <span className="mt-0.5 inline-flex h-6 min-w-6 items-center justify-center rounded-full border border-primary/60 bg-primary/20 text-xs font-semibold text-primary">
+                          {index + 1}
+                        </span>
+                        <p className="text-sm leading-relaxed text-white/88">{feature}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="lg:col-span-5">
+                  <div className="rounded-2xl border border-white/15 bg-white/[0.03] p-4">
+                    <p className="text-xs font-semibold tracking-[0.18em] text-primary">WORKFLOW LANES</p>
+                    <div className="mt-3 space-y-2">
+                      {(operationLanes[activeOperationData.id] || []).map((lane, laneIndex) => (
+                        <div key={`${activeOperationData.id}-${lane}`} className="rounded-xl border border-white/12 bg-black/70 px-3.5 py-3">
+                          <p className="text-xs font-semibold tracking-[0.18em] text-primary">{`LANE 0${laneIndex + 1}`}</p>
+                          <p className="mt-1.5 text-sm font-semibold text-white">{lane}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-4 rounded-2xl border border-white/15 bg-white/[0.03] p-4">
+                    <p className="text-xs font-semibold tracking-[0.18em] text-primary">STACK COVERAGE</p>
+                    <div className="mt-3 grid grid-cols-3 gap-2 text-center">
+                      {operationsSolutions.map((solution, index) => (
+                        <button
+                          key={`coverage-${solution.id}`}
+                          type="button"
+                          onClick={() => setActiveOperation(solution.id)}
+                          className={`rounded-lg border py-2 text-xs font-semibold tracking-[0.16em] transition-colors ${
+                            activeOperationData.id === solution.id
+                              ? 'border-primary bg-primary text-white'
+                              : 'border-white/20 bg-black/45 text-white/70 hover:text-white'
+                          }`}
+                        >
+                          {`0${index + 1}`}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.article>
+          </AnimatePresence>
         </div>
       </section>
 
@@ -686,7 +658,7 @@ const Pricing = () => {
               <form className="space-y-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                    Name <span className="text-red-500">*</span>
+                    Name <span className="text-primary">*</span>
                   </label>
                   <input
                     type="text"
@@ -698,7 +670,7 @@ const Pricing = () => {
                 
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                    Email <span className="text-red-500">*</span>
+                    Email <span className="text-primary">*</span>
                   </label>
                   <input
                     type="email"
@@ -722,7 +694,7 @@ const Pricing = () => {
                 
                 <div>
                   <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
-                    Subject <span className="text-red-500">*</span>
+                    Subject <span className="text-primary">*</span>
                   </label>
                   <select
                     id="subject"
@@ -739,7 +711,7 @@ const Pricing = () => {
                 
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                    Message <span className="text-red-500">*</span>
+                    Message <span className="text-primary">*</span>
                   </label>
                   <textarea
                     id="message"
