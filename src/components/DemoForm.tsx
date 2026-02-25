@@ -68,7 +68,7 @@ const DemoForm = () => {
       });
 
       const result = await response.json();
-      
+
       if (response.ok && result.success) {
         console.log('Demo created successfully:', result);
         setFormStatus('success');
@@ -98,7 +98,7 @@ const DemoForm = () => {
     <section className="bg-black text-white py-20">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -134,9 +134,9 @@ const DemoForm = () => {
                       onClick={triggerFileInput}
                     >
                       {logoPreview ? (
-                        <img 
-                          src={logoPreview} 
-                          alt="Restaurant Logo" 
+                        <img
+                          src={logoPreview}
+                          alt="Restaurant Logo"
                           className="h-full w-full object-cover"
                         />
                       ) : (
@@ -270,15 +270,17 @@ const DemoForm = () => {
                   )}
                 </div>
 
-                {/* Submit Button - TEMPORARILY DISABLED */}
                 <motion.button
-                  type="button"
-                  disabled={true}
+                  type="submit"
+                  disabled={isSubmitting || !isValid || !isDirty}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full bg-gray-300 text-gray-500 cursor-not-allowed py-3 px-6 rounded-lg transition-colors duration-200"
+                  className={`w-full py-3 px-6 rounded-lg transition-colors duration-200 font-semibold ${isSubmitting || !isValid || !isDirty
+                      ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                      : 'bg-primary text-white hover:bg-primary/90'
+                    }`}
                 >
-                  Form Submission Temporarily Disabled
+                  {isSubmitting ? 'Creating Demo...' : 'Create Free Demo'}
                 </motion.button>
               </form>
 
@@ -333,9 +335,9 @@ const DemoForm = () => {
                   <h3 className="font-bold text-gray-800">Preview Your QR Menu</h3>
                 </div>
                 <div className="flex justify-center">
-                  <img 
-                    src="/inseat.jpg" 
-                    alt="InSeat QR Menu Preview" 
+                  <img
+                    src="/inseat.jpg"
+                    alt="InSeat QR Menu Preview"
                     className="w-[200px] md:w-[250px] h-auto rounded-3xl shadow-lg"
                   />
                 </div>
