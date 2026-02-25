@@ -213,7 +213,8 @@ const Hero = () => {
               className="mt-8 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4"
             >
               <a
-                href={`${import.meta.env.VITE_ADMIN_URL || 'http://localhost:5174'}/register?plan=mid`}
+                href="#"
+                onClick={(event) => event.preventDefault()}
                 className="btn-primary w-full sm:w-auto"
               >
                 Start Free Trial

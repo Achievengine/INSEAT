@@ -139,9 +139,9 @@ const ReservationsPage = () => {
                   Accept online reservations around the clock. Reduce no-shows with automated reminders, collect deposits for large parties, and manage all bookings from one simple dashboard.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link to="/#demo" className="btn-primary text-center">
+                  <button type="button" className="btn-primary text-center">
                     Start Free Trial
-                  </Link>
+                  </button>
                   <Link to="/#demo" className="btn-outline text-center">
                     Book a Demo
                   </Link>

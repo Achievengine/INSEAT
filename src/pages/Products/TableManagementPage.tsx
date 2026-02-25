@@ -127,9 +127,9 @@ const TableManagementPage = () => {
                   Maximize seating efficiency with Inseat's intelligent table management. Interactive floor plans, real-time status updates, and powerful analytics to boost your table turnover.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link to="/#demo" className="btn-primary text-center">
+                  <button type="button" className="btn-primary text-center">
                     Start Free Trial
-                  </Link>
+                  </button>
                   <Link to="/#demo" className="btn-outline text-center">
                     See Demo
                   </Link>
@@ -280,9 +280,9 @@ const TableManagementPage = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
             >
-              <Link to="/#demo" className="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block">
+              <button type="button" className="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block">
                 Start Free Trial
-              </Link>
+              </button>
             </motion.div>
           </div>
         </section>

@@ -19,6 +19,11 @@ const Navbar = () => {
     const href = item?.href || '';
     return !href.includes('/waitlist');
   });
+  const ctaText = navData?.ctaButton?.text || 'Start Free Trial';
+  const ctaHref =
+    navData?.ctaButton?.href ||
+    `${import.meta.env.VITE_ADMIN_URL || 'http://localhost:5174'}/register?plan=mid`;
+  const disableTrialCta = ctaText.trim().toLowerCase() === 'start free trial';
 
   useEffect(() => {
     sanityClient.fetch(navbarQuery).then(setNavData).catch(() => { });
@@ -96,10 +101,11 @@ const Navbar = () => {
             className="ml-8"
           >
             <a
-              href={navData?.ctaButton?.href || `${import.meta.env.VITE_ADMIN_URL || 'http://localhost:5174'}/register?plan=mid`}
+              href={disableTrialCta ? '#' : ctaHref}
+              onClick={disableTrialCta ? (event) => event.preventDefault() : undefined}
               className="btn-primary"
             >
-              {navData?.ctaButton?.text || 'Start Free Trial'}
+              {ctaText}
             </a>
           </motion.div>
         </div>
@@ -148,10 +154,11 @@ const Navbar = () => {
             </a>
           ))}
           <a
-            href={navData?.ctaButton?.href || `${import.meta.env.VITE_ADMIN_URL || 'http://localhost:5174'}/register?plan=mid`}
+            href={disableTrialCta ? '#' : ctaHref}
+            onClick={disableTrialCta ? (event) => event.preventDefault() : undefined}
             className="btn-primary inline-block mt-2"
           >
-            {navData?.ctaButton?.text || 'Start Free Trial'}
+            {ctaText}
           </a>
         </motion.div>
       )}

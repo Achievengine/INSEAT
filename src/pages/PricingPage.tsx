@@ -304,7 +304,8 @@ const PricingPage = () => {
                       </Link>
                     ) : (
                       <a
-                        href={`${ADMIN_URL}/register?plan=${plan.tier}`}
+                        href={plan.cta === 'Start Free Trial' ? '#' : `${ADMIN_URL}/register?plan=${plan.tier}`}
+                        onClick={plan.cta === 'Start Free Trial' ? (event) => event.preventDefault() : undefined}
                         className={`block w-full py-3 px-6 rounded-lg font-semibold text-center mb-8 transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98] ${plan.popular
                           ? 'bg-white text-primary hover:bg-gray-100'
                           : 'bg-primary text-white hover:bg-primary/90'
@@ -467,7 +468,8 @@ const PricingPage = () => {
               transition={{ delay: 0.2 }}
             >
               <a
-                href={`${ADMIN_URL}/register?plan=mid`}
+                href="#"
+                onClick={(event) => event.preventDefault()}
                 className="bg-primary text-white px-8 py-4 rounded-lg font-semibold hover:bg-primary/90 transition-all hover:scale-[1.02] active:scale-[0.98] inline-block"
               >
                 Start Free Trial

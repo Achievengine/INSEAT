@@ -193,7 +193,8 @@ const Pricing = () => {
                   </a>
                 ) : (
                   <a
-                    href={`${ADMIN_URL}/register?plan=${plan.tier}`}
+                    href={plan.cta === 'Start Free Trial' ? '#' : `${ADMIN_URL}/register?plan=${plan.tier}`}
+                    onClick={plan.cta === 'Start Free Trial' ? (event) => event.preventDefault() : undefined}
                     className={`block w-full py-3 rounded-xl font-semibold text-center text-sm transition-colors ${plan.popular
                       ? 'bg-white text-primary hover:bg-gray-100'
                       : 'bg-primary text-white hover:bg-primary/90'
