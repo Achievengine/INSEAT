@@ -9,6 +9,21 @@ type BreadcrumbsProps = {
   items: BreadcrumbItem[];
 };
 
+const toInternalPath = (name: string, url: string): string => {
+  if (name.toLowerCase() === 'home') return '/';
+
+  try {
+    const parsed = new URL(url);
+    if (parsed.hostname === 'inseat.achievengine.com' || parsed.hostname === 'www.inseat.achievengine.com') {
+      return `${parsed.pathname}${parsed.search}${parsed.hash}` || '/';
+    }
+  } catch {
+    // Ignore parse failures and return original value
+  }
+
+  return url;
+};
+
 const Breadcrumbs = ({ items }: BreadcrumbsProps) => {
   return (
     <nav aria-label="Breadcrumb" className="py-4">
@@ -36,7 +51,7 @@ const Breadcrumbs = ({ items }: BreadcrumbsProps) => {
               </span>
             ) : (
               <Link
-                to={item.url}
+                to={toInternalPath(item.name, item.url)}
                 className="hover:text-primary transition-colors"
               >
                 {item.name}

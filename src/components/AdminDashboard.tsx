@@ -2,38 +2,74 @@ import { motion } from 'framer-motion';
 
 const tools = [
   {
-    name: 'Admin Dashboard',
-    description: 'Full control over orders, menu, staff, and analytics — all in one place.',
+    name: 'Multi-Branch Control',
+    description: 'Manage all businesses, restaurants, venues, tables, and table types from one admin panel.',
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h4.5v18H4.5V3zm10.5 6h4.5v12H15V9zm-5.25 4.5h3v7.5h-3v-7.5z" />
       </svg>
     ),
   },
   {
-    name: 'Kitchen Display',
-    description: 'Real-time order queue for your kitchen team. Prioritize, track, and mark done.',
+    name: 'Menu & Category Ops',
+    description: 'Control categories, items, modifiers, pricing, and staged publishing for every menu.',
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12m-12 4.5h12m-12 4.5h12M3.75 6.75h.008v.008H3.75V6.75zm0 4.5h.008v.008H3.75v-.008zm0 4.5h.008v.008H3.75v-.008z" />
       </svg>
     ),
   },
   {
-    name: 'POS Terminal',
-    description: 'Take orders, process payments, and manage tables from your tablet or POS device.',
+    name: 'Orders & Reservations',
+    description: 'Track order flow, manage reservations, and operate dynamic pricing rules from the same stack.',
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 18h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h7.5m-7.5 4.5h7.5m-7.5 4.5H12m7.5 3h-15a1.5 1.5 0 01-1.5-1.5v-12A1.5 1.5 0 014.5 3.75h15A1.5 1.5 0 0121 5.25v12a1.5 1.5 0 01-1.5 1.5z" />
       </svg>
     ),
   },
   {
-    name: 'Waiter App',
-    description: 'Mobile app for waitstaff to take orders tableside and send directly to the kitchen.',
+    name: 'Inventory & Recipes',
+    description: 'Run inventory items, recipe mapping, cost tracking, and stock movement operations.',
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 7.5l-8.69 8.69a1.5 1.5 0 01-2.12 0L3.75 10.5m16.5-3l-5.25-5.25-11.25 11.25 5.25 5.25L20.25 7.5z" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Website Builder',
+    description: 'Build and publish branded restaurant sites with menu sync directly from admin.',
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25v13.5A2.25 2.25 0 0118.75 21H5.25A2.25 2.25 0 013 18.75V5.25zm0 3.75h18" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Customers & Loyalty',
+    description: 'Manage customer records, loyalty rules, ratings, reviews, and targeted promotions.',
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a7.5 7.5 0 0115 0" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Kitchen, Cashier & Scheduling',
+    description: 'Coordinate kitchen workflow, cashier control, and schedule management in one place.',
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2m5-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Analytics Dashboard',
+    description: 'Monitor historical dashboards, sales trends, and performance insights across all restaurants.',
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3v17.25h16.5M8.25 15l3-3 2.25 2.25L18 9.75" />
       </svg>
     ),
   },
@@ -60,7 +96,7 @@ const AdminDashboard = () => {
             transition={{ delay: 0.05 }}
             className="text-3xl md:text-4xl font-bold text-secondary tracking-tight mb-5"
           >
-            Power your entire operation
+            Run every restaurant workflow from one admin stack
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -69,11 +105,11 @@ const AdminDashboard = () => {
             transition={{ delay: 0.1 }}
             className="text-gray-500 text-lg max-w-2xl mx-auto"
           >
-            Purpose-built apps for every role in your restaurant — from the front desk to the kitchen.
+            From branch setup to menu operations, orders, reservations, kitchen, inventory, website builder, and analytics, everything is managed in one dashboard.
           </motion.p>
         </div>
 
-        {/* 4-column tool cards */}
+        {/* Operational module cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {tools.map((tool, index) => (
             <motion.div

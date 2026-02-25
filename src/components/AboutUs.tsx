@@ -50,25 +50,25 @@ const AboutUs = () => {
 
   return (
     <section id="about-us" className="py-16 md:py-24 bg-white">
-      <div className="container-custom">
+      <div className="w-full px-4 md:px-10 lg:px-16 xl:px-24">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="max-w-4xl mx-auto"
+          className="w-full"
         >
           {/* Section heading */}
-          <motion.div variants={itemVariants} className="text-center mb-12">
+          <motion.div variants={itemVariants} className="mb-12 max-w-5xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">About Inseat</h2>
-            <div className="w-20 h-1 bg-primary mx-auto mb-6"></div>
-            <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+            <div className="w-20 h-1 bg-primary mb-6"></div>
+            <p className="text-gray-600 text-lg max-w-4xl">
               Revolutionizing the restaurant industry with innovative technology solutions since 2025.
             </p>
           </motion.div>
 
           {/* Company story */}
-          <motion.div variants={itemVariants} className="mb-16">
+          <motion.div variants={itemVariants} className="mb-16 max-w-5xl mx-auto">
             <h3 className="text-2xl font-bold text-secondary mb-4">Our Story</h3>
             <p className="text-gray-600 mb-4">
               Inseat was founded with a simple mission: to transform the dining experience for both restaurants and their customers.
@@ -93,15 +93,15 @@ const AboutUs = () => {
 
           {/* Team members */}
           <motion.div variants={itemVariants}>
-            <h3 className="text-2xl font-bold text-secondary mb-6 text-center">Meet Our Team</h3>
+            <h3 className="text-2xl font-bold text-secondary mb-6">Meet Our Team</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
               {teamMembers.map((member) => (
                 <motion.div
                   key={member.id}
                   variants={itemVariants}
-                  className="bg-gray-50 p-6 rounded-lg text-center"
+                  className="bg-gray-50 p-6 rounded-lg"
                 >
-                  <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mb-4">
                     <span className="text-2xl font-bold text-primary">
                       {member.name.split(' ').length > 1
                         ? member.name.split(' ').map(n => n[0]).join('').toUpperCase()

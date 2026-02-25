@@ -62,7 +62,7 @@ const PricingPage = () => {
   const faqs = [
     {
       question: 'Do you have a plan for small restaurants?',
-      answer: `Yes. Bronze Launch is ${formatPrice(50)}/month and is designed for single-location restaurants launching their website storefront and online ordering.`
+      answer: `Yes. Starter is ${formatPrice(50)}/month and is designed for single-location restaurants launching their website storefront and online ordering.`
     },
     {
       question: 'Do you charge per order or reservation?',
@@ -82,13 +82,13 @@ const PricingPage = () => {
     },
     {
       question: 'Can I upgrade later?',
-      answer: 'Yes. You can start on Bronze Launch and move to Silver Growth as your restaurant grows.'
+      answer: 'Yes. You can start on Starter and move to Pro as your restaurant grows.'
     }
   ];
 
   const plans = [
     {
-      name: 'Bronze Launch',
+      name: 'Starter',
       description: 'Best for first-time launch of a branded restaurant website.',
       monthlyPrice: 50,
       annualPrice: 40,
@@ -109,13 +109,13 @@ const PricingPage = () => {
       popular: false
     },
     {
-      name: 'Silver Growth',
+      name: 'Pro',
       description: 'For restaurants scaling online orders and payment options.',
       monthlyPrice: 99,
       annualPrice: 79,
       tier: 'mid',
       features: [
-        'Everything in Bronze Launch, plus:',
+        'Everything in Starter, plus:',
         'Multiple gateway setup (Stripe/MPGS/Chapa/Telebirr)',
         'Gateway verification workflow',
         'Advanced website sections and merchandising',
@@ -133,7 +133,7 @@ const PricingPage = () => {
       annualPrice: 'Custom' as string | number,
       tier: 'custom',
       features: [
-        'Everything in Silver Growth, plus:',
+        'Everything in Pro, plus:',
         'Unlimited locations',
         'Custom integrations',
         'Dedicated onboarding',
@@ -164,7 +164,7 @@ const PricingPage = () => {
     <>
       <SEOHead
         title="Pricing - Website Builder and Ordering Plans"
-        description={`Simple subscription pricing for INSEAT website builder and restaurant online ordering. Bronze Launch at ${formatPrice(50)}, Silver Growth at ${formatPrice(99)}, and Custom Enterprise.`}
+        description={`Simple subscription pricing for INSEAT website builder and restaurant online ordering. Starter at ${formatPrice(50)}, Pro at ${formatPrice(99)}, and Custom Enterprise.`}
         keywords="restaurant website builder pricing, online ordering pricing, telebirr stripe chapa integration pricing, INSEAT subscription plans"
         url="https://inseat.achievengine.com/pricing"
         breadcrumbs={breadcrumbs}
@@ -227,11 +227,10 @@ const PricingPage = () => {
                   <button
                     key={code}
                     onClick={() => setCurrency(code)}
-                    className={`text-sm px-3 py-1 rounded-full font-medium transition-colors ${
-                      currency === code
+                    className={`text-sm px-3 py-1 rounded-full font-medium transition-colors ${currency === code
                         ? 'bg-primary text-white'
                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                    }`}
+                      }`}
                   >
                     {code}
                   </button>
@@ -257,8 +256,8 @@ const PricingPage = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
                     className={`relative rounded-2xl p-8 ${plan.popular
-                        ? 'bg-primary text-white ring-4 ring-primary/20'
-                        : 'bg-gray-50 text-secondary'
+                      ? 'bg-primary text-white ring-4 ring-primary/20'
+                      : 'bg-gray-50 text-secondary'
                       }`}
                   >
                     {plan.popular && (
@@ -297,8 +296,8 @@ const PricingPage = () => {
                       <Link
                         to="/#demo"
                         className={`block w-full py-3 px-6 rounded-lg font-semibold text-center mb-8 transition-all hover:scale-[1.02] active:scale-[0.98] ${plan.popular
-                            ? 'bg-white text-primary hover:bg-gray-100'
-                            : 'bg-primary text-white hover:bg-primary/90'
+                          ? 'bg-white text-primary hover:bg-gray-100'
+                          : 'bg-primary text-white hover:bg-primary/90'
                           }`}
                       >
                         {plan.cta}
@@ -307,8 +306,8 @@ const PricingPage = () => {
                       <a
                         href={`${ADMIN_URL}/register?plan=${plan.tier}`}
                         className={`block w-full py-3 px-6 rounded-lg font-semibold text-center mb-8 transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98] ${plan.popular
-                            ? 'bg-white text-primary hover:bg-gray-100'
-                            : 'bg-primary text-white hover:bg-primary/90'
+                          ? 'bg-white text-primary hover:bg-gray-100'
+                          : 'bg-primary text-white hover:bg-primary/90'
                           }`}
                       >
                         {plan.cta}
@@ -383,8 +382,8 @@ const PricingPage = () => {
                 <thead>
                   <tr className="border-b">
                     <th className="text-left py-4 px-6 font-semibold text-secondary">Feature</th>
-                    <th className="text-center py-4 px-4 font-semibold text-secondary">Bronze Launch</th>
-                    <th className="text-center py-4 px-4 font-semibold text-primary bg-primary/5">Silver Growth</th>
+                    <th className="text-center py-4 px-4 font-semibold text-secondary">Starter</th>
+                    <th className="text-center py-4 px-4 font-semibold text-primary bg-primary/5">Pro</th>
                     <th className="text-center py-4 px-4 font-semibold text-secondary">Custom Enterprise</th>
                   </tr>
                 </thead>

@@ -2,16 +2,16 @@ import { motion } from 'framer-motion';
 
 const highlights = [
   {
-    label: 'Tiered Rewards',
-    description: 'Automatic loyalty tiers that unlock bigger discounts as customers visit more often.',
+    label: 'One-Shot OCR Capture',
+    description: 'Scan once and generate structured categories, items, and pricing in a single pass.',
   },
   {
-    label: 'Streak Bonuses',
-    description: 'Customers earn bonus points for consecutive visits, encouraging repeat business.',
+    label: 'Review Before Publish',
+    description: 'Managers verify extracted content in draft before anything goes live.',
   },
   {
-    label: 'Smart Campaigns',
-    description: 'Send targeted promotions based on purchase history and dining preferences.',
+    label: 'Bulk Menu Creation',
+    description: 'Publish complete menus from OCR output instead of manual item-by-item setup.',
   },
 ];
 
@@ -28,13 +28,13 @@ const LoyaltyEngagement = () => {
             transition={{ duration: 0.5 }}
           >
             <p className="text-primary text-sm font-semibold tracking-widest uppercase mb-4">
-              Loyalty & Engagement
+              AI Menu Operations
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-secondary tracking-tight mb-5">
-              Keep customers coming back
+              Convert a paper menu into a digital menu in one scan
             </h2>
             <p className="text-gray-500 text-lg mb-10 max-w-lg">
-              A built-in loyalty engine that rewards repeat visits, tracks streaks, and drives engagement — no third-party tool needed.
+              AI OCR does a one-shot extraction from the uploaded paper menu, then your managers review and publish the structured menu.
             </p>
 
             <div className="space-y-6">
@@ -70,33 +70,33 @@ const LoyaltyEngagement = () => {
             className="relative"
           >
             <div className="rounded-2xl bg-black p-8 shadow-2xl shadow-black/10">
-              {/* Loyalty card mockup */}
+              {/* OCR summary mockup */}
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
                   <svg className="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 3h6m-7 4h8m-9 4h10m-8 4h6m-7 6h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
                   </svg>
                 </div>
                 <div>
-                  <p className="text-white font-semibold">Gold Member</p>
-                  <p className="text-white/40 text-xs">12 visits this month</p>
+                  <p className="text-white font-semibold">OCR Menu Scan</p>
+                  <p className="text-white/40 text-xs">Captured from uploaded menu image</p>
                 </div>
                 <div className="ml-auto text-right">
-                  <p className="text-primary font-bold text-xl">2,450</p>
-                  <p className="text-white/40 text-xs">points</p>
+                  <p className="text-primary font-bold text-xl">47</p>
+                  <p className="text-white/40 text-xs">items parsed</p>
                 </div>
               </div>
 
               {/* Progress bar */}
               <div className="mb-6">
                 <div className="flex justify-between text-xs text-white/40 mb-2">
-                  <span>Gold tier</span>
-                  <span>Platinum at 3,000 pts</span>
+                  <span>Validation progress</span>
+                  <span>Ready to publish</span>
                 </div>
                 <div className="h-2 bg-white/10 rounded-full overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
-                    whileInView={{ width: '82%' }}
+                    whileInView={{ width: '86%' }}
                     viewport={{ once: true }}
                     transition={{ duration: 1.2, ease: 'easeOut' }}
                     className="h-full bg-primary rounded-full"
@@ -104,9 +104,9 @@ const LoyaltyEngagement = () => {
                 </div>
               </div>
 
-              {/* Recent rewards */}
+              {/* Recent extraction outputs */}
               <div className="space-y-3">
-                {['5% off next order', 'Free dessert unlocked', '2x points weekend'].map((reward, i) => (
+                {['9 categories extracted', 'Modifier groups detected', 'Draft ready for publish'].map((reward, i) => (
                   <div key={i} className="flex items-center gap-3 rounded-xl bg-white/5 px-4 py-3">
                     <div className="w-2 h-2 rounded-full bg-primary" />
                     <span className="text-sm text-white/70">{reward}</span>

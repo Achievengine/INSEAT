@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { sanityClient, navbarQuery } from '../lib/sanityClient';
 
 const Navbar = () => {
@@ -13,7 +14,11 @@ const Navbar = () => {
     { label: 'Integrations', href: '/integrations' },
     { label: 'Blog', href: '/blog' }
   ];
-  const navItems = navData?.navigationItems || defaultNavItems;
+  const navItemsRaw = navData?.navigationItems || defaultNavItems;
+  const navItems = navItemsRaw.filter((item: { href?: string }) => {
+    const href = item?.href || '';
+    return !href.includes('/waitlist');
+  });
 
   useEffect(() => {
     sanityClient.fetch(navbarQuery).then(setNavData).catch(() => { });
@@ -57,10 +62,12 @@ const Navbar = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex items-center gap-2"
+          className="flex items-center"
         >
-          <img src="/logo.png" alt="Inseat Logo" className="h-10 w-auto rounded-md" />
-          <span className="text-xl font-bold tracking-tight text-secondary">{navData?.logo || 'Inseat'}</span>
+          <Link to="/" className="flex items-center gap-2">
+            <img src="/logo.png" alt="Inseat Logo" className="h-10 w-auto rounded-md" />
+            <span className="text-xl font-bold tracking-tight text-secondary">{navData?.logo || 'Inseat'}</span>
+          </Link>
         </motion.div>
 
         {/* Desktop Navigation */}
@@ -86,8 +93,12 @@ const Navbar = () => {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
+            className="ml-8"
           >
-            <a href={navData?.ctaButton?.href || `${import.meta.env.VITE_ADMIN_URL || 'http://localhost:5174'}/register?plan=mid`} className="btn-primary">
+            <a
+              href={navData?.ctaButton?.href || `${import.meta.env.VITE_ADMIN_URL || 'http://localhost:5174'}/register?plan=mid`}
+              className="btn-primary"
+            >
               {navData?.ctaButton?.text || 'Start Free Trial'}
             </a>
           </motion.div>

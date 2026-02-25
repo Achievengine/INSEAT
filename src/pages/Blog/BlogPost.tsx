@@ -112,36 +112,43 @@ export default function BlogPost() {
                             <img src={blog.coverImageUrl} className="w-full h-full object-cover" alt={blog.title} />
                         </div>
                     )}
-                    <div className="container-custom relative z-10 text-center">
-                        <div className="flex justify-center gap-2 mb-6">
-                            {blog.tags.map((t: any) => (
+                    <div className="container-custom relative z-10">
+                        <div className="max-w-4xl">
+                            <div className="flex flex-wrap gap-2 mb-6">
+                                {(blog.tags || []).map((t: any) => (
                                 <span key={t._id} className="text-xs font-bold bg-primary text-white px-3 py-1 rounded-full uppercase tracking-wider">{t.name}</span>
-                            ))}
-                        </div>
-                        <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 max-w-4xl mx-auto leading-tight">{blog.title}</h1>
-                        <div className="flex justify-center items-center gap-6 text-sm md:text-base opacity-90">
-                            <span className="flex items-center gap-2">
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-                                {new Date(blog.publishedAt).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
-                            </span>
-                            <span className="flex items-center gap-2">
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-                                {blog.authorName || 'Inseat'}
-                            </span>
+                                ))}
+                            </div>
+                            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">{blog.title}</h1>
+                            <div className="flex flex-wrap items-center gap-6 text-sm md:text-base opacity-90">
+                                <span className="flex items-center gap-2">
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                                    {new Date(blog.publishedAt).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
+                                </span>
+                                <span className="flex items-center gap-2">
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                                    {blog.authorName || 'Inseat'}
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 {/* Content */}
                 <div className="container-custom py-12 md:py-16">
-                    <div className="bg-white p-8 md:p-16 rounded-2xl shadow-sm max-w-4xl mx-auto">
+                    <div className="max-w-4xl mb-6">
+                        <p className="text-sm font-semibold uppercase tracking-wide text-primary">
+                            Published on {new Date(blog.publishedAt).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
+                        </p>
+                    </div>
+                    <div className="max-w-4xl">
                         <div
                             className="prose prose-lg max-w-none text-gray-700 prose-headings:text-secondary prose-a:text-primary prose-img:rounded-xl"
                             dangerouslySetInnerHTML={{ __html: blog.content }}
                         ></div>
                     </div>
 
-                    <div className="mt-12 text-center">
+                    <div className="mt-12 max-w-4xl">
                         <Link to="/blog" className="inline-flex items-center gap-2 text-secondary hover:text-primary font-semibold transition-colors">
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
                             Back to Blog

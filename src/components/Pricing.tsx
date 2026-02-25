@@ -13,7 +13,7 @@ const currencyConfig: Record<CurrencyCode, { symbol: string; rate: number }> = {
 
 const plans = [
   {
-    name: 'Bronze Launch',
+    name: 'Starter',
     description: 'Best for first-time launch of a branded restaurant website.',
     monthlyPrice: 50,
     annualPrice: 40,
@@ -29,13 +29,13 @@ const plans = [
     popular: false,
   },
   {
-    name: 'Silver Growth',
+    name: 'Pro',
     description: 'For restaurants scaling online orders and payment options.',
     monthlyPrice: 99,
     annualPrice: 79,
     tier: 'mid',
     features: [
-      'Everything in Bronze Launch, plus:',
+      'Everything in Starter, plus:',
       'Multiple gateway setup',
       'Advanced website sections',
       'Enhanced analytics',
@@ -51,7 +51,7 @@ const plans = [
     annualPrice: 0,
     tier: 'custom',
     features: [
-      'Everything in Silver Growth, plus:',
+      'Everything in Pro, plus:',
       'Unlimited locations',
       'Custom integrations',
       'Dedicated onboarding',
@@ -114,8 +114,8 @@ const Pricing = () => {
                   key={code}
                   onClick={() => setCurrency(code)}
                   className={`px-3 py-1 rounded-md text-xs font-semibold transition-colors ${currency === code
-                      ? 'bg-primary text-white'
-                      : 'text-gray-500 hover:text-secondary'
+                    ? 'bg-primary text-white'
+                    : 'text-gray-500 hover:text-secondary'
                     }`}
                 >
                   {code}
@@ -139,8 +139,8 @@ const Pricing = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 className={`relative rounded-2xl p-7 flex flex-col transition-shadow ${plan.popular
-                    ? 'bg-primary text-white shadow-xl shadow-primary/20 ring-2 ring-primary'
-                    : 'bg-white text-secondary shadow-sm border border-gray-100 hover:shadow-md'
+                  ? 'bg-primary text-white shadow-xl shadow-primary/20 ring-2 ring-primary'
+                  : 'bg-white text-secondary shadow-sm border border-gray-100 hover:shadow-md'
                   }`}
               >
                 {plan.popular && (
@@ -195,8 +195,8 @@ const Pricing = () => {
                   <a
                     href={`${ADMIN_URL}/register?plan=${plan.tier}`}
                     className={`block w-full py-3 rounded-xl font-semibold text-center text-sm transition-colors ${plan.popular
-                        ? 'bg-white text-primary hover:bg-gray-100'
-                        : 'bg-primary text-white hover:bg-primary/90'
+                      ? 'bg-white text-primary hover:bg-gray-100'
+                      : 'bg-primary text-white hover:bg-primary/90'
                       }`}
                   >
                     {plan.cta}

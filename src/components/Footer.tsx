@@ -78,10 +78,10 @@ const Footer = () => {
             <h3 className="text-xl font-bold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               {(footerData?.quickLinks || [
-                { title: 'About Us', href: '#about-us' },
-                { title: 'Services', href: '#services' },
-                { title: 'Blog', href: '#blog' },
-                { title: 'Contact', href: '#contact' }
+                { title: 'Features', href: '/features' },
+                { title: 'Pricing', href: '/pricing' },
+                { title: 'Integrations', href: '/integrations' },
+                { title: 'Blog', href: '/blog' }
               ]).map((link: any, index: number) => (
                 <li key={index}>
                   <a href={link.href} className="text-gray-400 hover:text-white transition-colors duration-200">
@@ -97,10 +97,10 @@ const Footer = () => {
             <h3 className="text-xl font-bold mb-4">Support</h3>
             <ul className="space-y-2">
               {(footerData?.supportLinks || [
-                { title: 'Help Center', href: '#help' },
-                { title: 'Contact Us', href: '#contact' },
-                { title: 'Documentation', href: '#docs' },
-                { title: 'API Reference', href: '#api' }
+                { title: 'Book Demo', href: '/#demo' },
+                { title: 'Feature List', href: '/features' },
+                { title: 'Integration List', href: '/integrations' },
+                { title: 'Pricing Plans', href: '/pricing' }
               ]).map((link: any, index: number) => (
                 <li key={index}>
                   <a href={link.href} className="text-gray-400 hover:text-white transition-colors duration-200">

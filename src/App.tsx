@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 
 // Loading component for Suspense fallback
@@ -13,7 +13,6 @@ const PageLoader = () => (
 const LandingPage = lazy(() => import('./pages/LandingPage'));
 const BlogList = lazy(() => import('./pages/Blog/BlogList'));
 const BlogPost = lazy(() => import('./pages/Blog/BlogPost'));
-const WaitlistPage = lazy(() => import('./pages/Products/WaitlistPage'));
 const TableManagementPage = lazy(() => import('./pages/Products/TableManagementPage'));
 const ReservationsPage = lazy(() => import('./pages/Products/ReservationsPage'));
 const FeaturesPage = lazy(() => import('./pages/FeaturesPage'));
@@ -30,7 +29,8 @@ function App() {
           <Route path="/blog" element={<BlogList />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           {/* Product Pages */}
-          <Route path="/waitlist" element={<WaitlistPage />} />
+          {/* Waitlist route intentionally redirected for current product positioning */}
+          <Route path="/waitlist" element={<Navigate to="/features" replace />} />
           <Route path="/table-management" element={<TableManagementPage />} />
           <Route path="/reservations" element={<ReservationsPage />} />
           {/* Main Pages */}

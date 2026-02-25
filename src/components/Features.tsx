@@ -2,8 +2,8 @@ import { motion } from 'framer-motion';
 
 const features = [
   {
-    title: 'Contactless Ordering',
-    description: 'Customers scan a QR code, browse your menu, and order from their phone — no app download required.',
+    title: 'QR Table Ordering',
+    description: 'Guests scan a table QR code, open your menu instantly, and place orders with table context attached.',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
@@ -11,8 +11,8 @@ const features = [
     ),
   },
   {
-    title: 'Real-time Menu Management',
-    description: 'Update items, prices, or availability instantly. Changes reflect across all customer devices in real time.',
+    title: 'AI OCR Menu Import',
+    description: 'Managers can scan a paper menu and extract categories/items to accelerate menu setup.',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -20,8 +20,8 @@ const features = [
     ),
   },
   {
-    title: 'Analytics Dashboard',
-    description: 'Track sales, popular items, peak hours, and customer preferences with powerful real-time analytics.',
+    title: 'Draft and Publish Menu Flow',
+    description: 'Review draft counts and changes first, then publish menu updates when ready.',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -29,8 +29,8 @@ const features = [
     ),
   },
   {
-    title: 'Instant Payments',
-    description: 'Customers pay directly from their phone using multiple payment methods. Faster turnover, happier guests.',
+    title: 'Reservations + Availability',
+    description: 'Handle reservation creation and venue availability checks from the same platform.',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -38,8 +38,8 @@ const features = [
     ),
   },
   {
-    title: 'Multi-language Support',
-    description: 'Automatic menu translation into multiple languages for a seamless experience for international guests.',
+    title: 'Dynamic Pricing + Promotions',
+    description: 'Run pricing rules and promotion validation flows for revenue control and campaign execution.',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
@@ -47,8 +47,8 @@ const features = [
     ),
   },
   {
-    title: 'Kitchen Display System',
-    description: 'Orders flow directly to your kitchen display in real time, reducing errors and speeding up preparation.',
+    title: 'Analytics and Inventory',
+    description: 'Use built-in analytics and inventory services for demand, waste, and operations visibility.',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
@@ -78,7 +78,7 @@ const Features = () => {
             transition={{ delay: 0.05 }}
             className="text-3xl md:text-5xl font-bold tracking-tight mb-5"
           >
-            Everything your restaurant needs
+            Built around your real platform stack
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -87,7 +87,7 @@ const Features = () => {
             transition={{ delay: 0.1 }}
             className="text-white/50 text-lg max-w-2xl mx-auto"
           >
-            A complete platform to run your restaurant operations — from ordering to analytics.
+            These are backend-implemented capabilities, not placeholder marketing claims.
           </motion.p>
         </div>
 

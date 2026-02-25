@@ -4,16 +4,16 @@ const ADMIN_URL = import.meta.env.VITE_ADMIN_URL || 'http://localhost:5174';
 
 const highlights = [
   {
-    label: 'AI Voice Receptionist',
-    description: 'Let an AI agent handle reservation calls 24/7, capture guest details, and confirm bookings automatically.',
+    label: 'Reservation Management',
+    description: 'Create, update, and track reservations with consistent status handling in one workflow.',
   },
   {
-    label: 'Online Booking Widget',
-    description: 'Embed a reservation form on your website. Guests pick a date, time, and party size — no phone call needed.',
+    label: 'Venue Availability',
+    description: 'Check availability by venue and control booking operations from centralized routes.',
   },
   {
-    label: 'Smart Table Management',
-    description: 'Visual floor plan with real-time table status. Automatically assign the best table for each party.',
+    label: 'Guest Booking Flow',
+    description: 'Support guest-facing booking flows with reservation status tracking and follow-up actions.',
   },
 ];
 
@@ -43,7 +43,7 @@ const ReservationCallReceptionist = () => {
                 <div>
                   <p className="text-xs text-white/40 mb-1.5">Date</p>
                   <div className="h-10 rounded-lg bg-white/5 border border-white/10 flex items-center px-3 text-sm text-white/60">
-                    March 15, 2025
+                    Selected Date
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
@@ -85,10 +85,10 @@ const ReservationCallReceptionist = () => {
               Reservations
             </p>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-5">
-              Fill every table, effortlessly
+              Run reservations with less friction
             </h2>
             <p className="text-white/50 text-lg mb-10 max-w-lg">
-              From AI-powered phone bookings to a self-service widget, never miss a reservation again.
+              Built-in reservation routes, availability checks, and status tracking help your team keep service predictable.
             </p>
 
             <div className="space-y-6">
