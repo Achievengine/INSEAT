@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useForm } from 'react-hook-form';
+import { API_BASE_URL } from '../config/api';
 
 type FormData = {
   fullName: string;
@@ -53,7 +54,7 @@ const DemoForm = () => {
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     try {
-      const response = await fetch('http://localhost:3001/api/demo/request', {
+      const response = await fetch(`${API_BASE_URL}/demo/request`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
