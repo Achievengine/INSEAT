@@ -16,7 +16,7 @@ const IntegrationsPage = () => {
     {
       question: 'What integrations are currently available?',
       answer:
-        'INSEAT currently includes payment gateway integrations (Stripe, MPGS, Chapa, Telebirr, Apple Pay) and delivery-app integration through aggregator endpoints.'
+        'INSEAT currently includes payment gateway integrations (Stripe, MPGS, Chapa, Telebirr, Apple Pay) and delivery-channel integrations through supported partners.'
     },
     {
       question: 'Do all restaurants use the same integrations?',
@@ -26,12 +26,12 @@ const IntegrationsPage = () => {
     {
       question: 'Can providers be verified before going live?',
       answer:
-        'Yes. Payment provider connect and verification routes are available in the onboarding flow.'
+        'Yes. Payment providers can be connected and verified during onboarding before activation.'
     },
     {
       question: 'Can delivery apps read delivery-ready menus?',
       answer:
-        'Yes. Aggregator routes expose delivery-enabled restaurants and menus for connected delivery channels.'
+        'Yes. Delivery-enabled restaurants and menus can be shared with connected delivery channels.'
     }
   ];
 
@@ -41,8 +41,8 @@ const IntegrationsPage = () => {
     <>
       <SEOHead
         title="INSEAT Integrations"
-        description="Explore INSEAT integrations that are available today: payment gateways and delivery-app integration through aggregator APIs."
-        keywords="inseat integrations, stripe mpgs chapa telebirr apple pay, delivery apps integration, aggregator api"
+        description="Explore INSEAT integrations that are available today: payment gateways and delivery-channel partner integrations."
+        keywords="inseat integrations, stripe mpgs chapa telebirr apple pay, delivery channel integrations, restaurant partner integrations"
         url="https://inseat.achievengine.com/integrations"
         breadcrumbs={breadcrumbs}
         faqs={faqs}
@@ -72,7 +72,7 @@ const IntegrationsPage = () => {
                 Integrations Built Into INSEAT
               </h1>
               <p className="text-xl text-gray-600 mb-8">
-                This page only lists integrations that are currently supported in the backend and used in live platform flows.
+                This page only lists integrations that are currently supported and used in live platform flows.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to="/#demo" className="btn-primary text-center">
@@ -107,7 +107,7 @@ const IntegrationsPage = () => {
                   </h2>
                   <p className="text-gray-600">
                     {category === 'Payments' && 'Payment gateways and wallet flows configured per restaurant.'}
-                    {category === 'Delivery Apps' && 'Delivery-channel integrations powered by aggregator endpoints.'}
+                    {category === 'Delivery Apps' && 'Delivery-channel partner integrations configured per restaurant.'}
                   </p>
                 </motion.div>
 
@@ -144,65 +144,6 @@ const IntegrationsPage = () => {
           );
         })}
 
-        <section className="py-20 bg-secondary">
-          <div className="container-custom">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-              >
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                  API-First Platform
-                </h2>
-                <p className="text-xl text-gray-300 mb-6">
-                  INSEAT exposes integration routes for payment processing and delivery-app channels.
-                </p>
-                <ul className="space-y-3 mb-8">
-                  {[
-                    '/api/payments/create-checkout-session',
-                    '/api/payments/mpgs/create-session',
-                    '/api/payments/telebirr/initialize',
-                    '/api/aggregator/restaurants',
-                    '/api/aggregator/restaurants/:id/menu'
-                  ].map((endpoint, index) => (
-                    <li key={index} className="flex items-center gap-3 text-gray-200">
-                      <svg className="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                      <code className="text-sm bg-white/10 px-2 py-1 rounded">{endpoint}</code>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-              >
-                <div className="bg-white/10 backdrop-blur rounded-2xl p-8 border border-white/20">
-                  <h3 className="text-2xl font-bold text-white mb-6">Implementation Notes</h3>
-                  <div className="space-y-4">
-                    {[
-                      'Multiple payment gateways can be enabled per restaurant.',
-                      'Provider onboarding includes connect + verification workflow.',
-                      'Delivery channels are exposed via aggregator endpoints.',
-                      'Aggregator integration is controlled per restaurant.'
-                    ].map((item, index) => (
-                      <div key={index} className="flex items-start gap-3">
-                        <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <span className="text-white text-xs font-bold">{index + 1}</span>
-                        </div>
-                        <p className="text-gray-200">{item}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </section>
       </main>
 
       <Footer />

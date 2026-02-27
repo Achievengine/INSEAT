@@ -78,7 +78,7 @@ const Features = () => {
             transition={{ delay: 0.05 }}
             className="text-3xl md:text-5xl font-bold tracking-tight mb-5"
           >
-            Built around your real platform stack
+            Everything you need to run modern restaurant service
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -87,7 +87,7 @@ const Features = () => {
             transition={{ delay: 0.1 }}
             className="text-white/50 text-lg max-w-2xl mx-auto"
           >
-            These are backend-implemented capabilities, not placeholder marketing claims.
+            Ordering, menu control, reservations, pricing, and analytics in one seamless platform.
           </motion.p>
         </div>
 

@@ -212,13 +212,23 @@ const Hero = () => {
               variants={itemVariants}
               className="mt-8 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4"
             >
-              <a
-                href="#"
-                onClick={(event) => event.preventDefault()}
-                className="btn-primary w-full sm:w-auto"
-              >
-                Start Free Trial
-              </a>
+              <div className="w-full sm:w-auto flex flex-col items-center sm:items-start">
+                <a
+                  href={`${import.meta.env.VITE_ADMIN_URL || 'http://localhost:5173'}/register?plan=mid`}
+                  className="btn-primary w-full sm:w-auto group relative overflow-hidden shadow-[0_16px_28px_-18px_rgba(97,6,235,0.9)]"
+                >
+                  <span className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-white/35 blur-[1px] transition-transform duration-700 group-hover:translate-x-[260%]" />
+                  <span className="relative inline-flex items-center justify-center gap-2">
+                    <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path d="M10 2.75l1.85 3.75 4.15.6-3 2.93.71 4.14L10 12.23l-3.71 1.94.71-4.14-3-2.93 4.15-.6L10 2.75z" />
+                    </svg>
+                    Start Free Trial
+                  </span>
+                </a>
+                <p className="mt-2 text-xs font-semibold uppercase tracking-[0.12em] text-black/55">
+                  No credit card required
+                </p>
+              </div>
               <a
                 href="https://inseat.achievengine.com/deck/INSEAT.pdf"
                 target="_blank"

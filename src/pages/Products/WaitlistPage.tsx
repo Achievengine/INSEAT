@@ -156,9 +156,9 @@ const WaitlistPage = () => {
                   Manage your queue, notify guests via SMS, and reduce wait times with Inseat's powerful waitlist management system. Say goodbye to paper lists and frustrated customers.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <button type="button" className="btn-primary text-center">
+                  <Link to="/#demo" className="btn-primary text-center">
                     Start Free Trial
-                  </button>
+                  </Link>
                   <Link to="/#demo" className="btn-outline text-center">
                     Book a Demo
                   </Link>

@@ -19,11 +19,6 @@ const Navbar = () => {
     const href = item?.href || '';
     return !href.includes('/waitlist');
   });
-  const ctaText = navData?.ctaButton?.text || 'Start Free Trial';
-  const ctaHref =
-    navData?.ctaButton?.href ||
-    `${import.meta.env.VITE_ADMIN_URL || 'http://localhost:5174'}/register?plan=mid`;
-  const disableTrialCta = ctaText.trim().toLowerCase() === 'start free trial';
 
   useEffect(() => {
     sanityClient.fetch(navbarQuery).then(setNavData).catch(() => { });
@@ -69,9 +64,9 @@ const Navbar = () => {
           transition={{ duration: 0.5 }}
           className="flex items-center"
         >
-          <Link to="/" className="flex items-center gap-2">
-            <img src="/logo.png" alt="Inseat Logo" className="h-10 w-auto rounded-md" />
-            <span className="text-xl font-bold tracking-tight text-secondary">{navData?.logo || 'Inseat'}</span>
+          <Link to="/" className="flex items-center gap-3">
+            <img src="/logo.png?v=20260226" alt="Inseat Logo" className="h-11 w-11 object-contain" />
+            <span className="text-xl font-bold tracking-tight text-secondary">{navData?.logo || 'INSEAT'}</span>
           </Link>
         </motion.div>
 
@@ -101,11 +96,10 @@ const Navbar = () => {
             className="ml-8"
           >
             <a
-              href={disableTrialCta ? '#' : ctaHref}
-              onClick={disableTrialCta ? (event) => event.preventDefault() : undefined}
+              href={navData?.ctaButton?.href || `${import.meta.env.VITE_ADMIN_URL || 'http://localhost:5173'}/register?plan=mid`}
               className="btn-primary"
             >
-              {ctaText}
+              {navData?.ctaButton?.text || 'Start Free Trial'}
             </a>
           </motion.div>
         </div>
@@ -154,11 +148,10 @@ const Navbar = () => {
             </a>
           ))}
           <a
-            href={disableTrialCta ? '#' : ctaHref}
-            onClick={disableTrialCta ? (event) => event.preventDefault() : undefined}
+            href={navData?.ctaButton?.href || `${import.meta.env.VITE_ADMIN_URL || 'http://localhost:5174'}/register?plan=mid`}
             className="btn-primary inline-block mt-2"
           >
-            {ctaText}
+            {navData?.ctaButton?.text || 'Start Free Trial'}
           </a>
         </motion.div>
       )}

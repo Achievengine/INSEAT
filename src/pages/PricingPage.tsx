@@ -19,7 +19,7 @@ const COUNTRY_CURRENCY: Record<string, string> = {
   ET: 'ETB',  // Ethiopia
 };
 
-const ADMIN_URL = import.meta.env.VITE_ADMIN_URL || 'http://localhost:5174';
+const ADMIN_URL = import.meta.env.VITE_ADMIN_URL || 'http://localhost:5173';
 
 const PricingPage = () => {
   const [isAnnual, setIsAnnual] = useState(true);
@@ -62,7 +62,7 @@ const PricingPage = () => {
   const faqs = [
     {
       question: 'Do you have a plan for small restaurants?',
-      answer: `Yes. Starter is ${formatPrice(50)}/month and is designed for single-location restaurants launching their website storefront and online ordering.`
+      answer: `Yes. Starter is ${formatPrice(89)}/month and is designed for single-location restaurants launching contactless QR ordering.`
     },
     {
       question: 'Do you charge per order or reservation?',
@@ -89,38 +89,40 @@ const PricingPage = () => {
   const plans = [
     {
       name: 'Starter',
-      description: 'Best for first-time launch of a branded restaurant website.',
-      monthlyPrice: 50,
-      annualPrice: 40,
+      description: 'Everything you need to launch contactless dining.',
+      monthlyPrice: 89,
+      annualPrice: 71,
       tier: 'entry',
       features: [
-        'Website builder with branded homepage',
-        'Menu sync from INSEAT menu',
-        'Single payment gateway connection',
-        'Basic checkout and order capture',
-        'Publish & domain setup',
-        'Email support'
+        'QR-code contactless ordering',
+        'Full menu management & modifiers',
+        'Table & venue management',
+        'Real-time order tracking',
+        'Multi-gateway payments (Stripe, Chapa, Telebirr)',
+        'Promotions & dynamic pricing',
+        'Basic analytics & reports',
+        'Email support',
       ],
       limitations: [
         'Single location',
-        'Single gateway'
       ],
       cta: 'Start Free Trial',
       popular: false
     },
     {
       name: 'Pro',
-      description: 'For restaurants scaling online orders and payment options.',
-      monthlyPrice: 99,
-      annualPrice: 79,
+      description: 'For restaurants scaling operations and customer loyalty.',
+      monthlyPrice: 119,
+      annualPrice: 95,
       tier: 'mid',
       features: [
         'Everything in Starter, plus:',
-        'Multiple gateway setup (Stripe/MPGS/Chapa/Telebirr)',
-        'Gateway verification workflow',
-        'Advanced website sections and merchandising',
-        'Enhanced analytics',
-        'Priority support'
+        'Loyalty & rewards program',
+        'Website builder',
+        'Kitchen display system (KDS)',
+        'Staff management & role-based access',
+        'Advanced analytics & customer insights',
+        'Priority support',
       ],
       limitations: [],
       cta: 'Start Free Trial',
@@ -134,11 +136,11 @@ const PricingPage = () => {
       tier: 'custom',
       features: [
         'Everything in Pro, plus:',
-        'Unlimited locations',
-        'Custom integrations',
-        'Dedicated onboarding',
-        'SLA and support options',
-        'Custom billing terms'
+        'Unlimited locations & venues',
+        'Custom integrations & API access',
+        'Dedicated onboarding manager',
+        'SLA-backed support & uptime guarantee',
+        'Custom billing terms',
       ],
       limitations: [
         'Sales-assisted setup required'
@@ -149,14 +151,19 @@ const PricingPage = () => {
   ];
 
   const comparisonFeatures = [
-    { name: 'Website Builder', starter: true, professional: true, enterprise: true },
-    { name: 'Menu Sync', starter: true, professional: true, enterprise: true },
-    { name: 'Online Ordering Checkout', starter: true, professional: true, enterprise: true },
-    { name: 'Gateway Count', starter: '1', professional: 'Multiple', enterprise: 'Custom' },
-    { name: 'Telebirr / Chapa Setup', starter: false, professional: true, enterprise: true },
-    { name: 'Advanced Merchandising', starter: false, professional: true, enterprise: true },
+    { name: 'QR-Code Ordering', starter: true, professional: true, enterprise: true },
+    { name: 'Menu Management & Modifiers', starter: true, professional: true, enterprise: true },
+    { name: 'Table & Venue Management', starter: true, professional: true, enterprise: true },
+    { name: 'Real-Time Order Tracking', starter: true, professional: true, enterprise: true },
+    { name: 'Multi-Gateway Payments', starter: true, professional: true, enterprise: true },
+    { name: 'Promotions & Dynamic Pricing', starter: true, professional: true, enterprise: true },
+    { name: 'Website Builder', starter: false, professional: true, enterprise: true },
+    { name: 'Loyalty & Rewards', starter: false, professional: true, enterprise: true },
+    { name: 'Kitchen Display System', starter: false, professional: true, enterprise: true },
+    { name: 'Staff Management & RBAC', starter: false, professional: true, enterprise: true },
+    { name: 'Advanced Analytics', starter: false, professional: true, enterprise: true },
+    { name: 'Multi-Location', starter: false, professional: false, enterprise: true },
     { name: 'Dedicated Onboarding', starter: false, professional: false, enterprise: true },
-    { name: 'Multi-location', starter: false, professional: false, enterprise: true },
     { name: 'Support', starter: 'Email', professional: 'Priority', enterprise: 'Dedicated' },
   ];
 
@@ -164,15 +171,15 @@ const PricingPage = () => {
     <>
       <SEOHead
         title="Pricing - Website Builder and Ordering Plans"
-        description={`Simple subscription pricing for INSEAT website builder and restaurant online ordering. Starter at ${formatPrice(50)}, Pro at ${formatPrice(99)}, and Custom Enterprise.`}
-        keywords="restaurant website builder pricing, online ordering pricing, telebirr stripe chapa integration pricing, INSEAT subscription plans"
+        description={`Simple subscription pricing for INSEAT restaurant ordering platform. Starter at ${formatPrice(89)}, Pro at ${formatPrice(119)}, and Custom Enterprise.`}
+        keywords="restaurant ordering pricing, contactless QR ordering pricing, telebirr stripe chapa integration pricing, INSEAT subscription plans"
         url="https://inseat.achievengine.com/pricing"
         breadcrumbs={breadcrumbs}
         faqs={faqs}
         softwareApplication={{
           name: 'Inseat',
-          description: 'Restaurant website builder and online ordering platform with flat-rate subscription tiers.',
-          features: ['Website Builder', 'Menu Sync', 'Online Checkout', 'Gateway Onboarding', 'Analytics'],
+          description: 'Restaurant contactless ordering platform with flat-rate subscription tiers.',
+          features: ['QR Ordering', 'Menu Management', 'Payment Gateways', 'Loyalty Program', 'Analytics'],
           price: '50',
           priceCurrency: 'USD'
         }}
@@ -228,8 +235,8 @@ const PricingPage = () => {
                     key={code}
                     onClick={() => setCurrency(code)}
                     className={`text-sm px-3 py-1 rounded-full font-medium transition-colors ${currency === code
-                        ? 'bg-primary text-white'
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      ? 'bg-primary text-white'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                       }`}
                   >
                     {code}
@@ -304,8 +311,7 @@ const PricingPage = () => {
                       </Link>
                     ) : (
                       <a
-                        href={plan.cta === 'Start Free Trial' ? '#' : `${ADMIN_URL}/register?plan=${plan.tier}`}
-                        onClick={plan.cta === 'Start Free Trial' ? (event) => event.preventDefault() : undefined}
+                        href={`${ADMIN_URL}/register?plan=${plan.tier}`}
                         className={`block w-full py-3 px-6 rounded-lg font-semibold text-center mb-8 transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98] ${plan.popular
                           ? 'bg-white text-primary hover:bg-gray-100'
                           : 'bg-primary text-white hover:bg-primary/90'
@@ -468,8 +474,7 @@ const PricingPage = () => {
               transition={{ delay: 0.2 }}
             >
               <a
-                href="#"
-                onClick={(event) => event.preventDefault()}
+                href={`${ADMIN_URL}/register?plan=mid`}
                 className="bg-primary text-white px-8 py-4 rounded-lg font-semibold hover:bg-primary/90 transition-all hover:scale-[1.02] active:scale-[0.98] inline-block"
               >
                 Start Free Trial

@@ -1,28 +1,31 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 
-const ADMIN_URL = import.meta.env.VITE_ADMIN_URL || 'http://localhost:5174';
+const ADMIN_URL = import.meta.env.VITE_ADMIN_URL || 'http://localhost:5173';
 
 type CurrencyCode = 'USD' | 'AED' | 'ETB';
 
 const currencyConfig: Record<CurrencyCode, { symbol: string; rate: number }> = {
   USD: { symbol: '$', rate: 1 },
   AED: { symbol: 'AED ', rate: 3.67 },
-  ETB: { symbol: 'ETB ', rate: 155 },
+  ETB: { symbol: 'ETB ', rate: 84 },
 };
 
 const plans = [
   {
     name: 'Starter',
-    description: 'Best for first-time launch of a branded restaurant website.',
-    monthlyPrice: 50,
-    annualPrice: 40,
+    description: 'Everything you need to launch contactless dining.',
+    monthlyPrice: 89,
+    annualPrice: 71,
     tier: 'entry',
     features: [
-      'Website builder with branded homepage',
-      'Menu sync from INSEAT menu',
-      'Single payment gateway connection',
-      'Basic checkout and order capture',
+      'QR-code contactless ordering',
+      'Full menu management & modifiers',
+      'Table & venue management',
+      'Real-time order tracking',
+      'Multi-gateway payments (Stripe, Chapa, Telebirr)',
+      'Promotions & dynamic pricing',
+      'Basic analytics & reports',
       'Email support',
     ],
     cta: 'Start Free Trial',
@@ -30,15 +33,17 @@ const plans = [
   },
   {
     name: 'Pro',
-    description: 'For restaurants scaling online orders and payment options.',
-    monthlyPrice: 99,
-    annualPrice: 79,
+    description: 'For restaurants scaling operations and customer loyalty.',
+    monthlyPrice: 119,
+    annualPrice: 95,
     tier: 'mid',
     features: [
       'Everything in Starter, plus:',
-      'Multiple gateway setup',
-      'Advanced website sections',
-      'Enhanced analytics',
+      'Loyalty & rewards program',
+      'Website builder',
+      'Kitchen display system (KDS)',
+      'Staff management & role-based access',
+      'Advanced analytics & customer insights',
       'Priority support',
     ],
     cta: 'Start Free Trial',
@@ -52,10 +57,10 @@ const plans = [
     tier: 'custom',
     features: [
       'Everything in Pro, plus:',
-      'Unlimited locations',
-      'Custom integrations',
-      'Dedicated onboarding',
-      'SLA and support options',
+      'Unlimited locations & venues',
+      'Custom integrations & API access',
+      'Dedicated onboarding manager',
+      'SLA-backed support & uptime guarantee',
     ],
     cta: 'Contact Sales',
     popular: false,
@@ -87,6 +92,9 @@ const Pricing = () => {
           </h2>
           <p className="text-gray-500 text-lg max-w-2xl mx-auto mb-8">
             Choose the plan that fits your restaurant. All plans include a 7-day free trial.
+          </p>
+          <p className="text-sm font-semibold text-primary mb-5">
+            No credit card required
           </p>
 
           {/* Billing toggle + currency */}
@@ -193,8 +201,7 @@ const Pricing = () => {
                   </a>
                 ) : (
                   <a
-                    href={plan.cta === 'Start Free Trial' ? '#' : `${ADMIN_URL}/register?plan=${plan.tier}`}
-                    onClick={plan.cta === 'Start Free Trial' ? (event) => event.preventDefault() : undefined}
+                    href={`${ADMIN_URL}/register?plan=${plan.tier}`}
                     className={`block w-full py-3 rounded-xl font-semibold text-center text-sm transition-colors ${plan.popular
                       ? 'bg-white text-primary hover:bg-gray-100'
                       : 'bg-primary text-white hover:bg-primary/90'
@@ -216,7 +223,7 @@ const Pricing = () => {
           transition={{ delay: 0.4 }}
           className="text-center text-gray-400 text-sm mt-10"
         >
-          No credit card required · Cancel anytime · 7-day free trial on all plans
+          Cancel anytime · 7-day free trial on all plans
         </motion.p>
       </div>
     </section>

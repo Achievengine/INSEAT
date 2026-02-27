@@ -20,8 +20,8 @@ export const platformIntegrations: PlatformIntegration[] = [
     features: [
       'Checkout session creation for orders and subscriptions',
       'Webhook processing for asynchronous payment updates',
-      'Session status endpoints for redirect flows',
-      'Stripe Connect onboarding routes for business accounts'
+      'Session status tracking for redirect flows',
+      'Stripe Connect onboarding for business accounts'
     ],
     setup: [
       { step: 1, title: 'Enable Stripe Provider', description: 'Enable Stripe in restaurant payment settings.' },
@@ -31,7 +31,7 @@ export const platformIntegrations: PlatformIntegration[] = [
     faqs: [
       {
         question: 'Do you support subscription checkout with Stripe?',
-        answer: 'Yes. The payment service exposes dedicated subscription checkout and plan catalog endpoints.'
+        answer: 'Yes. Subscription checkout and plan catalog support are both available.'
       },
       {
         question: 'How is payment completion confirmed?',
@@ -45,12 +45,12 @@ export const platformIntegrations: PlatformIntegration[] = [
     category: 'Payments',
     summary: 'Mastercard gateway support for hosted card checkout and payment verification.',
     description:
-      'INSEAT includes MPGS session creation, payment verification, refund flow, and status endpoints for order-linked transactions.',
+      'INSEAT includes MPGS session creation, payment verification, refund flow, and status tracking for order-linked transactions.',
     features: [
       'Hosted checkout session creation',
       'Payment verification and status polling',
-      'Refund endpoint for completed payments',
-      'MPGS webhook endpoint support'
+      'Refund flow for completed payments',
+      'MPGS webhook support'
     ],
     setup: [
       { step: 1, title: 'Enable MPGS', description: 'Turn on MPGS in payment providers and set primary gateway if needed.' },
@@ -64,7 +64,7 @@ export const platformIntegrations: PlatformIntegration[] = [
       },
       {
         question: 'Is refund support available?',
-        answer: 'Yes. MPGS refund routes are available in the payment service.'
+        answer: 'Yes. MPGS refund handling is supported.'
       }
     ]
   },
@@ -72,24 +72,24 @@ export const platformIntegrations: PlatformIntegration[] = [
     slug: 'chapa',
     name: 'Chapa',
     category: 'Payments',
-    summary: 'Local checkout with backend verification and webhook callbacks.',
+    summary: 'Local checkout with secure verification and webhook callbacks.',
     description:
       'INSEAT includes Chapa payment initialization, callback handling, and payment status verification flows.',
     features: [
-      'Chapa initialize payment endpoint',
-      'Webhook callback endpoint',
+      'Chapa payment initialization flow',
+      'Webhook callback handling',
       'Transaction status verification',
       'Region-aware payment method handling'
     ],
     setup: [
       { step: 1, title: 'Enable Chapa', description: 'Enable Chapa in provider configuration for the restaurant.' },
-      { step: 2, title: 'Connect API Key', description: 'Save Chapa credentials from admin onboarding.' },
+      { step: 2, title: 'Connect Provider Key', description: 'Save Chapa credentials from admin onboarding.' },
       { step: 3, title: 'Publish Checkout', description: 'Customers can complete payment through Chapa redirect flow.' }
     ],
     faqs: [
       {
         question: 'Does INSEAT verify Chapa transactions server-side?',
-        answer: 'Yes. Verification and status checks are handled in backend controllers.'
+        answer: 'Yes. Verification and status checks are handled securely by INSEAT payment services.'
       },
       {
         question: 'Can Chapa run alongside Telebirr or Stripe?',
@@ -103,12 +103,12 @@ export const platformIntegrations: PlatformIntegration[] = [
     category: 'Payments',
     summary: 'Mobile money checkout with availability checks and status polling.',
     description:
-      'INSEAT includes Telebirr payment initialization, webhook processing, status checks, cancel flow, and POS retrieval endpoints.',
+      'INSEAT includes Telebirr payment initialization, webhook processing, status checks, cancel flow, and POS retrieval support.',
     features: [
-      'Availability endpoint for Telebirr readiness',
+      'Availability check for Telebirr readiness',
       'Checkout URL initialization flow',
       'Webhook + status polling support',
-      'POS endpoint for payment retrieval by order'
+      'POS retrieval support for payment lookup by order'
     ],
     setup: [
       { step: 1, title: 'Enable Telebirr', description: 'Enable Telebirr in payment provider settings.' },
@@ -118,7 +118,7 @@ export const platformIntegrations: PlatformIntegration[] = [
     faqs: [
       {
         question: 'Can Telebirr be used in POS flow?',
-        answer: 'Yes. The payment service exposes Telebirr order retrieval endpoints for POS.'
+        answer: 'Yes. Telebirr supports POS payment retrieval by order.'
       },
       {
         question: 'How is payment status confirmed?',
@@ -130,12 +130,12 @@ export const platformIntegrations: PlatformIntegration[] = [
     slug: 'apple-pay',
     name: 'Apple Pay',
     category: 'Payments',
-    summary: 'Apple Pay merchant validation and authorization endpoints.',
+    summary: 'Apple Pay merchant validation and authorization support.',
     description:
-      'Apple Pay is supported through dedicated merchant validation and authorization routes tied to payment provider configuration.',
+      'Apple Pay is supported through dedicated merchant validation and authorization workflows tied to payment provider configuration.',
     features: [
-      'Merchant validation endpoint',
-      'Payment authorization endpoint',
+      'Merchant validation support',
+      'Payment authorization support',
       'Provider-level enable/disable in restaurant settings'
     ],
     setup: [
@@ -146,7 +146,7 @@ export const platformIntegrations: PlatformIntegration[] = [
     faqs: [
       {
         question: 'Is Apple Pay managed as a separate provider?',
-        answer: 'Yes. It has dedicated provider configuration and service endpoints.'
+        answer: 'Yes. It has dedicated provider configuration and service support.'
       },
       {
         question: 'Does Apple Pay require setup in restaurant config?',
@@ -158,9 +158,9 @@ export const platformIntegrations: PlatformIntegration[] = [
     slug: 'delivery-apps',
     name: 'Delivery Apps (Aggregator)',
     category: 'Delivery Apps',
-    summary: 'Integration layer for delivery-app and marketplace channels through aggregator routes.',
+    summary: 'Integration layer for delivery-app and marketplace channels through aggregator partners.',
     description:
-      'INSEAT includes aggregator endpoints for delivery-enabled restaurants and menus, allowing external delivery-app style integrations through a unified API surface.',
+      'INSEAT includes aggregator integration support for delivery-enabled restaurants and menus, allowing external delivery-app style integrations through a unified partner flow.',
     features: [
       'List aggregator-enabled restaurants',
       'Fetch delivery-ready menus for connected restaurants',
@@ -170,12 +170,12 @@ export const platformIntegrations: PlatformIntegration[] = [
     setup: [
       { step: 1, title: 'Enable Aggregator Mode', description: 'Turn on aggregator feature flag for the restaurant.' },
       { step: 2, title: 'Prepare Delivery Menu', description: 'Configure menu items/channels for delivery availability.' },
-      { step: 3, title: 'Connect Delivery Channel', description: 'Use aggregator endpoints to expose restaurants and menus to connected apps.' }
+      { step: 3, title: 'Connect Delivery Channel', description: 'Connect aggregator partners to share restaurants and menus with delivery channels.' }
     ],
     faqs: [
       {
         question: 'Can INSEAT expose menus for delivery channels?',
-        answer: 'Yes. Aggregator routes expose delivery-ready restaurant and menu data.'
+        answer: 'Yes. Delivery-ready restaurant and menu data can be shared with connected channels.'
       },
       {
         question: 'Is this controlled per restaurant?',

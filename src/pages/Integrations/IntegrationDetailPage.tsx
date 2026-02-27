@@ -108,7 +108,7 @@ const IntegrationDetailPage = () => {
                 transition={{ delay: 0.1 }}
                 className="text-xl text-gray-600"
               >
-                Verified capabilities currently implemented in the backend.
+                Verified capabilities currently available in the platform.
               </motion.p>
             </div>
 
