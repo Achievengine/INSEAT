@@ -91,9 +91,6 @@ VITE_API_URL=https://api.yourdomain.com/api
 
 # Optional features
 VITE_VAPI_PUBLIC_KEY=your_vapi_public_key
-VITE_SANITY_PROJECT_ID=your_project_id
-VITE_SANITY_DATASET=production
-VITE_SANITY_ENABLE_OVERLAYS=false
 ```
 
 ## 3) What to enter in Website Builder Payments UI (not env)

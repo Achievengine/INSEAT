@@ -11,8 +11,9 @@ import AdminDashboard from '../components/AdminDashboard';
 import Footer from '../components/Footer';
 import Pricing from '../components/Pricing';
 import AboutUs from '../components/AboutUs';
-import VisualEditingOverlay from '../components/VisualEditingOverlay';
 import ScrollToTop from '../components/ScrollToTop';
+import SEOHead from '../components/SEOHead';
+import SubscriptionPromotionModal from '../components/SubscriptionPromotionModal';
 
 // Styles
 import '../App.css';
@@ -66,9 +67,49 @@ function LandingPage() {
   }, []);
 
   return (
-    <VisualEditingOverlay>
+    <>
+      <SEOHead
+        title="Inseat — Restaurant Waitlist & Table Management Software"
+        appendSiteName={false}
+        description="Inseat helps restaurants manage waitlists, reduce wait times, and improve guest experience. Free digital waitlist app with SMS notifications. Try free today."
+        url="https://inseat.achievengine.com/"
+        ogTitle="Inseat — Restaurant Waitlist & Table Management Software"
+        ogDescription="Inseat helps restaurants manage waitlists, reduce wait times, and improve guest experience."
+        type="website"
+        twitterCard="summary_large_image"
+        extraJsonLd={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'SoftwareApplication',
+            name: 'Inseat',
+            applicationCategory: 'BusinessApplication',
+            applicationSubCategory: 'RestaurantManagement',
+            operatingSystem: 'Web, iOS, Android',
+            description:
+              'Restaurant waitlist management and table management software with SMS notifications and guest CRM',
+            url: 'https://inseat.achievengine.com',
+            offers: {
+              '@type': 'Offer',
+              price: '0',
+              priceCurrency: 'USD'
+            }
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: 'Inseat',
+            url: 'https://inseat.achievengine.com',
+            description: 'Restaurant operations platform for waitlist and table management',
+            sameAs: [
+              'https://www.linkedin.com/company/inseat',
+              'https://www.facebook.com/inseat'
+            ]
+          }
+        ]}
+      />
       <ScrollProgress />
       <Navbar />
+      <SubscriptionPromotionModal />
       <main>
         <Hero />
         <Features />
@@ -83,7 +124,7 @@ function LandingPage() {
       </main>
       <Footer />
       <ScrollToTop />
-    </VisualEditingOverlay>
+    </>
   );
 }
 

@@ -4,7 +4,7 @@ import { getBlogs, getTags } from '../../services/blogService';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import BlogLoading from '../../components/BlogLoading';
-import { setDocumentMeta, setJsonLd } from '../../lib/seo';
+import SEOHead from '../../components/SEOHead';
 
 export default function BlogList() {
     const [blogs, setBlogs] = useState<any[]>([]);
@@ -32,41 +32,35 @@ export default function BlogList() {
         };
     }, [tag]);
 
-    useEffect(() => {
-        const origin = window.location.origin;
-        const blogUrl = `${origin}/blog${tag ? `?tag=${encodeURIComponent(tag)}` : ''}`;
-        const previewImage = new URL('/preview.png', origin).toString();
-
-        setDocumentMeta({
-            title: tag ? `Inseat Blog: ${tag} | Inseat` : 'Inseat Blog | Inseat',
-            description: 'Insights, product updates, and restaurant growth tips from the Inseat team.',
-            url: blogUrl,
-            image: previewImage,
-            type: 'website'
-        });
-
-        const cleanupJsonLd = setJsonLd('inseat-blog-list-jsonld', {
-            '@context': 'https://schema.org',
-            '@type': 'Blog',
-            name: 'Inseat Blog',
-            url: blogUrl,
-            blogPost: blogs.map((blog) => ({
-                '@type': 'BlogPosting',
-                headline: blog.title,
-                datePublished: blog.publishedAt,
-                url: `${origin}/blog/${blog.slug}`,
-                author: {
-                    '@type': 'Person',
-                    name: blog.authorName || 'Inseat'
-                }
-            }))
-        });
-
-        return () => cleanupJsonLd();
-    }, [blogs, tag]);
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://inseat.achievengine.com';
+    const blogUrl = `${origin}/blog${tag ? `?tag=${encodeURIComponent(tag)}` : ''}`;
 
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col">
+            <SEOHead
+                title={tag ? `Inseat Blog: ${tag}` : 'Inseat Blog'}
+                description="Insights, product updates, and restaurant growth tips from the Inseat team."
+                url={blogUrl}
+                type="website"
+                extraJsonLd={[
+                    {
+                        '@context': 'https://schema.org',
+                        '@type': 'Blog',
+                        name: 'Inseat Blog',
+                        url: blogUrl,
+                        blogPost: blogs.map((blog) => ({
+                            '@type': 'BlogPosting',
+                            headline: blog.title,
+                            datePublished: blog.publishedAt,
+                            url: `${origin}/blog/${blog.slug}`,
+                            author: {
+                                '@type': 'Person',
+                                name: blog.authorName || 'Inseat'
+                            }
+                        }))
+                    }
+                ]}
+            />
             <Navbar />
             <div className="container-custom py-20 flex-grow pt-32">
                 <h1 className="text-4xl font-bold mb-8 text-center text-secondary">Inseat Blog</h1>

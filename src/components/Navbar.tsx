@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { sanityClient, navbarQuery } from '../lib/sanityClient';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [navData, setNavData] = useState<any>(null);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const defaultNavItems = [
@@ -14,15 +12,11 @@ const Navbar = () => {
     { label: 'Integrations', href: '/integrations' },
     { label: 'Blog', href: '/blog' }
   ];
-  const navItemsRaw = navData?.navigationItems || defaultNavItems;
+  const navItemsRaw = defaultNavItems;
   const navItems = navItemsRaw.filter((item: { href?: string }) => {
     const href = item?.href || '';
     return !href.includes('/waitlist');
   });
-
-  useEffect(() => {
-    sanityClient.fetch(navbarQuery).then(setNavData).catch(() => { });
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -66,7 +60,7 @@ const Navbar = () => {
         >
           <Link to="/" className="flex items-center gap-3">
             <img src="/logo.png?v=20260226" alt="Inseat Logo" className="h-11 w-11 object-contain" />
-            <span className="text-xl font-bold tracking-tight text-secondary">{navData?.logo || 'INSEAT'}</span>
+            <span className="text-xl font-bold tracking-tight text-secondary">INSEAT</span>
           </Link>
         </motion.div>
 
@@ -96,10 +90,10 @@ const Navbar = () => {
             className="ml-8"
           >
             <a
-              href={navData?.ctaButton?.href || `${import.meta.env.VITE_ADMIN_URL || 'http://localhost:5173'}/register?plan=mid`}
+              href={`${import.meta.env.VITE_ADMIN_URL || 'http://localhost:5173'}/register?plan=mid`}
               className="btn-primary"
             >
-              {navData?.ctaButton?.text || 'Start Free Trial'}
+              Start Free Trial
             </a>
           </motion.div>
         </div>
@@ -148,10 +142,10 @@ const Navbar = () => {
             </a>
           ))}
           <a
-            href={navData?.ctaButton?.href || `${import.meta.env.VITE_ADMIN_URL || 'http://localhost:5174'}/register?plan=mid`}
+            href={`${import.meta.env.VITE_ADMIN_URL || 'http://localhost:5174'}/register?plan=mid`}
             className="btn-primary inline-block mt-2"
           >
-            {navData?.ctaButton?.text || 'Start Free Trial'}
+            Start Free Trial
           </a>
         </motion.div>
       )}

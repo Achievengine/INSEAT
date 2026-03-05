@@ -1,11 +1,24 @@
-import { useEffect, useState } from 'react'
-import { sanityClient, footerQuery } from '../lib/sanityClient'
+const quickLinks = [
+  { title: 'About Us', href: '#about-us' },
+  { title: 'Services', href: '#services' },
+  { title: 'Blog', href: '#blog' },
+  { title: 'Contact', href: '#contact' }
+]
+
+const supportLinks = [
+  { title: 'Help Center', href: '#help' },
+  { title: 'Contact Us', href: '#contact' },
+  { title: 'Documentation', href: '#docs' },
+  { title: 'Product Guides', href: '#guides' }
+]
+
+const socialLinks = [
+  { platform: 'Twitter', url: 'https://twitter.com/inseat' },
+  { platform: 'LinkedIn', url: 'https://linkedin.com/company/inseat' },
+  { platform: 'Facebook', url: 'https://facebook.com/inseat' }
+]
 
 const Footer = () => {
-  const [footerData, setFooterData] = useState<any | null>(null)
-  useEffect(() => {
-    sanityClient.fetch(footerQuery).then(setFooterData).catch(() => {})
-  }, [])
   return (
     <footer className="bg-black text-white">
       <div className="container mx-auto px-4 py-12">
@@ -16,10 +29,10 @@ const Footer = () => {
             <span className="text-2xl font-bold">INSEAT</span>
           </div>
           <p className="text-gray-400 max-w-md">
-            {footerData?.companyDescription || 'Transform your restaurant with smart QR code ordering and comprehensive management tools.'}
+            Transform your restaurant with smart QR code ordering and comprehensive management tools.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Contact Information */}
           <div>
@@ -32,15 +45,9 @@ const Footer = () => {
                 <div>
                   <h4 className="font-semibold text-white mb-2">Locations</h4>
                   <p className="text-gray-400">
-                    {footerData?.contactInfo?.address ? (
-                      footerData.contactInfo.address
-                    ) : (
-                      <>
-                        <span className="block">Sharjah, UAE</span>
-                        <span className="block">Addis Ababa, Ethiopia</span>
-                        <span className="block">Chennai, India</span>
-                      </>
-                    )}
+                    <span className="block">Sharjah, UAE</span>
+                    <span className="block">Addis Ababa, Ethiopia</span>
+                    <span className="block">Chennai, India</span>
                   </p>
                 </div>
               </div>
@@ -54,22 +61,16 @@ const Footer = () => {
                 <div>
                   <h4 className="font-semibold text-white mb-2">Phone</h4>
                   <p className="text-gray-400">
-                    {footerData?.contactInfo?.phone ? (
-                      footerData.contactInfo.phone
-                    ) : (
-                      <>
-                        <span className="block">UAE & Global: +971 50 731 3961</span>
-                        <span className="block">Ethiopia: +251 94 215 0275</span>
-                        <a 
-                          href="https://wa.me/971507313961" 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="block text-primary hover:text-primary/80 mt-2 transition-colors"
-                        >
-                          Chat on WhatsApp
-                        </a>
-                      </>
-                    )}
+                    <span className="block">UAE &amp; Global: +971 50 731 3961</span>
+                    <span className="block">Ethiopia: +251 94 215 0275</span>
+                    <a
+                      href="https://wa.me/971507313961"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block text-primary hover:text-primary/80 mt-2 transition-colors"
+                    >
+                      Chat on WhatsApp
+                    </a>
                   </p>
                 </div>
               </div>
@@ -81,14 +82,8 @@ const Footer = () => {
                 <div>
                   <h4 className="font-semibold text-white mb-2">Email</h4>
                   <p className="text-gray-400">
-                    {footerData?.contactInfo?.email ? (
-                      footerData.contactInfo.email
-                    ) : (
-                      <>
-                        <span className="block">General: business.inseat@achievengine.com</span>
-                        <span className="block">Support: support@achievengine.com</span>
-                      </>
-                    )}
+                    <span className="block">General: business.inseat@achievengine.com</span>
+                    <span className="block">Support: support@achievengine.com</span>
                   </p>
                 </div>
               </div>
@@ -100,7 +95,7 @@ const Footer = () => {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-gray-400">{footerData?.contactInfo?.businessHours || 'Monday - Friday: 9 AM - 6 PM'}</p>
+                  <p className="text-gray-400">Monday - Friday: 9 AM - 6 PM</p>
                 </div>
               </div>
             </div>
@@ -110,12 +105,7 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-bold mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              {(footerData?.quickLinks || [
-                { title: 'About Us', href: '#about-us' },
-                { title: 'Services', href: '#services' },
-                { title: 'Blog', href: '#blog' },
-                { title: 'Contact', href: '#contact' }
-              ]).map((link: any, index: number) => (
+              {quickLinks.map((link, index) => (
                 <li key={index}>
                   <a href={link.href} className="text-gray-400 hover:text-white transition-colors duration-200">
                     {link.title}
@@ -129,12 +119,7 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-bold mb-4">Support</h3>
             <ul className="space-y-2">
-              {(footerData?.supportLinks || [
-                { title: 'Help Center', href: '#help' },
-                { title: 'Contact Us', href: '#contact' },
-                { title: 'Documentation', href: '#docs' },
-                { title: 'Product Guides', href: '#guides' }
-              ]).map((link: any, index: number) => (
+              {supportLinks.map((link, index) => (
                 <li key={index}>
                   <a href={link.href} className="text-gray-400 hover:text-white transition-colors duration-200">
                     {link.title}
@@ -142,21 +127,17 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
-            
+
             {/* Social Links */}
             <div className="mt-8">
               <h4 className="text-lg font-semibold mb-4">Follow Us</h4>
               <div className="flex space-x-4">
-                {(footerData?.socialLinks || [
-                  { platform: 'Twitter', url: 'https://twitter.com/inseat' },
-                  { platform: 'LinkedIn', url: 'https://linkedin.com/company/inseat' },
-                  { platform: 'Facebook', url: 'https://facebook.com/inseat' }
-                ]).map((social: any, index: number) => (
-                  <a 
+                {socialLinks.map((social, index) => (
+                  <a
                     key={index}
-                    href={social.url} 
+                    href={social.url}
                     className="text-gray-400 hover:text-white transition-colors duration-200"
-                    target="_blank" 
+                    target="_blank"
                     rel="noopener noreferrer"
                   >
                     <span className="sr-only">{social.platform}</span>
@@ -184,7 +165,7 @@ const Footer = () => {
 
         {/* Bottom Footer */}
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-          <p className="mb-2">{footerData?.copyrightText || `© ${new Date().getFullYear()} Inseat. All rights reserved.`}</p>
+          <p className="mb-2">{`© ${new Date().getFullYear()} Inseat. All rights reserved.`}</p>
           <p className="text-sm">
             INSEAT is a product of{' '}
             <a href="https://achievengine.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 transition-colors">
@@ -199,7 +180,7 @@ const Footer = () => {
         </div>
       </div>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

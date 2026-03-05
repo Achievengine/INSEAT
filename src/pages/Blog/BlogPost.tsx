@@ -4,7 +4,7 @@ import { getBlogBySlug } from '../../services/blogService';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import BlogLoading from '../../components/BlogLoading';
-import { setDocumentMeta, setJsonLd } from '../../lib/seo';
+import SEOHead from '../../components/SEOHead';
 
 const getTextSnippet = (html: string, maxLength = 160) => {
     return html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, maxLength);
@@ -24,59 +24,11 @@ export default function BlogPost() {
         }
     }, [slug]);
 
-    useEffect(() => {
-        const origin = window.location.origin;
-        const canonicalUrl = `${origin}/blog/${slug || ''}`;
-        const previewImage = new URL('/preview.png', origin).toString();
-
-        if (!blog) {
-            const existingJsonLd = document.getElementById('inseat-blog-post-jsonld');
-            if (existingJsonLd) existingJsonLd.remove();
-            setDocumentMeta({
-                title: 'Blog Post | Inseat',
-                description: 'Read the latest insights and updates from Inseat.',
-                url: canonicalUrl,
-                image: previewImage,
-                type: 'article'
-            });
-            return;
-        }
-
-        const description = blog.summary || getTextSnippet(blog.content || '');
-        const image = blog.coverImageUrl || previewImage;
-
-        setDocumentMeta({
-            title: `${blog.title} | Inseat`,
-            description,
-            url: canonicalUrl,
-            image,
-            type: 'article'
-        });
-
-        const cleanupJsonLd = setJsonLd('inseat-blog-post-jsonld', {
-            '@context': 'https://schema.org',
-            '@type': 'BlogPosting',
-            headline: blog.title,
-            description,
-            image: blog.coverImageUrl ? [blog.coverImageUrl] : undefined,
-            datePublished: blog.publishedAt,
-            author: {
-                '@type': 'Person',
-                name: blog.authorName || 'Inseat'
-            },
-            publisher: {
-                '@type': 'Organization',
-                name: 'Inseat',
-                logo: {
-                    '@type': 'ImageObject',
-                    url: new URL('/logo.png', origin).toString()
-                }
-            },
-            mainEntityOfPage: canonicalUrl
-        });
-
-        return () => cleanupJsonLd();
-    }, [blog, slug]);
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://inseat.achievengine.com';
+    const canonicalUrl = `${origin}/blog/${slug || ''}`;
+    const previewImage = new URL('/preview.png', origin).toString();
+    const description = blog?.summary || getTextSnippet(blog?.content || '') || 'Read the latest insights and updates from Inseat.';
+    const image = blog?.coverImageUrl || previewImage;
 
     if (loading) return (
         <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -103,6 +55,36 @@ export default function BlogPost() {
 
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col">
+            <SEOHead
+                title={blog ? blog.title : 'Blog Post'}
+                description={description}
+                url={canonicalUrl}
+                image={image}
+                type="article"
+                extraJsonLd={blog ? [
+                    {
+                        '@context': 'https://schema.org',
+                        '@type': 'BlogPosting',
+                        headline: blog.title,
+                        description,
+                        image: blog.coverImageUrl ? [blog.coverImageUrl] : undefined,
+                        datePublished: blog.publishedAt,
+                        author: {
+                            '@type': 'Person',
+                            name: blog.authorName || 'Inseat'
+                        },
+                        publisher: {
+                            '@type': 'Organization',
+                            name: 'Inseat',
+                            logo: {
+                                '@type': 'ImageObject',
+                                url: new URL('/logo.png', origin).toString()
+                            }
+                        },
+                        mainEntityOfPage: canonicalUrl
+                    }
+                ] : undefined}
+            />
             <Navbar />
             <article className="flex-grow">
                 {/* Header */}

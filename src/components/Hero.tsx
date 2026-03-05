@@ -1,18 +1,13 @@
 import { motion } from "framer-motion";
 // Phone mockup markup is now inlined below (no separate component)
 import { useEffect, useState } from 'react'
-import { sanityClient, heroQuery } from '../lib/sanityClient'
 
 const Hero = () => {
-  const [cms, setCms] = useState<{ title?: string; subtitle?: string } | null>(null)
   // Inline phone mockup UI state
   const [batteryLevel, setBatteryLevel] = useState(78)
   const [currentTime, setCurrentTime] = useState('12:42')
   const [scanProgress, setScanProgress] = useState(0)
 
-  useEffect(() => {
-    sanityClient.fetch(heroQuery).then((data) => setCms(data)).catch(() => { })
-  }, [])
   // Simulate phone UI changes (non-blocking micro-interactions)
   useEffect(() => {
     const b = setInterval(() => setBatteryLevel((p) => Math.max(p - 1, 10)), 30000)
@@ -194,18 +189,14 @@ const Hero = () => {
               variants={itemVariants}
               className="text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-display font-bold leading-tight text-secondary"
             >
-              {cms?.title || (
-                <>
-                  Elevate Your <span className="text-primary">F&B Operations</span>
-                </>
-              )}
+              Restaurant Operations Software That Keeps Service Moving
             </motion.h1>
 
             <motion.p
               variants={itemVariants}
               className="mt-6 max-w-lg text-xl text-black/70 mx-auto lg:mx-0"
             >
-              {cms?.subtitle || 'An all-in-one, connected platform that speeds up service, reduces mistakes, and keeps every outlet running smoothly.'}
+              INSEAT brings your day-to-day operations into one connected platform so teams move faster, reduce costly errors, and run every outlet with consistent control.
             </motion.p>
 
             <motion.div

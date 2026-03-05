@@ -1,20 +1,126 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEOHead from '../components/SEOHead';
 import Breadcrumbs from '../components/Breadcrumbs';
+import { API_BASE_URL } from '../config/api';
+import {
+  getDefaultSubscriptionConfig,
+  getPublicSubscriptionConfig,
+  PricingCurrency,
+  PublicSubscriptionConfig,
+} from '../services/subscriptionConfigService';
 
-// Exchange rates (approximate, pegged/stable)
-const EXCHANGE_RATES: Record<string, { symbol: string; rate: number; code: string }> = {
-  USD: { symbol: '$', rate: 1, code: 'USD' },
-  AED: { symbol: 'AED ', rate: 3.67, code: 'AED' },
-  ETB: { symbol: 'ETB ', rate: 155, code: 'ETB' },
-};
+interface FeatureGate {
+  featureKey: string;
+  label: string;
+  starter: boolean;
+  pro: boolean;
+  enterprise: boolean;
+}
+
+// Base platform features always included in every plan (not gated)
+const BASE_FEATURES = [
+  'QR-code contactless ordering',
+  'Full menu management & modifiers',
+  'Table & venue management',
+  'Real-time order tracking',
+  'Multi-gateway payments (Stripe, Chapa, Telebirr)',
+  'Basic analytics & reports',
+  'Email support',
+];
+
+// Enterprise-only extras (not in feature gates)
+const ENTERPRISE_EXTRAS = [
+  'Unlimited locations & venues',
+  'Custom integrations & API access',
+  'Dedicated onboarding manager',
+  'SLA-backed support & uptime guarantee',
+];
+
+// Base comparison rows (always true for all plans)
+const BASE_COMPARISON = [
+  { name: 'QR-Code Ordering', starter: true, professional: true, enterprise: true },
+  { name: 'Menu Management & Modifiers', starter: true, professional: true, enterprise: true },
+  { name: 'Table & Venue Management', starter: true, professional: true, enterprise: true },
+  { name: 'Real-Time Order Tracking', starter: true, professional: true, enterprise: true },
+  { name: 'Multi-Gateway Payments', starter: true, professional: true, enterprise: true },
+];
+
+function buildPlansFromConfig(gates: FeatureGate[], subscriptionConfig: PublicSubscriptionConfig) {
+  const starterGated = gates.filter(g => g.starter).map(g => g.label);
+  const proOnly = gates.filter(g => g.pro && !g.starter).map(g => g.label);
+  const entryPlan = subscriptionConfig.plans.find((p) => p.tier === 'entry');
+  const proPlan = subscriptionConfig.plans.find((p) => p.tier === 'mid');
+  const customPlan = subscriptionConfig.plans.find((p) => p.tier === 'custom');
+
+  return [
+    {
+      name: entryPlan?.planName || 'Starter',
+      description:
+        entryPlan?.description || 'Everything you need to launch contactless dining.',
+      monthlyPrice: entryPlan?.pricing?.USD?.monthly ?? 0,
+      annualPrice: entryPlan?.pricing?.USD?.annualMonthly ?? 0,
+      tier: 'entry',
+      features: [...BASE_FEATURES, ...starterGated],
+      limitations: ['Single location'],
+      cta: 'Start Free Trial',
+      popular: false,
+      annualDiscountPercent: entryPlan?.annualDiscountPercent || 0,
+      pricing: entryPlan?.pricing,
+    },
+    {
+      name: proPlan?.planName || 'Pro',
+      description:
+        proPlan?.description || 'For restaurants scaling operations and customer loyalty.',
+      monthlyPrice: proPlan?.pricing?.USD?.monthly ?? 0,
+      annualPrice: proPlan?.pricing?.USD?.annualMonthly ?? 0,
+      tier: 'mid',
+      features: ['Everything in Starter, plus:', ...proOnly],
+      limitations: [] as string[],
+      cta: 'Start Free Trial',
+      popular: true,
+      annualDiscountPercent: proPlan?.annualDiscountPercent || 0,
+      pricing: proPlan?.pricing,
+    },
+    {
+      name: customPlan?.planName ? `Custom ${customPlan.planName}` : 'Custom Enterprise',
+      description:
+        customPlan?.description || 'For multi-location or deeply customized rollout needs.',
+      monthlyPrice: 'Custom' as string | number,
+      annualPrice: 'Custom' as string | number,
+      tier: 'custom',
+      features: ['Everything in Pro, plus:', ...ENTERPRISE_EXTRAS, 'Custom billing terms'],
+      limitations: ['Sales-assisted setup required'],
+      cta: 'Contact Sales',
+      popular: false,
+      annualDiscountPercent: customPlan?.annualDiscountPercent || 0,
+      pricing: customPlan?.pricing,
+    },
+  ];
+}
+
+function buildComparison(gates: FeatureGate[]) {
+  const gatedRows = gates.map(g => ({
+    name: g.label,
+    starter: g.starter,
+    professional: g.pro,
+    enterprise: g.enterprise,
+  }));
+
+  return [
+    ...BASE_COMPARISON,
+    ...gatedRows,
+    { name: 'Multi-Location', starter: false, professional: false, enterprise: true },
+    { name: 'Dedicated Onboarding', starter: false, professional: false, enterprise: true },
+    { name: 'Support', starter: 'Email' as boolean | string, professional: 'Priority' as boolean | string, enterprise: 'Dedicated' as boolean | string },
+  ];
+}
 
 // Map country code → currency
-const COUNTRY_CURRENCY: Record<string, string> = {
+const COUNTRY_CURRENCY: Record<string, PricingCurrency> = {
   AE: 'AED',  // UAE
   ET: 'ETB',  // Ethiopia
 };
@@ -23,8 +129,35 @@ const ADMIN_URL = import.meta.env.VITE_ADMIN_URL || 'http://localhost:5173';
 
 const PricingPage = () => {
   const [isAnnual, setIsAnnual] = useState(true);
-  const [currency, setCurrency] = useState('USD');
-  const [isDetecting, setIsDetecting] = useState(true);
+  const [currency, setCurrency] = useState<PricingCurrency>('USD');
+  const [featureGates, setFeatureGates] = useState<FeatureGate[]>([]);
+  const [subscriptionConfig, setSubscriptionConfig] = useState<PublicSubscriptionConfig>(
+    getDefaultSubscriptionConfig()
+  );
+
+  // Fetch feature gates from backend
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/businesses/feature-gates/public`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && Array.isArray(data.data)) {
+          setFeatureGates(data.data);
+        }
+      })
+      .catch(() => {
+        // Silently fail — plans will use defaults
+      });
+  }, []);
+
+  useEffect(() => {
+    getPublicSubscriptionConfig().then(setSubscriptionConfig);
+  }, []);
+
+  const plans = useMemo(
+    () => buildPlansFromConfig(featureGates, subscriptionConfig),
+    [featureGates, subscriptionConfig]
+  );
+  const comparisonFeatures = useMemo(() => buildComparison(featureGates), [featureGates]);
 
   // Detect user's country via IP geolocation
   useEffect(() => {
@@ -40,18 +173,22 @@ const PricingPage = () => {
         }
       } catch (err) {
         console.warn('Location detection failed, defaulting to USD');
-      } finally {
-        setIsDetecting(false);
       }
     };
     detectLocation();
   }, []);
 
-  const cx = EXCHANGE_RATES[currency] || EXCHANGE_RATES.USD;
+  const formatPrice = (amount: number) => {
+    const hasDecimals = Math.abs(amount % 1) > 0.001;
+    const formatted = new Intl.NumberFormat(undefined, {
+      minimumFractionDigits: hasDecimals ? 2 : 0,
+      maximumFractionDigits: hasDecimals ? 2 : 0,
+    }).format(amount);
 
-  const formatPrice = (usdAmount: number) => {
-    const converted = Math.round(usdAmount * cx.rate);
-    return `${cx.symbol}${converted.toLocaleString()}`;
+    if (currency === 'USD') {
+      return `$${formatted}`;
+    }
+    return `${formatted} ${currency}`;
   };
 
   const breadcrumbs = [
@@ -59,10 +196,28 @@ const PricingPage = () => {
     { name: 'Pricing', url: 'https://inseat.achievengine.com/pricing' }
   ];
 
+  const starterPlan = plans.find((plan) => plan.tier === 'entry');
+  const proPlan = plans.find((plan) => plan.tier === 'mid');
+  const annualDiscountLabel = Math.max(
+    ...(plans
+      .filter((plan) => plan.tier !== 'custom')
+      .map((plan) => plan.annualDiscountPercent || 0))
+  );
+  const starterPriceForFaq =
+    starterPlan?.pricing?.[currency]?.monthly ?? 0;
+  const starterSeoPrice =
+    starterPlan?.pricing?.USD?.monthly ?? 0;
+  const proSeoPrice =
+    proPlan?.pricing?.USD?.monthly ?? 0;
+  const availableCurrencies =
+    subscriptionConfig.currencies?.length > 0
+      ? subscriptionConfig.currencies
+      : (['USD', 'AED', 'ETB'] as PricingCurrency[]);
+
   const faqs = [
     {
       question: 'Do you have a plan for small restaurants?',
-      answer: `Yes. Starter is ${formatPrice(89)}/month and is designed for single-location restaurants launching contactless QR ordering.`
+      answer: `Yes. Starter starts at ${formatPrice(starterPriceForFaq)}/outlet/month and is designed for single-location restaurants launching contactless QR ordering.`
     },
     {
       question: 'Do you charge per order or reservation?',
@@ -86,92 +241,13 @@ const PricingPage = () => {
     }
   ];
 
-  const plans = [
-    {
-      name: 'Starter',
-      description: 'Everything you need to launch contactless dining.',
-      monthlyPrice: 89,
-      annualPrice: 71,
-      tier: 'entry',
-      features: [
-        'QR-code contactless ordering',
-        'Full menu management & modifiers',
-        'Table & venue management',
-        'Real-time order tracking',
-        'Multi-gateway payments (Stripe, Chapa, Telebirr)',
-        'Promotions & dynamic pricing',
-        'Basic analytics & reports',
-        'Email support',
-      ],
-      limitations: [
-        'Single location',
-      ],
-      cta: 'Start Free Trial',
-      popular: false
-    },
-    {
-      name: 'Pro',
-      description: 'For restaurants scaling operations and customer loyalty.',
-      monthlyPrice: 119,
-      annualPrice: 95,
-      tier: 'mid',
-      features: [
-        'Everything in Starter, plus:',
-        'Loyalty & rewards program',
-        'Website builder',
-        'Kitchen display system (KDS)',
-        'Staff management & role-based access',
-        'Advanced analytics & customer insights',
-        'Priority support',
-      ],
-      limitations: [],
-      cta: 'Start Free Trial',
-      popular: true
-    },
-    {
-      name: 'Custom Enterprise',
-      description: 'For multi-location or deeply customized rollout needs.',
-      monthlyPrice: 'Custom' as string | number,
-      annualPrice: 'Custom' as string | number,
-      tier: 'custom',
-      features: [
-        'Everything in Pro, plus:',
-        'Unlimited locations & venues',
-        'Custom integrations & API access',
-        'Dedicated onboarding manager',
-        'SLA-backed support & uptime guarantee',
-        'Custom billing terms',
-      ],
-      limitations: [
-        'Sales-assisted setup required'
-      ],
-      cta: 'Contact Sales',
-      popular: false
-    }
-  ];
-
-  const comparisonFeatures = [
-    { name: 'QR-Code Ordering', starter: true, professional: true, enterprise: true },
-    { name: 'Menu Management & Modifiers', starter: true, professional: true, enterprise: true },
-    { name: 'Table & Venue Management', starter: true, professional: true, enterprise: true },
-    { name: 'Real-Time Order Tracking', starter: true, professional: true, enterprise: true },
-    { name: 'Multi-Gateway Payments', starter: true, professional: true, enterprise: true },
-    { name: 'Promotions & Dynamic Pricing', starter: true, professional: true, enterprise: true },
-    { name: 'Website Builder', starter: false, professional: true, enterprise: true },
-    { name: 'Loyalty & Rewards', starter: false, professional: true, enterprise: true },
-    { name: 'Kitchen Display System', starter: false, professional: true, enterprise: true },
-    { name: 'Staff Management & RBAC', starter: false, professional: true, enterprise: true },
-    { name: 'Advanced Analytics', starter: false, professional: true, enterprise: true },
-    { name: 'Multi-Location', starter: false, professional: false, enterprise: true },
-    { name: 'Dedicated Onboarding', starter: false, professional: false, enterprise: true },
-    { name: 'Support', starter: 'Email', professional: 'Priority', enterprise: 'Dedicated' },
-  ];
+  // plans and comparisonFeatures are now computed dynamically via useMemo above
 
   return (
     <>
       <SEOHead
         title="Pricing - Website Builder and Ordering Plans"
-        description={`Simple subscription pricing for INSEAT restaurant ordering platform. Starter at ${formatPrice(89)}, Pro at ${formatPrice(119)}, and Custom Enterprise.`}
+        description={`Simple subscription pricing for INSEAT restaurant ordering platform. Starter at $${starterSeoPrice}, Pro at $${proSeoPrice}, and Custom Enterprise.`}
         keywords="restaurant ordering pricing, contactless QR ordering pricing, telebirr stripe chapa integration pricing, INSEAT subscription plans"
         url="https://inseat.achievengine.com/pricing"
         breadcrumbs={breadcrumbs}
@@ -180,7 +256,7 @@ const PricingPage = () => {
           name: 'Inseat',
           description: 'Restaurant contactless ordering platform with flat-rate subscription tiers.',
           features: ['QR Ordering', 'Menu Management', 'Payment Gateways', 'Loyalty Program', 'Analytics'],
-          price: '50',
+          price: String(starterSeoPrice),
           priceCurrency: 'USD'
         }}
       />
@@ -222,7 +298,7 @@ const PricingPage = () => {
                 <span className={`font-medium ${isAnnual ? 'text-secondary' : 'text-gray-500'}`}>
                   Annual
                   <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">
-                    Save 20%
+                    {annualDiscountLabel > 0 ? `Save up to ${annualDiscountLabel}%` : 'Annual billing'}
                   </span>
                 </span>
               </div>
@@ -230,7 +306,7 @@ const PricingPage = () => {
               {/* Currency selector */}
               <div className="flex items-center justify-center gap-2 mb-8">
                 <span className="text-sm text-gray-500">Prices in:</span>
-                {Object.keys(EXCHANGE_RATES).map((code) => (
+                {availableCurrencies.map((code) => (
                   <button
                     key={code}
                     onClick={() => setCurrency(code)}
@@ -252,9 +328,12 @@ const PricingPage = () => {
           <div className="container-custom">
             <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {plans.map((plan, index) => {
-                const isCustom = plan.monthlyPrice === 'Custom';
-                const displayedPriceUSD = isAnnual ? plan.annualPrice : plan.monthlyPrice;
-                const annualPriceUSD = typeof plan.annualPrice === 'number' ? plan.annualPrice : 0;
+                const pricePoint = plan.pricing?.[currency];
+                const isCustom = plan.tier === 'custom' || !pricePoint || pricePoint.monthly <= 0;
+                const displayedPrice = isAnnual
+                  ? pricePoint?.annualMonthly || 0
+                  : pricePoint?.monthly || 0;
+                const annualPriceTotal = pricePoint?.annualTotal || 0;
 
                 return (
                   <motion.div
@@ -280,16 +359,17 @@ const PricingPage = () => {
 
                     <div className="mb-6">
                       <span className="text-4xl font-bold">
-                        {isCustom ? 'Custom' : formatPrice(displayedPriceUSD as number)}
+                        {isCustom ? 'Custom' : formatPrice(displayedPrice)}
                       </span>
                       {!isCustom && (
                         <span className={plan.popular ? 'text-primary-100' : 'text-gray-500'}>
-                          /month
+                          /outlet/month
                         </span>
                       )}
-                      {isAnnual && annualPriceUSD > 0 && !isCustom && (
+                      {isAnnual && annualPriceTotal > 0 && !isCustom && (
                         <p className={`text-sm mt-1 ${plan.popular ? 'text-primary-100' : 'text-gray-500'}`}>
-                          Billed annually ({formatPrice(annualPriceUSD * 12)}/year)
+                          Billed annually ({formatPrice(annualPriceTotal)}/year)
+                          {plan.annualDiscountPercent > 0 ? ` · Save ${plan.annualDiscountPercent}%` : ''}
                         </p>
                       )}
                       {!isCustom && (

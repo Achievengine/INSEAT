@@ -1,81 +1,140 @@
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
+import { API_BASE_URL } from '../config/api';
+import {
+  getDefaultSubscriptionConfig,
+  getPublicSubscriptionConfig,
+  PricingCurrency,
+  PublicSubscriptionConfig,
+} from '../services/subscriptionConfigService';
 
 const ADMIN_URL = import.meta.env.VITE_ADMIN_URL || 'http://localhost:5173';
 
-type CurrencyCode = 'USD' | 'AED' | 'ETB';
+interface FeatureGate {
+  featureKey: string;
+  label: string;
+  starter: boolean;
+  pro: boolean;
+  enterprise: boolean;
+}
 
-const currencyConfig: Record<CurrencyCode, { symbol: string; rate: number }> = {
-  USD: { symbol: '$', rate: 1 },
-  AED: { symbol: 'AED ', rate: 3.67 },
-  ETB: { symbol: 'ETB ', rate: 84 },
+// Base platform features always included in every plan (not gated)
+const BASE_FEATURES = [
+  'QR-code contactless ordering',
+  'Full menu management & modifiers',
+  'Table & venue management',
+  'Real-time order tracking',
+  'Multi-gateway payments (Stripe, Chapa, Telebirr)',
+  'Basic analytics & reports',
+  'Email support',
+];
+
+// Enterprise-only extras (not in feature gates)
+const ENTERPRISE_EXTRAS = [
+  'Unlimited locations & venues',
+  'Custom integrations & API access',
+  'Dedicated onboarding manager',
+  'SLA-backed support & uptime guarantee',
+];
+
+const formatAmount = (amount: number): string => {
+  const hasDecimals = Math.abs(amount % 1) > 0.001;
+  return new Intl.NumberFormat(undefined, {
+    minimumFractionDigits: hasDecimals ? 2 : 0,
+    maximumFractionDigits: hasDecimals ? 2 : 0,
+  }).format(amount);
 };
 
-const plans = [
-  {
-    name: 'Starter',
-    description: 'Everything you need to launch contactless dining.',
-    monthlyPrice: 89,
-    annualPrice: 71,
-    tier: 'entry',
-    features: [
-      'QR-code contactless ordering',
-      'Full menu management & modifiers',
-      'Table & venue management',
-      'Real-time order tracking',
-      'Multi-gateway payments (Stripe, Chapa, Telebirr)',
-      'Promotions & dynamic pricing',
-      'Basic analytics & reports',
-      'Email support',
-    ],
-    cta: 'Start Free Trial',
-    popular: false,
-  },
-  {
-    name: 'Pro',
-    description: 'For restaurants scaling operations and customer loyalty.',
-    monthlyPrice: 119,
-    annualPrice: 95,
-    tier: 'mid',
-    features: [
-      'Everything in Starter, plus:',
-      'Loyalty & rewards program',
-      'Website builder',
-      'Kitchen display system (KDS)',
-      'Staff management & role-based access',
-      'Advanced analytics & customer insights',
-      'Priority support',
-    ],
-    cta: 'Start Free Trial',
-    popular: true,
-  },
-  {
-    name: 'Custom Enterprise',
-    description: 'For multi-location or deeply customized rollout needs.',
-    monthlyPrice: 0,
-    annualPrice: 0,
-    tier: 'custom',
-    features: [
-      'Everything in Pro, plus:',
-      'Unlimited locations & venues',
-      'Custom integrations & API access',
-      'Dedicated onboarding manager',
-      'SLA-backed support & uptime guarantee',
-    ],
-    cta: 'Contact Sales',
-    popular: false,
-  },
-];
+const formatCurrency = (currency: PricingCurrency, amount: number): string => {
+  if (currency === 'USD') {
+    return `$${formatAmount(amount)}`;
+  }
+  return `${formatAmount(amount)} ${currency}`;
+};
+
+function buildPlans(gates: FeatureGate[], subscriptionConfig: PublicSubscriptionConfig) {
+  const starterGated = gates.filter((g) => g.starter).map((g) => g.label);
+  const proOnly = gates.filter((g) => g.pro && !g.starter).map((g) => g.label);
+
+  const entryPlan = subscriptionConfig.plans.find((p) => p.tier === 'entry');
+  const proPlan = subscriptionConfig.plans.find((p) => p.tier === 'mid');
+  const customPlan = subscriptionConfig.plans.find((p) => p.tier === 'custom');
+
+  return [
+    {
+      name: entryPlan?.planName || 'Starter',
+      description:
+        entryPlan?.description ||
+        'Everything you need to launch contactless dining.',
+      tier: 'entry' as const,
+      pricing: entryPlan?.pricing,
+      annualDiscountPercent: entryPlan?.annualDiscountPercent || 0,
+      features: [...BASE_FEATURES, ...starterGated],
+      cta: 'Start Free Trial',
+      popular: false,
+    },
+    {
+      name: proPlan?.planName || 'Pro',
+      description:
+        proPlan?.description ||
+        'For restaurants scaling operations and customer loyalty.',
+      tier: 'mid' as const,
+      pricing: proPlan?.pricing,
+      annualDiscountPercent: proPlan?.annualDiscountPercent || 0,
+      features: ['Everything in Starter, plus:', ...proOnly],
+      cta: 'Start Free Trial',
+      popular: true,
+    },
+    {
+      name: customPlan?.planName ? `Custom ${customPlan.planName}` : 'Custom Enterprise',
+      description:
+        customPlan?.description ||
+        'For multi-location or deeply customized rollout needs.',
+      tier: 'custom' as const,
+      pricing: customPlan?.pricing,
+      annualDiscountPercent: customPlan?.annualDiscountPercent || 0,
+      features: ['Everything in Pro, plus:', ...ENTERPRISE_EXTRAS],
+      cta: 'Contact Sales',
+      popular: false,
+    },
+  ];
+}
 
 const Pricing = () => {
   const [isAnnual, setIsAnnual] = useState(true);
-  const [currency, setCurrency] = useState<CurrencyCode>('USD');
+  const [currency, setCurrency] = useState<PricingCurrency>('USD');
+  const [featureGates, setFeatureGates] = useState<FeatureGate[]>([]);
+  const [subscriptionConfig, setSubscriptionConfig] = useState<PublicSubscriptionConfig>(
+    getDefaultSubscriptionConfig()
+  );
 
-  const formatPrice = (usd: number) => {
-    const { symbol, rate } = currencyConfig[currency];
-    const converted = Math.round(usd * rate);
-    return `${symbol}${converted}`;
-  };
+  // Fetch feature gates from backend
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/businesses/feature-gates/public`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && Array.isArray(data.data)) {
+          setFeatureGates(data.data);
+        }
+      })
+      .catch(() => {
+        // Silently fail — plans will use defaults via buildPlans([])
+      });
+  }, []);
+
+  useEffect(() => {
+    getPublicSubscriptionConfig().then(setSubscriptionConfig);
+  }, []);
+
+  const plans = useMemo(
+    () => buildPlans(featureGates, subscriptionConfig),
+    [featureGates, subscriptionConfig]
+  );
+
+  const currencies =
+    subscriptionConfig.currencies?.length > 0
+      ? subscriptionConfig.currencies
+      : (['USD', 'AED', 'ETB'] as PricingCurrency[]);
 
   return (
     <section id="pricing" className="py-20 md:py-28 bg-gray-50">
@@ -93,15 +152,15 @@ const Pricing = () => {
           <p className="text-gray-500 text-lg max-w-2xl mx-auto mb-8">
             Choose the plan that fits your restaurant. All plans include a 7-day free trial.
           </p>
-          <p className="text-sm font-semibold text-primary mb-5">
-            No credit card required
-          </p>
+          <p className="text-sm font-semibold text-primary mb-5">No credit card required</p>
 
           {/* Billing toggle + currency */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
             {/* Billing toggle */}
             <div className="flex items-center gap-3">
-              <span className={`text-sm font-medium ${!isAnnual ? 'text-secondary' : 'text-gray-400'}`}>Monthly</span>
+              <span className={`text-sm font-medium ${!isAnnual ? 'text-secondary' : 'text-gray-400'}`}>
+                Monthly
+              </span>
               <button
                 onClick={() => setIsAnnual(!isAnnual)}
                 className={`relative w-12 h-6 rounded-full transition-colors ${isAnnual ? 'bg-primary' : 'bg-gray-300'}`}
@@ -111,19 +170,19 @@ const Pricing = () => {
                 />
               </button>
               <span className={`text-sm font-medium ${isAnnual ? 'text-secondary' : 'text-gray-400'}`}>
-                Annual <span className="text-primary text-xs font-semibold">Save 20%</span>
+                Annual
               </span>
             </div>
 
             {/* Currency picker */}
             <div className="flex items-center gap-1 bg-white border border-gray-200 rounded-lg p-0.5">
-              {(Object.keys(currencyConfig) as CurrencyCode[]).map((code) => (
+              {currencies.map((code) => (
                 <button
                   key={code}
                   onClick={() => setCurrency(code)}
                   className={`px-3 py-1 rounded-md text-xs font-semibold transition-colors ${currency === code
-                    ? 'bg-primary text-white'
-                    : 'text-gray-500 hover:text-secondary'
+                      ? 'bg-primary text-white'
+                      : 'text-gray-500 hover:text-secondary'
                     }`}
                 >
                   {code}
@@ -136,8 +195,11 @@ const Pricing = () => {
         {/* Plan cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {plans.map((plan, index) => {
-            const price = isAnnual ? plan.annualPrice : plan.monthlyPrice;
-            const isCustom = plan.tier === 'custom';
+            const pricingPoint = plan.pricing?.[currency];
+            const isCustom = plan.tier === 'custom' || !pricingPoint || pricingPoint.monthly <= 0;
+            const displayedPrice = isAnnual
+              ? pricingPoint?.annualMonthly ?? 0
+              : pricingPoint?.monthly ?? 0;
 
             return (
               <motion.div
@@ -147,8 +209,8 @@ const Pricing = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 className={`relative rounded-2xl p-7 flex flex-col transition-shadow ${plan.popular
-                  ? 'bg-primary text-white shadow-xl shadow-primary/20 ring-2 ring-primary'
-                  : 'bg-white text-secondary shadow-sm border border-gray-100 hover:shadow-md'
+                    ? 'bg-primary text-white shadow-xl shadow-primary/20 ring-2 ring-primary'
+                    : 'bg-white text-secondary shadow-sm border border-gray-100 hover:shadow-md'
                   }`}
               >
                 {plan.popular && (
@@ -168,9 +230,21 @@ const Pricing = () => {
                     <span className="text-3xl font-bold">Custom</span>
                   ) : (
                     <>
-                      <span className="text-4xl font-bold">{formatPrice(price)}</span>
-                      <span className={`text-sm ml-1 ${plan.popular ? 'text-white/60' : 'text-gray-400'}`}>/month</span>
+                      <span className="text-4xl font-bold">
+                        {formatCurrency(currency, displayedPrice)}
+                      </span>
+                      <span className={`text-sm ml-1 ${plan.popular ? 'text-white/60' : 'text-gray-400'}`}>
+                        /outlet/month
+                      </span>
                     </>
+                  )}
+                  {!isCustom && isAnnual && (
+                    <p className={`text-xs mt-1 ${plan.popular ? 'text-white/60' : 'text-gray-500'}`}>
+                      Billed yearly ({formatCurrency(currency, pricingPoint.annualTotal)}/year)
+                      {plan.annualDiscountPercent > 0
+                        ? ` · Save ${plan.annualDiscountPercent}%`
+                        : ''}
+                    </p>
                   )}
                   {!isCustom && (
                     <p className={`text-xs mt-1 ${plan.popular ? 'text-white/50' : 'text-gray-400'}`}>
@@ -203,8 +277,8 @@ const Pricing = () => {
                   <a
                     href={`${ADMIN_URL}/register?plan=${plan.tier}`}
                     className={`block w-full py-3 rounded-xl font-semibold text-center text-sm transition-colors ${plan.popular
-                      ? 'bg-white text-primary hover:bg-gray-100'
-                      : 'bg-primary text-white hover:bg-primary/90'
+                        ? 'bg-white text-primary hover:bg-gray-100'
+                        : 'bg-primary text-white hover:bg-primary/90'
                       }`}
                   >
                     {plan.cta}

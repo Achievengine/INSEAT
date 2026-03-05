@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { setDocumentMeta, setJsonLd } from '../lib/seo';
+import { Helmet } from 'react-helmet-async';
 
 type BreadcrumbItem = {
   name: string;
@@ -27,13 +26,21 @@ type HowToSchema = {
 type SEOHeadProps = {
   title: string;
   description: string;
+  appendSiteName?: boolean;
   keywords?: string;
   url?: string;
   image?: string;
   type?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  twitterTitle?: string;
+  twitterDescription?: string;
+  twitterCard?: string;
+  siteName?: string;
   breadcrumbs?: BreadcrumbItem[];
   faqs?: FAQItem[];
   howTo?: HowToSchema;
+  extraJsonLd?: Record<string, unknown>[];
   softwareApplication?: {
     name: string;
     description: string;
@@ -46,121 +53,131 @@ type SEOHeadProps = {
 const SEOHead = ({
   title,
   description,
+  appendSiteName = true,
   keywords,
   url,
   image,
   type = 'website',
+  ogTitle,
+  ogDescription,
+  twitterTitle,
+  twitterDescription,
+  twitterCard = 'summary_large_image',
+  siteName = 'Inseat',
   breadcrumbs,
   faqs,
   howTo,
+  extraJsonLd,
   softwareApplication
 }: SEOHeadProps) => {
-  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://inseat.achievengine.com';
-  const fullUrl = url || (typeof window !== 'undefined' ? window.location.href : '');
+  const origin =
+    typeof window !== 'undefined' ? window.location.origin : 'https://inseat.achievengine.com';
+  const fullUrl = url || (typeof window !== 'undefined' ? window.location.href : undefined);
   const fullImage = image || `${origin}/preview.png`;
+  const resolvedTitle = appendSiteName ? `${title} | Inseat` : title;
+  const resolvedOgTitle = ogTitle || resolvedTitle;
+  const resolvedOgDescription = ogDescription || description;
+  const resolvedTwitterTitle = twitterTitle || resolvedOgTitle;
+  const resolvedTwitterDescription = twitterDescription || resolvedOgDescription;
+  const schemas: Record<string, unknown>[] = [];
 
-  useEffect(() => {
-    // Set basic meta tags
-    setDocumentMeta({
-      title: `${title} | Inseat`,
-      description,
-      url: fullUrl,
-      image: fullImage,
-      type
+  if (breadcrumbs && breadcrumbs.length > 0) {
+    schemas.push({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: breadcrumbs.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.name,
+        item: item.url
+      }))
     });
+  }
 
-    // Set keywords meta tag
-    if (keywords) {
-      let keywordsMeta = document.querySelector<HTMLMetaElement>('meta[name="keywords"]');
-      if (!keywordsMeta) {
-        keywordsMeta = document.createElement('meta');
-        keywordsMeta.name = 'keywords';
-        document.head.appendChild(keywordsMeta);
-      }
-      keywordsMeta.content = keywords;
-    }
+  if (faqs && faqs.length > 0) {
+    schemas.push({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: faq.answer
+        }
+      }))
+    });
+  }
 
-    const cleanupFunctions: (() => void)[] = [];
+  if (howTo && howTo.steps.length > 0) {
+    schemas.push({
+      '@context': 'https://schema.org',
+      '@type': 'HowTo',
+      name: howTo.name,
+      description: howTo.description,
+      ...(howTo.totalTime && { totalTime: howTo.totalTime }),
+      step: howTo.steps.map((step, index) => ({
+        '@type': 'HowToStep',
+        position: index + 1,
+        name: step.name,
+        text: step.text,
+        ...(step.image && { image: step.image })
+      }))
+    });
+  }
 
-    // Set BreadcrumbList schema
-    if (breadcrumbs && breadcrumbs.length > 0) {
-      const breadcrumbSchema = {
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        itemListElement: breadcrumbs.map((item, index) => ({
-          '@type': 'ListItem',
-          position: index + 1,
-          name: item.name,
-          item: item.url
-        }))
-      };
-      cleanupFunctions.push(setJsonLd('inseat-breadcrumb-jsonld', breadcrumbSchema));
-    }
+  if (softwareApplication) {
+    schemas.push({
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      name: softwareApplication.name,
+      description: softwareApplication.description,
+      applicationCategory: 'BusinessApplication',
+      applicationSubCategory: 'Restaurant Management Software',
+      operatingSystem: 'Web, iOS, Android',
+      offers: {
+        '@type': 'Offer',
+        price: softwareApplication.price || '0',
+        priceCurrency: softwareApplication.priceCurrency || 'USD',
+        availability: 'https://schema.org/InStock'
+      },
+      featureList: softwareApplication.features || [],
+      screenshot: fullImage
+    });
+  }
 
-    // Set FAQPage schema
-    if (faqs && faqs.length > 0) {
-      const faqSchema = {
-        '@context': 'https://schema.org',
-        '@type': 'FAQPage',
-        mainEntity: faqs.map(faq => ({
-          '@type': 'Question',
-          name: faq.question,
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: faq.answer
-          }
-        }))
-      };
-      cleanupFunctions.push(setJsonLd('inseat-faq-jsonld', faqSchema));
-    }
+  if (extraJsonLd?.length) {
+    schemas.push(...extraJsonLd);
+  }
 
-    // Set HowTo schema
-    if (howTo && howTo.steps.length > 0) {
-      const howToSchema = {
-        '@context': 'https://schema.org',
-        '@type': 'HowTo',
-        name: howTo.name,
-        description: howTo.description,
-        ...(howTo.totalTime && { totalTime: howTo.totalTime }),
-        step: howTo.steps.map((step, index) => ({
-          '@type': 'HowToStep',
-          position: index + 1,
-          name: step.name,
-          text: step.text,
-          ...(step.image && { image: step.image })
-        }))
-      };
-      cleanupFunctions.push(setJsonLd('inseat-howto-jsonld', howToSchema));
-    }
+  return (
+    <Helmet prioritizeSeoTags>
+      <title>{resolvedTitle}</title>
+      <meta name="description" content={description} />
+      <meta name="robots" content="index,follow" />
+      {keywords ? <meta name="keywords" content={keywords} /> : null}
 
-    // Set SoftwareApplication schema
-    if (softwareApplication) {
-      const softwareSchema = {
-        '@context': 'https://schema.org',
-        '@type': 'SoftwareApplication',
-        name: softwareApplication.name,
-        description: softwareApplication.description,
-        applicationCategory: 'BusinessApplication',
-        applicationSubCategory: 'Restaurant Management Software',
-        operatingSystem: 'Web, iOS, Android',
-        offers: {
-          '@type': 'Offer',
-          price: softwareApplication.price || '0',
-          priceCurrency: softwareApplication.priceCurrency || 'USD',
-          availability: 'https://schema.org/InStock'
-        },
-        featureList: softwareApplication.features || [],
-        screenshot: fullImage
-      };
-      cleanupFunctions.push(setJsonLd('inseat-software-jsonld', softwareSchema));
-    }
+      <meta property="og:type" content={type} />
+      <meta property="og:title" content={resolvedOgTitle} />
+      <meta property="og:description" content={resolvedOgDescription} />
+      <meta property="og:site_name" content={siteName} />
+      {fullUrl ? <meta property="og:url" content={fullUrl} /> : null}
+      <meta property="og:image" content={fullImage} />
 
-    return () => {
-      cleanupFunctions.forEach(cleanup => cleanup());
-    };
-  }, [title, description, keywords, fullUrl, fullImage, type, breadcrumbs, faqs, howTo, softwareApplication]);
+      <meta name="twitter:card" content={twitterCard} />
+      <meta name="twitter:title" content={resolvedTwitterTitle} />
+      <meta name="twitter:description" content={resolvedTwitterDescription} />
+      <meta name="twitter:image" content={fullImage} />
 
-  return null;
+      {fullUrl ? <link rel="canonical" href={fullUrl} /> : null}
+
+      {schemas.map((schema, index) => (
+        <script key={`json-ld-${index}`} type="application/ld+json">
+          {JSON.stringify(schema)}
+        </script>
+      ))}
+    </Helmet>
+  );
 };
 
 export default SEOHead;
