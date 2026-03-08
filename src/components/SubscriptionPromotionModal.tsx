@@ -51,9 +51,15 @@ const resolveOrientation = (
 const buildCtaUrl = (promotion: SubscriptionPromotionCampaign): string => {
   const adminUrl = import.meta.env.VITE_ADMIN_URL || 'http://localhost:5173';
   const plan = promotion.ctaPlan && promotion.ctaPlan !== 'all' ? promotion.ctaPlan : 'mid';
+  const providedUrl = promotion.ctaUrl?.trim() || '';
 
-  if (promotion.ctaUrl && promotion.ctaUrl.trim()) {
-    return promotion.ctaUrl.trim();
+  if (providedUrl) {
+    if (/^https?:\/\//i.test(providedUrl) || providedUrl.startsWith('/')) {
+      return providedUrl;
+    }
+    if (/^[^\s]+\.[^\s]{2,}(\/[^\s]*)?$/i.test(providedUrl)) {
+      return `https://${providedUrl}`;
+    }
   }
 
   const promoPart = promotion.discountCode

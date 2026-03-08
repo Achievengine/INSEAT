@@ -179,11 +179,10 @@ const PricingPage = () => {
   }, []);
 
   const formatPrice = (amount: number) => {
-    const hasDecimals = Math.abs(amount % 1) > 0.001;
     const formatted = new Intl.NumberFormat(undefined, {
-      minimumFractionDigits: hasDecimals ? 2 : 0,
-      maximumFractionDigits: hasDecimals ? 2 : 0,
-    }).format(amount);
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(Math.floor(amount));
 
     if (currency === 'USD') {
       return `$${formatted}`;

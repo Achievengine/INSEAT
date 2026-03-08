@@ -5,7 +5,10 @@ export type SubscriptionPromotionType =
   | 'flat_amount'
   | 'extended_trial_days'
   | 'feature_spotlight';
-export type SubscriptionPromotionDisplayTarget = 'landing_site' | 'admin_portal';
+export type SubscriptionPromotionDisplayTarget =
+  | 'landing_site'
+  | 'admin_portal'
+  | 'inseat_menu';
 
 export interface SubscriptionPromotionCampaign {
   _id: string;
