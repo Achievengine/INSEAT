@@ -187,7 +187,7 @@ const Hero = () => {
             {/* Image removed from here */}
             <motion.h1
               variants={itemVariants}
-              className="text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-display font-bold leading-tight text-secondary"
+              className="text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-display font-bold leading-tight tracking-tight text-secondary"
             >
               Restaurant Operations Software That Keeps Service Moving
             </motion.h1>

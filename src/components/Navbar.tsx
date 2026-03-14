@@ -104,6 +104,8 @@ const Navbar = () => {
             type="button"
             onClick={() => setIsOpen(!isOpen)}
             className="text-black/70 hover:text-primary focus:outline-none"
+            aria-label={isOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isOpen}
           >
             <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24">
               {isOpen ? (

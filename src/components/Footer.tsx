@@ -67,7 +67,7 @@ const Footer = () => {
                       href="https://wa.me/971507313961"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block text-primary hover:text-primary/80 mt-2 transition-colors"
+                      className="block text-violet-400 hover:text-violet-300 mt-2 transition-colors"
                     >
                       Chat on WhatsApp
                     </a>
@@ -168,11 +168,11 @@ const Footer = () => {
           <p className="mb-2">{`© ${new Date().getFullYear()} Inseat. All rights reserved.`}</p>
           <p className="text-sm">
             INSEAT is a product of{' '}
-            <a href="https://achievengine.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 transition-colors">
+            <a href="https://achievengine.com" target="_blank" rel="noopener noreferrer" className="text-violet-400 hover:text-violet-300 transition-colors">
               Achievengine
             </a>
             {' '}(achievengine.com). Achievengine is a subsidiary of{' '}
-            <a href="https://vizasia.co" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 transition-colors">
+            <a href="https://vizasia.co" target="_blank" rel="noopener noreferrer" className="text-violet-400 hover:text-violet-300 transition-colors">
               Vizasia
             </a>
             {' '}(vizasia.co).

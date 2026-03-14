@@ -145,8 +145,17 @@ const Pricing = () => {
           viewport={{ once: true }}
           className="text-center mb-14"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">
-            Simple, Transparent Pricing
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+            <span className="text-secondary">Simple, </span>
+            <span
+              className="bg-clip-text text-transparent"
+              style={{
+                backgroundImage:
+                  'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.35) 100%)',
+              }}
+            >
+              Transparent Pricing
+            </span>
           </h2>
           <p className="text-gray-500 text-lg max-w-2xl mx-auto mb-8">
             Choose the plan that fits your restaurant. All plans include a 7-day free trial.

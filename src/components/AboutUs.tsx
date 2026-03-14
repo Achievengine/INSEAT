@@ -60,7 +60,18 @@ const AboutUs = () => {
         >
           {/* Section heading */}
           <motion.div variants={itemVariants} className="mb-12 max-w-5xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">About Inseat</h2>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+              <span className="text-secondary">About </span>
+              <span
+                className="bg-clip-text text-transparent"
+                style={{
+                  backgroundImage:
+                    'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.35) 100%)',
+                }}
+              >
+                Inseat
+              </span>
+            </h2>
             <div className="w-20 h-1 bg-primary mb-6"></div>
             <p className="text-gray-600 text-lg max-w-4xl">
               Revolutionizing the restaurant industry with innovative technology solutions since 2025.

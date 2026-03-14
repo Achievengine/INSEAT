@@ -30,8 +30,17 @@ const LoyaltyEngagement = () => {
             <p className="text-primary text-sm font-semibold tracking-widest uppercase mb-4">
               AI Menu Operations
             </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-secondary tracking-tight mb-5">
-              Convert a paper menu into a digital menu in one scan
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-5">
+              <span className="text-secondary">Convert a paper menu into </span>
+              <span
+                className="bg-clip-text text-transparent"
+                style={{
+                  backgroundImage:
+                    'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.35) 100%)',
+                }}
+              >
+                a digital menu in one scan
+              </span>
             </h2>
             <p className="text-gray-500 text-lg mb-10 max-w-lg">
               AI OCR does a one-shot extraction from the uploaded paper menu, then your managers review and publish the structured menu.

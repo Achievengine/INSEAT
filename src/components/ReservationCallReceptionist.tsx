@@ -85,7 +85,16 @@ const ReservationCallReceptionist = () => {
               Reservations
             </p>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-5">
-              Run reservations with less friction
+              <span className="text-white">Run reservations </span>
+              <span
+                className="bg-clip-text text-transparent"
+                style={{
+                  backgroundImage:
+                    'linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0.35) 100%)',
+                }}
+              >
+                with less friction
+              </span>
             </h2>
             <p className="text-white/50 text-lg mb-10 max-w-lg">
               Built-in reservation routes, availability checks, and status tracking help your team keep service predictable.

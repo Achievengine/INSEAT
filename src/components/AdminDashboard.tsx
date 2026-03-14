@@ -94,9 +94,18 @@ const AdminDashboard = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.05 }}
-            className="text-3xl md:text-4xl font-bold text-secondary tracking-tight mb-5"
+            className="text-3xl md:text-4xl font-bold tracking-tight mb-5"
           >
-            Run every restaurant workflow from one admin stack
+            <span className="text-secondary">Run every restaurant workflow </span>
+            <span
+              className="bg-clip-text text-transparent"
+              style={{
+                backgroundImage:
+                  'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.35) 100%)',
+              }}
+            >
+              from one admin stack
+            </span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
