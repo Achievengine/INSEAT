@@ -189,14 +189,14 @@ const Hero = () => {
               variants={itemVariants}
               className="text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-display font-bold leading-tight tracking-tight text-secondary"
             >
-              Restaurant Operations Software That Keeps Service Moving
+              Stop Losing Orders to Paper Tickets and Slow Table Turns
             </motion.h1>
 
             <motion.p
               variants={itemVariants}
               className="mt-6 max-w-lg text-xl text-black/70 mx-auto lg:mx-0"
             >
-              INSEAT brings your day-to-day operations into one connected platform so teams move faster, reduce costly errors, and run every outlet with consistent control.
+              The all-in-one platform that helps your team move faster, eliminate costly order errors, and run every outlet with total control even during the lunch rush.
             </motion.p>
 
             <motion.div
@@ -213,7 +213,7 @@ const Hero = () => {
                     <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                       <path d="M10 2.75l1.85 3.75 4.15.6-3 2.93.71 4.14L10 12.23l-3.71 1.94.71-4.14-3-2.93 4.15-.6L10 2.75z" />
                     </svg>
-                    Start Free Trial
+                    Start Your 7-Day Free Trial
                   </span>
                 </a>
                 <p className="mt-2 text-xs font-semibold uppercase tracking-[0.12em] text-black/55">
@@ -221,17 +221,13 @@ const Hero = () => {
                 </p>
               </div>
               <a
-                href="https://inseat.achievengine.com/deck/INSEAT.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/#demo"
                 className="btn-secondary w-full sm:w-auto flex items-center justify-center gap-2"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-                  <polyline points="7 10 12 15 17 10" />
-                  <line x1="12" y1="15" x2="12" y2="3" />
+                  <path d="M8 7V3m8 4V3m-9 8h10m-11 9h12a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2v11a2 2 0 002 2z" />
                 </svg>
-                Product Overview
+                Book a 15-Min Strategy Call
               </a>
             </motion.div>
 

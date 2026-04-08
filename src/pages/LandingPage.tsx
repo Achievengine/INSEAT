@@ -4,6 +4,7 @@ import { motion, useScroll, useSpring } from 'framer-motion';
 // Component imports
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
+import PainPoints from '../components/PainPoints';
 import Features from '../components/Features';
 import LoyaltyEngagement from '../components/LoyaltyEngagement';
 import ReservationCallReceptionist from '../components/ReservationCallReceptionist';
@@ -14,6 +15,8 @@ import AboutUs from '../components/AboutUs';
 import ScrollToTop from '../components/ScrollToTop';
 import SEOHead from '../components/SEOHead';
 import SubscriptionPromotionModal from '../components/SubscriptionPromotionModal';
+import SocialProof from '../components/SocialProof';
+import DemoForm from '../components/DemoForm';
 
 // Styles
 import '../App.css';
@@ -192,14 +195,14 @@ function LandingPage() {
       <SubscriptionPromotionModal />
       <main>
         <Hero />
+        <PainPoints />
         <Features />
         <LoyaltyEngagement />
         <ReservationCallReceptionist />
         <AdminDashboard />
+        <SocialProof />
         <Pricing />
-        {/* Temporarily hidden per product direction */}
-        {/* <Testimonials /> */}
-        {/* <DemoForm /> */}
+        <DemoForm />
         <AboutUs />
       </main>
       <Footer />

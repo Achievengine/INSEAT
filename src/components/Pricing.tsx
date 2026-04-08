@@ -93,7 +93,7 @@ function buildPlans(gates: FeatureGate[], subscriptionConfig: PublicSubscription
       pricing: customPlan?.pricing,
       annualDiscountPercent: customPlan?.annualDiscountPercent || 0,
       features: ['Everything in Pro, plus:', ...ENTERPRISE_EXTRAS],
-      cta: 'Contact Sales',
+      cta: 'Get a Custom Quote',
       popular: false,
     },
   ];

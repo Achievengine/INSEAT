@@ -74,20 +74,15 @@ const AboutUs = () => {
             </h2>
             <div className="w-20 h-1 bg-primary mb-6"></div>
             <p className="text-gray-600 text-lg max-w-4xl">
-              Revolutionizing the restaurant industry with innovative technology solutions since 2025.
+              Helping restaurant owners take back control of their time and their margins since 2025.
             </p>
           </motion.div>
 
           {/* Company story */}
           <motion.div variants={itemVariants} className="mb-16 max-w-5xl mx-auto">
-            <h3 className="text-2xl font-bold text-secondary mb-4">Our Story</h3>
+            <h3 className="text-2xl font-bold text-secondary mb-4">Our Mission</h3>
             <p className="text-gray-600 mb-4">
-              Inseat was founded with a simple mission: to transform the dining experience for both restaurants and their customers.
-              We recognized the challenges faced by restaurant owners in managing orders, engaging customers, and optimizing operations.
-            </p>
-            <p className="text-gray-600 mb-4">
-              Our QR code ordering system began as a solution to streamline the ordering process, but quickly evolved into a comprehensive
-              platform that addresses every aspect of restaurant management - from kitchen operations to customer loyalty programs.
+              We built Inseat because we saw how hard it was for great restaurants to survive with outdated tools. We&apos;re here to give restaurant owners the tech they deserve so they can run smoother shifts, protect margins, and make better service feel repeatable.
             </p>
             <p className="text-gray-600 mb-4">
               INSEAT is a product of{' '}
@@ -104,7 +99,7 @@ const AboutUs = () => {
 
           {/* Team members */}
           <motion.div variants={itemVariants}>
-            <h3 className="text-2xl font-bold text-secondary mb-6">Meet Our Team</h3>
+            <h3 className="text-2xl font-bold text-secondary mb-6">The Team Behind Inseat</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
               {teamMembers.map((member) => (
                 <motion.div

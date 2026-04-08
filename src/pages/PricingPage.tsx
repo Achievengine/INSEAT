@@ -94,7 +94,7 @@ function buildPlansFromConfig(gates: FeatureGate[], subscriptionConfig: PublicSu
       tier: 'custom',
       features: ['Everything in Pro, plus:', ...ENTERPRISE_EXTRAS, 'Custom billing terms'],
       limitations: ['Sales-assisted setup required'],
-      cta: 'Contact Sales',
+      cta: 'Get a Custom Quote',
       popular: false,
       annualDiscountPercent: customPlan?.annualDiscountPercent || 0,
       pricing: customPlan?.pricing,

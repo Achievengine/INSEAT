@@ -7,7 +7,7 @@ Scope: Based on current implementation in `INSEAT-Backend`, `INSEAT-Admin`, `ins
 
 Yes, you need both:
 
-- `.env` values for platform-level runtime (backend/frontend URLs, Stripe, Chapa, Telebirr runtime keys).
+- `.env` values for platform-level runtime (backend/frontend URLs, Dodo Payments, Chapa, Telebirr runtime keys).
 - Restaurant-level provider credentials entered in **INSEAT Admin -> Website Builder -> Payments**.
 
 Important implementation note:
@@ -26,9 +26,15 @@ Set these keys in your main backend `.env` (this monorepo runs payment routes th
 FRONTEND_URL=https://menu.yourdomain.com
 BACKEND_URL=https://api.yourdomain.com
 
-# Stripe (subscriptions + checkout + webhook verification)
-STRIPE_SECRET_KEY=sk_live_xxx
-STRIPE_WEBHOOK_SECRET=whsec_xxx
+# Dodo Payments (business subscriptions)
+DODO_PAYMENTS_API_KEY=dodo_test_xxx
+DODO_PAYMENTS_WEBHOOK_SECRET=whsec_xxx
+DODO_PAYMENTS_ENVIRONMENT=test_mode
+DODO_PAYMENTS_API_BASE_URL=https://test.dodopayments.com
+DODO_PRODUCT_ENTRY_MONTHLY=prod_xxx
+DODO_PRODUCT_ENTRY_YEARLY=prod_xxx
+DODO_PRODUCT_MID_MONTHLY=prod_xxx
+DODO_PRODUCT_MID_YEARLY=prod_xxx
 
 # Chapa (runtime API auth used by checkout/verification)
 CHAPA_API_KEY=CHASECK_LIVE-xxx
@@ -49,7 +55,7 @@ Keys present in examples/docs but not currently read by the active runtime code 
 - `TELEBIRR_ENV`
 - `TELEBIRR_NOTIFY_URL`
 - `TELEBIRR_REDIRECT_URL`
-- `STRIPE_PUBLISHABLE_KEY` (not used by current backend checkout/subscription flow)
+- `STRIPE_PUBLISHABLE_KEY` (not used by the current backend subscription flow)
 
 ### B) `INSEAT-Admin/.env` (required for Website Builder Payments UI)
 
@@ -112,9 +118,15 @@ These fields drive connect/verify/status for each restaurant.
 
 ## 4) What to get, from where
 
-1. Stripe:
-- Get `STRIPE_SECRET_KEY` from Stripe Dashboard -> Developers -> API keys.
-- Get `STRIPE_WEBHOOK_SECRET` from Stripe Dashboard -> Developers -> Webhooks -> endpoint signing secret.
+1. Dodo Payments:
+- Get `DODO_PAYMENTS_API_KEY` from Dodo Payments -> Developers -> API keys.
+- Get `DODO_PAYMENTS_WEBHOOK_SECRET` from the Dodo webhook endpoint signing secret.
+- Create four subscription products in Dodo:
+  - Entry monthly
+  - Entry yearly
+  - Mid monthly
+  - Mid yearly
+- Copy those product IDs into the four `DODO_PRODUCT_*` env vars.
 
 2. Chapa:
 - Get `CHAPA_API_KEY` from Chapa Dashboard -> API Keys (test/live key visibility and generation).
@@ -143,9 +155,19 @@ Implemented tiers:
 
 Subscription checkout endpoint:
 
-- `POST /api/payments/subscriptions/checkout-session` (Stripe, automated tiers)
+- `POST /api/payments/subscriptions/checkout-session` (Dodo Payments, automated tiers)
 - `POST /api/payments/subscriptions/contact-sales` (custom tier)
 - `GET /api/payments/subscription-plans`
+
+Webhook endpoint:
+
+- `POST /api/payments/dodo/webhook`
+
+Outlet billing behavior:
+
+- Each paid subscription covers one outlet by default.
+- Existing legacy businesses are grandfathered to at least their current outlet count.
+- When a subscribed business wants another outlet on the same tier, the app increases the Dodo subscription quantity instead of creating a second subscription.
 
 ## 6) Quick validation checklist
 
@@ -153,13 +175,14 @@ Subscription checkout endpoint:
 2. In admin Website Builder Payments, connect and verify Chapa and/or Telebirr for a restaurant.
 3. In menu checkout, run a Chapa payment and a Telebirr payment and confirm success-page verification.
 4. Call `GET /api/payments/subscription-plans` and create a test subscription checkout session.
+5. Register `POST /api/payments/dodo/webhook` in Dodo and confirm a subscription test event updates the business subscription.
 
 ## 7) Sources used (web search, Feb 17, 2026)
 
-- Stripe Subscriptions overview: <https://docs.stripe.com/billing/subscriptions/overview>
-- Stripe Checkout for subscriptions: <https://docs.stripe.com/payments/checkout/build-subscriptions>
-- Stripe Checkout Session API: <https://docs.stripe.com/api/checkout/sessions/create>
-- Stripe webhooks: <https://docs.stripe.com/webhooks>
+- Dodo Checkout Session API: <https://docs.dodopayments.com/api-reference/checkout-sessions/create>
+- Dodo subscription integration guide: <https://docs.dodopayments.com/developer-resources/subscription-integration-guide>
+- Dodo webhooks: <https://docs.dodopayments.com/developer-resources/webhooks>
+- Dodo seat-based billing: <https://docs.dodopayments.com/features/seat-based-billing>
 - Chapa API keys / dashboard: <https://developer.chapa.co/docs/api-keys>
 - Chapa accept payments: <https://developer.chapa.co/docs/accept-payments>
 - Chapa verify transaction endpoint: <https://developer.chapa.co/api-reference/verify-transaction-1>

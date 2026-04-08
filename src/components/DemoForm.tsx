@@ -96,7 +96,7 @@ const DemoForm = () => {
   }
 
   return (
-    <section className="bg-black text-white py-20">
+    <section id="demo" className="bg-black text-white py-20">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -106,9 +106,9 @@ const DemoForm = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl font-bold text-white mb-4">Try Inseat For Free</h2>
+            <h2 className="text-4xl font-bold text-white mb-4">Book Your 15-Min Strategy Call</h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              Create your custom QR code menu in seconds. No credit card required.
+              Request a live walkthrough of the platform and we&apos;ll show you how Inseat can reduce order errors, speed up table turns, and simplify operations.
             </p>
           </motion.div>
 
@@ -281,7 +281,7 @@ const DemoForm = () => {
                       : 'bg-primary text-white hover:bg-primary/90'
                     }`}
                 >
-                  {isSubmitting ? 'Creating Demo...' : 'Create Free Demo'}
+                  {isSubmitting ? 'Sending Request...' : 'Request My Strategy Call'}
                 </motion.button>
               </form>
 
@@ -297,7 +297,7 @@ const DemoForm = () => {
                     <svg className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
-                    Demo created successfully! Check your email for login credentials and setup instructions.
+                    Your request has been sent. Our team will reach out to schedule your walkthrough.
                   </motion.div>
                 )}
 
@@ -311,7 +311,7 @@ const DemoForm = () => {
                     <svg className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                     </svg>
-                    There was an error creating your demo. Please try again.
+                    There was an error sending your request. Please try again.
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -326,14 +326,14 @@ const DemoForm = () => {
               className="relative flex flex-col items-center"
             >
               <div className="mb-6 text-center">
-                <h3 className="text-2xl font-bold text-white mb-2">Preview Your QR Menu</h3>
-                <p className="text-gray-400">Here's how your customized QR menu will look</p>
+                <h3 className="text-2xl font-bold text-white mb-2">See the Platform in Action</h3>
+                <p className="text-gray-400">A quick preview of the guest ordering experience you can roll out.</p>
               </div>
 
               {/* QR Menu Preview */}
               <div className="mt-8 bg-white rounded-xl shadow-md p-5 border border-gray-200">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="font-bold text-gray-800">Preview Your QR Menu</h3>
+                  <h3 className="font-bold text-gray-800">Guest Ordering Preview</h3>
                 </div>
                 <div className="flex justify-center">
                   <img
