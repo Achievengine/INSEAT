@@ -3,6 +3,7 @@ import path from 'node:path';
 
 const DIST_DIR = path.resolve(process.cwd(), 'dist');
 const BASE_URL = 'https://inseat.achievengine.com';
+const GOOGLE_SITE_VERIFICATION = 'FBkmjKh1YoIOdoj8nBZSTzR6wtM0xcDY6s5XI3NadY4';
 
 const homeSoftwareApplication = {
   '@context': 'https://schema.org',
@@ -161,6 +162,7 @@ const renderSeo = (config) => {
     `<title>${config.title}</title>`,
     `<meta name="description" content="${config.description}" />`,
     '<meta name="robots" content="index,follow" />',
+    `<meta name="google-site-verification" content="${GOOGLE_SITE_VERIFICATION}" />`,
     `<link rel="canonical" href="${canonicalUrl}" />`,
     `<meta property="og:title" content="${ogTitle}" />`,
     `<meta property="og:description" content="${ogDescription}" />`,
