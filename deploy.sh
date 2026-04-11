@@ -29,7 +29,7 @@ fi
 echo "✓ preview.png found in dist folder"
 
 echo "6. Deploying to /var/www/inseat..."
-sudo rsync -av --delete dist/ /var/www/inseat/
+rsync -av --delete dist/ /var/www/inseat/
 
 echo "7. Verifying deployment..."
 if [ -f "/var/www/inseat/preview.png" ]; then
