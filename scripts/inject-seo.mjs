@@ -4,48 +4,121 @@ import path from 'node:path';
 const DIST_DIR = path.resolve(process.cwd(), 'dist');
 const BASE_URL = 'https://inseat.achievengine.com';
 const GOOGLE_SITE_VERIFICATION = 'FBkmjKh1YoIOdoj8nBZSTzR6wtM0xcDY6s5XI3NadY4';
+const BRAND_NAME = 'INSEAT';
+const BRAND_ALTERNATE_NAMES = ['Inseat', 'INSEAT Restaurant Platform', 'INSEAT Restaurant Operations Platform'];
+const LOGO_URL = `${BASE_URL}/logo.png`;
+const OG_IMAGE_URL = `${BASE_URL}/og-image.png`;
 
 const homeSoftwareApplication = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  name: 'Inseat',
+  '@id': `${BASE_URL}/#software`,
+  name: BRAND_NAME,
+  alternateName: BRAND_ALTERNATE_NAMES,
   applicationCategory: 'BusinessApplication',
-  applicationSubCategory: 'RestaurantManagement',
+  applicationSubCategory: 'Restaurant Management Software',
   operatingSystem: 'Web, iOS, Android',
   description:
-    'Restaurant waitlist management and table management software with SMS notifications and guest CRM',
-  url: 'https://inseat.achievengine.com',
+    'INSEAT is a restaurant operations platform for QR ordering, AI menu import, table management, waitlists, reservations, kitchen workflows, loyalty, payments, analytics, and inventory.',
+  url: BASE_URL,
+  image: OG_IMAGE_URL,
+  screenshot: OG_IMAGE_URL,
+  brand: {
+    '@id': `${BASE_URL}/#organization`
+  },
+  publisher: {
+    '@id': `${BASE_URL}/#organization`
+  },
+  featureList: [
+    'QR Table Ordering',
+    'AI OCR Menu Import',
+    'Table Management',
+    'Waitlist Management',
+    'Reservations',
+    'Kitchen Display System',
+    'Multi-Gateway Payments',
+    'Loyalty',
+    'Restaurant Analytics',
+    'Inventory Management'
+  ],
+  areaServed: ['AE', 'ET', 'IN'],
   offers: {
     '@type': 'Offer',
     price: '0',
-    priceCurrency: 'USD'
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock'
   }
 };
-
 const homeOrganization = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: 'Inseat',
-  url: 'https://inseat.achievengine.com',
-  description: 'Restaurant operations platform for waitlist and table management',
-  sameAs: [
-    'https://www.linkedin.com/company/inseat',
-    'https://www.facebook.com/inseat'
-  ]
+  '@id': `${BASE_URL}/#organization`,
+  name: BRAND_NAME,
+  alternateName: BRAND_ALTERNATE_NAMES,
+  legalName: 'Achievengine',
+  url: BASE_URL,
+  logo: {
+    '@type': 'ImageObject',
+    url: LOGO_URL,
+    contentUrl: LOGO_URL,
+    width: 500,
+    height: 500
+  },
+  description:
+    'INSEAT is a restaurant operations software platform by Achievengine, built for QR ordering, table management, waitlists, reservations, payments, analytics, and inventory.',
+  foundingDate: '2024',
+  email: 'business.inseat@achievengine.com',
+  telephone: '+971-50-731-3961',
+  contactPoint: [
+    {
+      '@type': 'ContactPoint',
+      telephone: '+971-50-731-3961',
+      email: 'business.inseat@achievengine.com',
+      contactType: 'sales',
+      areaServed: ['AE', 'ET', 'IN'],
+      availableLanguage: ['English', 'Arabic', 'Amharic']
+    },
+    {
+      '@type': 'ContactPoint',
+      telephone: '+251-94-215-0275',
+      email: 'support@achievengine.com',
+      contactType: 'customer support',
+      areaServed: 'ET',
+      availableLanguage: ['English', 'Amharic']
+    }
+  ],
+  parentOrganization: {
+    '@type': 'Organization',
+    name: 'Achievengine',
+    url: 'https://achievengine.com'
+  },
+  sameAs: []
 };
 
+const homeWebSite = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${BASE_URL}/#website`,
+  name: BRAND_NAME,
+  alternateName: BRAND_ALTERNATE_NAMES,
+  url: BASE_URL,
+  publisher: {
+    '@id': `${BASE_URL}/#organization`
+  }
+};
 const routeSEO = {
   '/': {
-    title: 'Inseat — Restaurant Waitlist & Table Management Software',
+    title: 'INSEAT — Restaurant Operations Software | QR Ordering & Table Management',
     description:
-      'Inseat helps restaurants manage waitlists, reduce wait times, and improve guest experience. Free digital waitlist app with SMS notifications. Try free today.',
+      'INSEAT is a restaurant operations platform for QR ordering, AI OCR menu import, table management, waitlists, reservations, payments, loyalty, analytics, and inventory.',
     canonicalPath: '/',
-    ogTitle: 'Inseat — Restaurant Waitlist & Table Management Software',
+    ogTitle: 'INSEAT — Restaurant Operations Software',
     ogDescription:
-      'Inseat helps restaurants manage waitlists, reduce wait times, and improve guest experience.',
+      'INSEAT helps restaurants run QR ordering, table management, reservations, payments, loyalty, analytics, and inventory from one platform.',
+    ogImage: OG_IMAGE_URL,
     ogType: 'website',
     twitterCard: 'summary_large_image',
-    jsonLd: [homeSoftwareApplication, homeOrganization]
+    jsonLd: [homeOrganization, homeWebSite, homeSoftwareApplication]
   },
   '/features': {
     title: 'Restaurant Features | Inseat',
@@ -135,12 +208,13 @@ const routeToFile = (route) => {
 const stripSeoTags = (html) =>
   html
     .replace(/<title>[\s\S]*?<\/title>/gi, '')
-    .replace(/<meta name="description"[^>]*>/gi, '')
-    .replace(/<meta name="robots"[^>]*>/gi, '')
-    .replace(/<link rel="canonical"[^>]*>/gi, '')
-    .replace(/<meta property="og:[^"]+"[^>]*>/gi, '')
-    .replace(/<meta name="twitter:[^"]+"[^>]*>/gi, '')
-    .replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/gi, '');
+    .replace(/<meta(?=[^>]*\bname=["']description["'])[^>]*>/gi, '')
+    .replace(/<meta(?=[^>]*\bname=["']robots["'])[^>]*>/gi, '')
+    .replace(/<meta(?=[^>]*\bname=["']google-site-verification["'])[^>]*>/gi, '')
+    .replace(/<link(?=[^>]*\brel=["']canonical["'])[^>]*>/gi, '')
+    .replace(/<meta(?=[^>]*\bproperty=["']og:[^"']+["'])[^>]*>/gi, '')
+    .replace(/<meta(?=[^>]*\bname=["']twitter:[^"']+["'])[^>]*>/gi, '')
+    .replace(/<script(?=[^>]*\btype=["']application\/ld\+json["'])[^>]*>[\s\S]*?<\/script>/gi, '');
 
 const toAbsoluteUrl = (canonicalPath) =>
   canonicalPath === '/' ? `${BASE_URL}/` : `${BASE_URL}${canonicalPath}`;
@@ -154,21 +228,23 @@ const renderSeo = (config) => {
   const jsonLdScripts = (config.jsonLd || [])
     .map(
       (schema) =>
-        `<script type="application/ld+json">${JSON.stringify(schema)}</script>`
+        `<script data-rh="true" type="application/ld+json">${JSON.stringify(schema)}</script>`
     )
     .join('');
 
   return [
-    `<title>${config.title}</title>`,
-    `<meta name="description" content="${config.description}" />`,
-    '<meta name="robots" content="index,follow" />',
-    `<meta name="google-site-verification" content="${GOOGLE_SITE_VERIFICATION}" />`,
-    `<link rel="canonical" href="${canonicalUrl}" />`,
-    `<meta property="og:title" content="${ogTitle}" />`,
-    `<meta property="og:description" content="${ogDescription}" />`,
-    `<meta property="og:url" content="${canonicalUrl}" />`,
-    `<meta property="og:type" content="${ogType}" />`,
-    `<meta name="twitter:card" content="${twitterCard}" />`,
+    `<title data-rh="true">${config.title}</title>`,
+    `<meta data-rh="true" name="description" content="${config.description}" />`,
+    '<meta data-rh="true" name="robots" content="index,follow" />',
+    `<meta data-rh="true" name="google-site-verification" content="${GOOGLE_SITE_VERIFICATION}" />`,
+    `<link data-rh="true" rel="canonical" href="${canonicalUrl}" />`,
+    `<meta data-rh="true" property="og:title" content="${ogTitle}" />`,
+    `<meta data-rh="true" property="og:description" content="${ogDescription}" />`,
+    `<meta data-rh="true" property="og:url" content="${canonicalUrl}" />`,
+    `<meta data-rh="true" property="og:type" content="${ogType}" />`,
+    `<meta data-rh="true" property="og:site_name" content="${BRAND_NAME}" />`,
+    ...(config.ogImage ? [`<meta data-rh="true" property="og:image" content="${config.ogImage}" />`] : []),
+    `<meta data-rh="true" name="twitter:card" content="${twitterCard}" />`,
     jsonLdScripts
   ].join('');
 };

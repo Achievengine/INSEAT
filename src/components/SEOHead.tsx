@@ -1,5 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 
+const GOOGLE_SITE_VERIFICATION = 'FBkmjKh1YoIOdoj8nBZSTzR6wtM0xcDY6s5XI3NadY4';
+
 type BreadcrumbItem = {
   name: string;
   url: string;
@@ -63,7 +65,7 @@ const SEOHead = ({
   twitterTitle,
   twitterDescription,
   twitterCard = 'summary_large_image',
-  siteName = 'Inseat',
+  siteName = 'INSEAT',
   breadcrumbs,
   faqs,
   howTo,
@@ -74,7 +76,7 @@ const SEOHead = ({
     typeof window !== 'undefined' ? window.location.origin : 'https://inseat.achievengine.com';
   const fullUrl = url || (typeof window !== 'undefined' ? window.location.href : undefined);
   const fullImage = image || `${origin}/preview.png`;
-  const resolvedTitle = appendSiteName ? `${title} | Inseat` : title;
+  const resolvedTitle = appendSiteName ? `${title} | INSEAT` : title;
   const resolvedOgTitle = ogTitle || resolvedTitle;
   const resolvedOgDescription = ogDescription || description;
   const resolvedTwitterTitle = twitterTitle || resolvedOgTitle;
@@ -155,6 +157,7 @@ const SEOHead = ({
       <title>{resolvedTitle}</title>
       <meta name="description" content={description} />
       <meta name="robots" content="index,follow" />
+      <meta name="google-site-verification" content={GOOGLE_SITE_VERIFICATION} />
       {keywords ? <meta name="keywords" content={keywords} /> : null}
 
       <meta property="og:type" content={type} />

@@ -72,14 +72,14 @@ function LandingPage() {
   return (
     <>
       <SEOHead
-        title="INSEAT — Restaurant Operations Software | QR Ordering, Table Management & Waitlist"
+        title="INSEAT — Restaurant Operations Software | QR Ordering & Table Management"
         appendSiteName={false}
-        description="INSEAT is the all-in-one restaurant operations platform. QR code ordering, table management, waitlist with SMS, kitchen display, staff tools, and analytics. Free plan available. Used by 500+ restaurants in UAE, Ethiopia & India."
+        description="INSEAT is a restaurant operations platform for QR ordering, AI OCR menu import, table management, waitlists, reservations, payments, loyalty, analytics, and inventory."
         keywords="restaurant management software, QR code ordering system, table management software, restaurant waitlist app, kitchen display system KDS, restaurant POS, digital menu, restaurant analytics, restaurant reservations, staff scheduling restaurant, restaurant operations platform, contactless ordering"
         url="https://inseat.achievengine.com/"
         image="https://inseat.achievengine.com/og-image.png"
-        ogTitle="INSEAT — Restaurant Operations, Simplified"
-        ogDescription="Replace five disconnected tools with one platform. QR ordering, table management, waitlist, kitchen display, and analytics for modern restaurants. Free plan available."
+        ogTitle="INSEAT — Restaurant Operations Software"
+        ogDescription="INSEAT helps restaurants run QR ordering, table management, reservations, payments, loyalty, analytics, and inventory from one platform."
         type="website"
         twitterCard="summary_large_image"
         faqs={[
@@ -108,13 +108,18 @@ function LandingPage() {
           {
             '@context': 'https://schema.org',
             '@type': 'SoftwareApplication',
+            '@id': 'https://inseat.achievengine.com/#software',
             name: 'INSEAT',
+            alternateName: ['Inseat', 'INSEAT Restaurant Platform', 'INSEAT Restaurant Operations Platform'],
             applicationCategory: 'BusinessApplication',
             applicationSubCategory: 'Restaurant Management Software',
             operatingSystem: 'Web, iOS, Android',
-            description: 'All-in-one restaurant operations platform with QR code ordering, table management, waitlist with SMS notifications, kitchen display system, staff management, and analytics dashboard.',
+            description: 'INSEAT is a restaurant operations platform for QR ordering, AI menu import, table management, waitlists, reservations, kitchen workflows, loyalty, payments, analytics, and inventory.',
             url: 'https://inseat.achievengine.com',
+            image: 'https://inseat.achievengine.com/og-image.png',
             screenshot: 'https://inseat.achievengine.com/og-image.png',
+            brand: { '@id': 'https://inseat.achievengine.com/#organization' },
+            publisher: { '@id': 'https://inseat.achievengine.com/#organization' },
             featureList: [
               'QR Code Table Ordering',
               'AI OCR Menu Import',
@@ -133,27 +138,32 @@ function LandingPage() {
               highPrice: '99',
               priceCurrency: 'USD',
               offerCount: '3'
-            },
-            aggregateRating: {
-              '@type': 'AggregateRating',
-              ratingValue: '4.8',
-              ratingCount: '120',
-              bestRating: '5',
-              worstRating: '1'
             }
           },
           {
             '@context': 'https://schema.org',
             '@type': 'Organization',
+            '@id': 'https://inseat.achievengine.com/#organization',
             name: 'INSEAT',
+            alternateName: ['Inseat', 'INSEAT Restaurant Platform', 'INSEAT Restaurant Operations Platform'],
+            legalName: 'Achievengine',
             url: 'https://inseat.achievengine.com',
-            logo: 'https://inseat.achievengine.com/logo.png',
-            description: 'Restaurant operations platform powering 500+ restaurants across UAE, Ethiopia, and India.',
+            logo: {
+              '@type': 'ImageObject',
+              url: 'https://inseat.achievengine.com/logo.png',
+              contentUrl: 'https://inseat.achievengine.com/logo.png',
+              width: 500,
+              height: 500
+            },
+            description: 'INSEAT is a restaurant operations software platform by Achievengine, built for QR ordering, table management, waitlists, reservations, payments, analytics, and inventory.',
             foundingDate: '2024',
+            email: 'business.inseat@achievengine.com',
+            telephone: '+971-50-731-3961',
             contactPoint: [
               {
                 '@type': 'ContactPoint',
                 telephone: '+971-50-731-3961',
+                email: 'business.inseat@achievengine.com',
                 contactType: 'sales',
                 areaServed: ['AE', 'ET', 'IN'],
                 availableLanguage: ['English', 'Arabic', 'Amharic']
@@ -161,16 +171,13 @@ function LandingPage() {
               {
                 '@type': 'ContactPoint',
                 telephone: '+251-94-215-0275',
-                contactType: 'customer service',
+                email: 'support@achievengine.com',
+                contactType: 'customer support',
                 areaServed: 'ET',
                 availableLanguage: ['English', 'Amharic']
               }
             ],
-            sameAs: [
-              'https://www.linkedin.com/company/inseat',
-              'https://www.facebook.com/inseat',
-              'https://twitter.com/inseat'
-            ],
+            sameAs: [],
             parentOrganization: {
               '@type': 'Organization',
               name: 'Achievengine',
@@ -180,13 +187,11 @@ function LandingPage() {
           {
             '@context': 'https://schema.org',
             '@type': 'WebSite',
+            '@id': 'https://inseat.achievengine.com/#website',
             name: 'INSEAT',
+            alternateName: ['Inseat', 'INSEAT Restaurant Platform', 'INSEAT Restaurant Operations Platform'],
             url: 'https://inseat.achievengine.com',
-            potentialAction: {
-              '@type': 'SearchAction',
-              target: 'https://inseat.achievengine.com/blog?q={search_term_string}',
-              'query-input': 'required name=search_term_string'
-            }
+            publisher: { '@id': 'https://inseat.achievengine.com/#organization' }
           }
         ]}
       />
