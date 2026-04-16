@@ -192,7 +192,7 @@ const PricingPage = () => {
 
   const breadcrumbs = [
     { name: 'Home', url: 'https://inseat.achievengine.com/' },
-    { name: 'Pricing', url: 'https://inseat.achievengine.com/pricing' }
+    { name: 'Pricing', url: 'https://inseat.achievengine.com/pricing/' }
   ];
 
   const starterPlan = plans.find((plan) => plan.tier === 'entry');
@@ -248,7 +248,7 @@ const PricingPage = () => {
         title="Pricing - Website Builder and Ordering Plans"
         description={`Simple subscription pricing for INSEAT restaurant ordering platform. Starter at $${starterSeoPrice}, Pro at $${proSeoPrice}, and Custom Enterprise.`}
         keywords="restaurant ordering pricing, contactless QR ordering pricing, telebirr stripe chapa integration pricing, INSEAT subscription plans"
-        url="https://inseat.achievengine.com/pricing"
+        url="https://inseat.achievengine.com/pricing/"
         breadcrumbs={breadcrumbs}
         faqs={faqs}
         softwareApplication={{

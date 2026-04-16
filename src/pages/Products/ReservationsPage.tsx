@@ -8,8 +8,8 @@ import Breadcrumbs from '../../components/Breadcrumbs';
 const ReservationsPage = () => {
   const breadcrumbs = [
     { name: 'Home', url: 'https://inseat.achievengine.com/' },
-    { name: 'Products', url: 'https://inseat.achievengine.com/features' },
-    { name: 'Reservations', url: 'https://inseat.achievengine.com/reservations' }
+    { name: 'Products', url: 'https://inseat.achievengine.com/features/' },
+    { name: 'Reservations', url: 'https://inseat.achievengine.com/reservations/' }
   ];
 
   const faqs = [
@@ -106,7 +106,7 @@ const ReservationsPage = () => {
         title="Restaurant Reservation Software"
         description="Accept online reservations 24/7 with Inseat. Reduce no-shows with automated reminders, collect deposits, and manage bookings from one dashboard. No per-cover fees."
         keywords="restaurant reservation software, online restaurant booking, table reservation system, restaurant booking widget, reduce no-shows, Google Reserve integration"
-        url="https://inseat.achievengine.com/reservations"
+        url="https://inseat.achievengine.com/reservations/"
         breadcrumbs={breadcrumbs}
         faqs={faqs}
         softwareApplication={{

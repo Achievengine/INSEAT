@@ -9,7 +9,7 @@ import { platformIntegrations } from '../../data/platformIntegrations';
 const IntegrationsPage = () => {
   const breadcrumbs = [
     { name: 'Home', url: 'https://inseat.achievengine.com/' },
-    { name: 'Integrations', url: 'https://inseat.achievengine.com/integrations' }
+    { name: 'Integrations', url: 'https://inseat.achievengine.com/integrations/' }
   ];
 
   const faqs = [
@@ -43,7 +43,7 @@ const IntegrationsPage = () => {
         title="INSEAT Integrations"
         description="Explore INSEAT integrations that are available today: payment gateways and delivery-channel partner integrations."
         keywords="inseat integrations, stripe mpgs chapa telebirr apple pay, delivery channel integrations, restaurant partner integrations"
-        url="https://inseat.achievengine.com/integrations"
+        url="https://inseat.achievengine.com/integrations/"
         breadcrumbs={breadcrumbs}
         faqs={faqs}
         softwareApplication={{

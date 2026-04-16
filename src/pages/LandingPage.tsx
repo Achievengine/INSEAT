@@ -21,6 +21,20 @@ import DemoForm from '../components/DemoForm';
 // Styles
 import '../App.css';
 
+const OFFICIAL_SOCIAL_URLS = [
+  'https://x.com/inseat_hq',
+  'https://www.instagram.com/inseat_hq/',
+  'https://www.linkedin.com/showcase/inseat/'
+];
+
+const BUSINESS_ADDRESS = {
+  '@type': 'PostalAddress',
+  streetAddress: 'Shams Business Center, Al Messaned, Media City Free Zone',
+  addressLocality: 'Sharjah',
+  addressRegion: 'Sharjah',
+  addressCountry: 'AE'
+};
+
 // ScrollToTop component for the scroll progress indicator
 const ScrollProgress = () => {
   const { scrollYProgress } = useScroll();
@@ -148,6 +162,8 @@ function LandingPage() {
             alternateName: ['Inseat', 'INSEAT Restaurant Platform', 'INSEAT Restaurant Operations Platform'],
             legalName: 'Achievengine',
             url: 'https://inseat.achievengine.com',
+            image: 'https://inseat.achievengine.com/og-image.png',
+            address: BUSINESS_ADDRESS,
             logo: {
               '@type': 'ImageObject',
               url: 'https://inseat.achievengine.com/logo.png',
@@ -177,7 +193,7 @@ function LandingPage() {
                 availableLanguage: ['English', 'Amharic']
               }
             ],
-            sameAs: [],
+            sameAs: OFFICIAL_SOCIAL_URLS,
             parentOrganization: {
               '@type': 'Organization',
               name: 'Achievengine',

@@ -8,6 +8,18 @@ const BRAND_NAME = 'INSEAT';
 const BRAND_ALTERNATE_NAMES = ['Inseat', 'INSEAT Restaurant Platform', 'INSEAT Restaurant Operations Platform'];
 const LOGO_URL = `${BASE_URL}/logo.png`;
 const OG_IMAGE_URL = `${BASE_URL}/og-image.png`;
+const BUSINESS_ADDRESS = {
+  '@type': 'PostalAddress',
+  streetAddress: 'Shams Business Center, Al Messaned, Media City Free Zone',
+  addressLocality: 'Sharjah',
+  addressRegion: 'Sharjah',
+  addressCountry: 'AE'
+};
+const OFFICIAL_SOCIAL_URLS = [
+  'https://x.com/inseat_hq',
+  'https://www.instagram.com/inseat_hq/',
+  'https://www.linkedin.com/showcase/inseat/'
+];
 
 const homeSoftwareApplication = {
   '@context': 'https://schema.org',
@@ -57,6 +69,8 @@ const homeOrganization = {
   alternateName: BRAND_ALTERNATE_NAMES,
   legalName: 'Achievengine',
   url: BASE_URL,
+  image: OG_IMAGE_URL,
+  address: BUSINESS_ADDRESS,
   logo: {
     '@type': 'ImageObject',
     url: LOGO_URL,
@@ -92,7 +106,7 @@ const homeOrganization = {
     name: 'Achievengine',
     url: 'https://achievengine.com'
   },
-  sameAs: []
+  sameAs: OFFICIAL_SOCIAL_URLS
 };
 
 const homeWebSite = {
@@ -217,7 +231,7 @@ const stripSeoTags = (html) =>
     .replace(/<script(?=[^>]*\btype=["']application\/ld\+json["'])[^>]*>[\s\S]*?<\/script>/gi, '');
 
 const toAbsoluteUrl = (canonicalPath) =>
-  canonicalPath === '/' ? `${BASE_URL}/` : `${BASE_URL}${canonicalPath}`;
+  canonicalPath === '/' ? `${BASE_URL}/` : `${BASE_URL}${canonicalPath.replace(/\/?$/, '/')}`;
 
 const renderSeo = (config) => {
   const canonicalUrl = toAbsoluteUrl(config.canonicalPath);

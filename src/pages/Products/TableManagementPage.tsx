@@ -8,8 +8,8 @@ import Breadcrumbs from '../../components/Breadcrumbs';
 const TableManagementPage = () => {
   const breadcrumbs = [
     { name: 'Home', url: 'https://inseat.achievengine.com/' },
-    { name: 'Products', url: 'https://inseat.achievengine.com/features' },
-    { name: 'Table Management', url: 'https://inseat.achievengine.com/table-management' }
+    { name: 'Products', url: 'https://inseat.achievengine.com/features/' },
+    { name: 'Table Management', url: 'https://inseat.achievengine.com/table-management/' }
   ];
 
   const faqs = [
@@ -94,7 +94,7 @@ const TableManagementPage = () => {
         title="Restaurant Table Management Software"
         description="Optimize your restaurant seating with Inseat's table management system. Interactive floor plans, real-time status tracking, and capacity analytics. Free trial available."
         keywords="restaurant table management software, table management system, restaurant floor plan, seating optimization, table turnover, restaurant capacity management"
-        url="https://inseat.achievengine.com/table-management"
+        url="https://inseat.achievengine.com/table-management/"
         breadcrumbs={breadcrumbs}
         faqs={faqs}
         softwareApplication={{

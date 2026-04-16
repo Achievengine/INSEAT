@@ -8,7 +8,7 @@ import Breadcrumbs from '../components/Breadcrumbs';
 const FeaturesPage = () => {
   const breadcrumbs = [
     { name: 'Home', url: 'https://inseat.achievengine.com/' },
-    { name: 'Features', url: 'https://inseat.achievengine.com/features' }
+    { name: 'Features', url: 'https://inseat.achievengine.com/features/' }
   ];
 
   const faqs = [
@@ -109,7 +109,7 @@ const FeaturesPage = () => {
         title="INSEAT Platform Features"
         description="Explore INSEAT features that are currently implemented: AI menu OCR, draft/publish menu workflow, reservations, dynamic pricing, promotions, loyalty, analytics, inventory, and payment provider configuration."
         keywords="inseat features, restaurant ocr menu import, restaurant feature config, reservations dynamic pricing promotions loyalty"
-        url="https://inseat.achievengine.com/features"
+        url="https://inseat.achievengine.com/features/"
         breadcrumbs={breadcrumbs}
         faqs={faqs}
         softwareApplication={{

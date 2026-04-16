@@ -16,8 +16,8 @@ const IntegrationDetailPage = () => {
 
   const breadcrumbs = [
     { name: 'Home', url: 'https://inseat.achievengine.com/' },
-    { name: 'Integrations', url: 'https://inseat.achievengine.com/integrations' },
-    { name: integration.name, url: `https://inseat.achievengine.com/integrations/${integration.slug}` }
+    { name: 'Integrations', url: 'https://inseat.achievengine.com/integrations/' },
+    { name: integration.name, url: `https://inseat.achievengine.com/integrations/${integration.slug}/` }
   ];
 
   return (
@@ -26,7 +26,7 @@ const IntegrationDetailPage = () => {
         title={`${integration.name} Integration`}
         description={integration.description}
         keywords={`${integration.name} integration, inseat ${integration.category.toLowerCase()} integration, restaurant platform integration`}
-        url={`https://inseat.achievengine.com/integrations/${integration.slug}`}
+        url={`https://inseat.achievengine.com/integrations/${integration.slug}/`}
         breadcrumbs={breadcrumbs}
         faqs={integration.faqs}
         softwareApplication={{

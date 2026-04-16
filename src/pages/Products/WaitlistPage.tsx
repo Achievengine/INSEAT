@@ -8,8 +8,8 @@ import Breadcrumbs from '../../components/Breadcrumbs';
 const WaitlistPage = () => {
   const breadcrumbs = [
     { name: 'Home', url: 'https://inseat.achievengine.com/' },
-    { name: 'Products', url: 'https://inseat.achievengine.com/features' },
-    { name: 'Waitlist Management', url: 'https://inseat.achievengine.com/waitlist' }
+    { name: 'Products', url: 'https://inseat.achievengine.com/features/' },
+    { name: 'Waitlist Management', url: 'https://inseat.achievengine.com/waitlist/' }
   ];
 
   const faqs = [
@@ -105,7 +105,7 @@ const WaitlistPage = () => {
         title="Restaurant Waitlist Management Software"
         description="Discover Inseat's digital waitlist software: manage queues, reduce wait times and improve guest experience with SMS notifications. Try it free."
         keywords="restaurant waitlist software, digital waitlist, waitlist management system, restaurant queue management, SMS notifications, reduce wait times, virtual waitlist"
-        url="https://inseat.achievengine.com/waitlist"
+        url="https://inseat.achievengine.com/waitlist/"
         breadcrumbs={breadcrumbs}
         faqs={faqs}
         howTo={{
