@@ -120,6 +120,27 @@ const homeWebSite = {
     '@id': `${BASE_URL}/#organization`
   }
 };
+
+const toAbsoluteUrl = (canonicalPath) =>
+  canonicalPath === '/' ? `${BASE_URL}/` : `${BASE_URL}${canonicalPath.replace(/\/?$/, '/')}`;
+
+const breadcrumbList = (items) => ({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map((item, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: item.name,
+    item: item.url
+  }))
+});
+
+const pageBreadcrumb = (name, canonicalPath) =>
+  breadcrumbList([
+    { name: 'Home', url: `${BASE_URL}/` },
+    { name, url: toAbsoluteUrl(canonicalPath) }
+  ]);
+
 const routeSEO = {
   '/': {
     title: 'INSEAT — Restaurant Operations Software | QR Ordering & Table Management',
@@ -139,78 +160,114 @@ const routeSEO = {
     description:
       'Explore Inseat features for QR ordering, menu operations, kitchen workflows, reservations, and analytics.',
     canonicalPath: '/features',
-    ogType: 'website'
+    ogType: 'website',
+    jsonLd: [pageBreadcrumb('Features', '/features')]
   },
   '/pricing': {
     title: 'Restaurant Pricing Plans | Inseat',
     description:
       'Compare Inseat pricing plans for single and multi-location restaurants with core ordering and operations tools.',
     canonicalPath: '/pricing',
-    ogType: 'website'
+    ogType: 'website',
+    jsonLd: [pageBreadcrumb('Pricing', '/pricing')]
   },
   '/integrations': {
     title: 'Integrations | Inseat',
     description:
       'Connect Inseat with payment providers and restaurant integrations to streamline your operations stack.',
     canonicalPath: '/integrations',
-    ogType: 'website'
+    ogType: 'website',
+    jsonLd: [pageBreadcrumb('Integrations', '/integrations')]
   },
   '/integrations/stripe': {
     title: 'Stripe Integration | Inseat',
     description: 'Accept card payments with the Inseat Stripe integration for fast checkout and reconciliation.',
     canonicalPath: '/integrations/stripe',
-    ogType: 'article'
+    ogType: 'article',
+    jsonLd: [breadcrumbList([
+      { name: 'Home', url: `${BASE_URL}/` },
+      { name: 'Integrations', url: toAbsoluteUrl('/integrations') },
+      { name: 'Stripe', url: toAbsoluteUrl('/integrations/stripe') }
+    ])]
   },
   '/integrations/mpgs': {
     title: 'MPGS Integration | Inseat',
     description: 'Use MPGS with Inseat to process secure payments across your restaurant ordering channels.',
     canonicalPath: '/integrations/mpgs',
-    ogType: 'article'
+    ogType: 'article',
+    jsonLd: [breadcrumbList([
+      { name: 'Home', url: `${BASE_URL}/` },
+      { name: 'Integrations', url: toAbsoluteUrl('/integrations') },
+      { name: 'MPGS', url: toAbsoluteUrl('/integrations/mpgs') }
+    ])]
   },
   '/integrations/chapa': {
     title: 'Chapa Integration | Inseat',
     description: 'Enable Chapa payments in Inseat for localized checkout and settlement workflows.',
     canonicalPath: '/integrations/chapa',
-    ogType: 'article'
+    ogType: 'article',
+    jsonLd: [breadcrumbList([
+      { name: 'Home', url: `${BASE_URL}/` },
+      { name: 'Integrations', url: toAbsoluteUrl('/integrations') },
+      { name: 'Chapa', url: toAbsoluteUrl('/integrations/chapa') }
+    ])]
   },
   '/integrations/telebirr': {
     title: 'Telebirr Integration | Inseat',
     description: 'Connect Telebirr to Inseat for mobile-first payment acceptance in restaurant operations.',
     canonicalPath: '/integrations/telebirr',
-    ogType: 'article'
+    ogType: 'article',
+    jsonLd: [breadcrumbList([
+      { name: 'Home', url: `${BASE_URL}/` },
+      { name: 'Integrations', url: toAbsoluteUrl('/integrations') },
+      { name: 'Telebirr', url: toAbsoluteUrl('/integrations/telebirr') }
+    ])]
   },
   '/integrations/apple-pay': {
     title: 'Apple Pay Integration | Inseat',
     description: 'Offer Apple Pay with Inseat to speed up checkout for dine-in and digital ordering flows.',
     canonicalPath: '/integrations/apple-pay',
-    ogType: 'article'
+    ogType: 'article',
+    jsonLd: [breadcrumbList([
+      { name: 'Home', url: `${BASE_URL}/` },
+      { name: 'Integrations', url: toAbsoluteUrl('/integrations') },
+      { name: 'Apple Pay', url: toAbsoluteUrl('/integrations/apple-pay') }
+    ])]
   },
   '/integrations/delivery-apps': {
     title: 'Delivery App Integrations | Inseat',
     description: 'Manage delivery channels from Inseat with aggregator-ready integration capabilities.',
     canonicalPath: '/integrations/delivery-apps',
-    ogType: 'article'
+    ogType: 'article',
+    jsonLd: [breadcrumbList([
+      { name: 'Home', url: `${BASE_URL}/` },
+      { name: 'Integrations', url: toAbsoluteUrl('/integrations') },
+      { name: 'Delivery App Integrations', url: toAbsoluteUrl('/integrations/delivery-apps') }
+    ])]
   },
   '/blog': {
     title: 'Inseat Blog | Restaurant Operations Insights',
     description:
       'Read Inseat blog articles on restaurant waitlist management, table operations, digital ordering, and growth.',
     canonicalPath: '/blog',
-    ogType: 'website'
+    ogType: 'website',
+    jsonLd: [pageBreadcrumb('Blog', '/blog')]
   },
   '/table-management': {
     title: 'Table Management Software | Inseat',
     description:
       'Optimize seating flow, turn times, and floor operations with Inseat table management software.',
     canonicalPath: '/table-management',
-    ogType: 'website'
+    ogType: 'website',
+    jsonLd: [pageBreadcrumb('Table Management', '/table-management')]
   },
   '/reservations': {
     title: 'Restaurant Reservations Software | Inseat',
     description:
       'Manage bookings, availability, and guest reservations with the Inseat restaurant reservations platform.',
     canonicalPath: '/reservations',
-    ogType: 'website'
+    ogType: 'website',
+    jsonLd: [pageBreadcrumb('Reservations', '/reservations')]
   }
 };
 
@@ -229,9 +286,6 @@ const stripSeoTags = (html) =>
     .replace(/<meta(?=[^>]*\bproperty=["']og:[^"']+["'])[^>]*>/gi, '')
     .replace(/<meta(?=[^>]*\bname=["']twitter:[^"']+["'])[^>]*>/gi, '')
     .replace(/<script(?=[^>]*\btype=["']application\/ld\+json["'])[^>]*>[\s\S]*?<\/script>/gi, '');
-
-const toAbsoluteUrl = (canonicalPath) =>
-  canonicalPath === '/' ? `${BASE_URL}/` : `${BASE_URL}${canonicalPath.replace(/\/?$/, '/')}`;
 
 const renderSeo = (config) => {
   const canonicalUrl = toAbsoluteUrl(config.canonicalPath);

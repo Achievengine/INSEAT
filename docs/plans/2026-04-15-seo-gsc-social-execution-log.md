@@ -517,6 +517,48 @@ Long-term success:
 - INSEAT becomes the strongest software/entity result for the branded query
 - Google has enough confidence to show richer brand/entity features
 
+## 2026-04-16 Claude Review Follow-Up
+
+The Claude chat was used to review the verified SEO state and produce a concrete gap list. Claude identified the following remaining technical/entity risks:
+
+- no verified Google Business Profile
+- no Wikidata entity
+- no Crunchbase or AngelList/Wellfound profile
+- PageSpeed mobile performance around 72
+- missing `BreadcrumbList` schema on interior pages
+- actual GSC indexation still needs Pages report confirmation
+- LinkedIn Showcase Page is weaker than a standalone Company Page signal
+- `og:image` dimensions needed verification
+- Facebook should be added to `sameAs` after Meta review clears
+
+Actions completed after that review:
+
+- verified `og-image.png` is `1200x630`
+- verified live `/og-image.png` returns `200`
+- added `BreadcrumbList` JSON-LD to key interior pages:
+  - `/features/`
+  - `/pricing/`
+  - `/integrations/`
+  - `/table-management/`
+  - `/reservations/`
+  - integration detail pages
+  - `/blog/`
+- rebuilt and deployed the updated static site
+- verified live pages expose `BreadcrumbList` JSON-LD
+
+Still open from the Claude review:
+
+- create and verify a Google Business Profile using the Sharjah address
+- complete Crunchbase and Wellfound/AngelList profiles
+- decide whether the standalone LinkedIn Company Page should replace the Showcase Page in `sameAs`
+- inspect GSC Pages report for `Discovered - currently not indexed` and `Crawled - currently not indexed`
+- run a PageSpeed opportunities/diagnostics pass and fix the main LCP/unused-JS causes
+- add Facebook to `sameAs` only after Meta review clears and the Page is live
+
+Wikidata caution:
+
+- do not create a weak or spam-like Wikidata item before there are enough independent references. Use Product Hunt, Crunchbase, Wellfound, press, directory listings, and partner references first, then create Wikidata only if it can satisfy notability expectations.
+
 ### Alignment Summary
 
 The technical SEO foundation is mostly done. The remaining work is not mainly code. It is entity consolidation, publishing, third-party corroboration, and authority building. That is the work that gives INSEAT a real chance to outrank weaker unrelated `inseat` results and eventually earn richer Google brand treatment.
