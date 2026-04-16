@@ -5,7 +5,7 @@ const DIST_DIR = path.resolve(process.cwd(), 'dist');
 const BASE_URL = 'https://inseat.achievengine.com';
 const GOOGLE_SITE_VERIFICATION = 'FBkmjKh1YoIOdoj8nBZSTzR6wtM0xcDY6s5XI3NadY4';
 const BRAND_NAME = 'INSEAT';
-const BRAND_ALTERNATE_NAMES = ['Inseat', 'INSEAT Restaurant Platform', 'INSEAT Restaurant Operations Platform'];
+const BRAND_ALTERNATE_NAMES = ['Inseat', 'INSEAT Hospitality Platform', 'INSEAT Guest Experience Platform'];
 const LOGO_URL = `${BASE_URL}/logo.png`;
 const OG_IMAGE_URL = `${BASE_URL}/og-image.png`;
 const BUSINESS_ADDRESS = {
@@ -28,10 +28,10 @@ const homeSoftwareApplication = {
   name: BRAND_NAME,
   alternateName: BRAND_ALTERNATE_NAMES,
   applicationCategory: 'BusinessApplication',
-  applicationSubCategory: 'Restaurant Management Software',
+  applicationSubCategory: 'Hospitality Operations Software',
   operatingSystem: 'Web, iOS, Android',
   description:
-    'INSEAT is a restaurant operations platform for QR ordering, AI menu import, table management, waitlists, reservations, kitchen workflows, loyalty, payments, analytics, and inventory.',
+    'INSEAT is the all-in-one guest experience and operations platform for hospitality businesses, helping teams streamline service, simplify operations, and deliver better customer experiences across every touchpoint.',
   url: BASE_URL,
   image: OG_IMAGE_URL,
   screenshot: OG_IMAGE_URL,
@@ -50,7 +50,7 @@ const homeSoftwareApplication = {
     'Kitchen Display System',
     'Multi-Gateway Payments',
     'Loyalty',
-    'Restaurant Analytics',
+    'Hospitality Analytics',
     'Inventory Management'
   ],
   areaServed: ['AE', 'ET', 'IN'],
@@ -79,7 +79,7 @@ const homeOrganization = {
     height: 500
   },
   description:
-    'INSEAT is a restaurant operations software platform by Achievengine, built for QR ordering, table management, waitlists, reservations, payments, analytics, and inventory.',
+    'INSEAT is the all-in-one guest experience and operations platform for hospitality businesses, built by Achievengine to streamline service, simplify operations, and improve customer experiences across every touchpoint.',
   foundingDate: '2024',
   email: 'business.inseat@achievengine.com',
   telephone: '+971-50-731-3961',
@@ -143,30 +143,31 @@ const pageBreadcrumb = (name, canonicalPath) =>
 
 const routeSEO = {
   '/': {
-    title: 'INSEAT — Restaurant Operations Software | QR Ordering & Table Management',
+    title: 'INSEAT — Hospitality Guest Experience & Operations Platform',
     description:
-      'INSEAT is a restaurant operations platform for QR ordering, AI OCR menu import, table management, waitlists, reservations, payments, loyalty, analytics, and inventory.',
+      'INSEAT is the all-in-one guest experience and operations platform for hospitality businesses, helping teams streamline service and deliver better customer experiences.',
     canonicalPath: '/',
-    ogTitle: 'INSEAT — Restaurant Operations Software',
+    ogTitle: 'INSEAT — Hospitality Operations Platform',
     ogDescription:
-      'INSEAT helps restaurants run QR ordering, table management, reservations, payments, loyalty, analytics, and inventory from one platform.',
+      'INSEAT helps hospitality teams streamline service, simplify operations, and deliver better customer experiences across every touchpoint.',
     ogImage: OG_IMAGE_URL,
     ogType: 'website',
     twitterCard: 'summary_large_image',
+    preloadImages: ['/restaurant.webp'],
     jsonLd: [homeOrganization, homeWebSite, homeSoftwareApplication]
   },
   '/features': {
-    title: 'Restaurant Features | Inseat',
+    title: 'Hospitality Platform Features | Inseat',
     description:
-      'Explore Inseat features for QR ordering, menu operations, kitchen workflows, reservations, and analytics.',
+      'Explore Inseat features for guest ordering, menu operations, service workflows, reservations, payments, loyalty, and analytics.',
     canonicalPath: '/features',
     ogType: 'website',
     jsonLd: [pageBreadcrumb('Features', '/features')]
   },
   '/pricing': {
-    title: 'Restaurant Pricing Plans | Inseat',
+    title: 'Hospitality Platform Pricing | Inseat',
     description:
-      'Compare Inseat pricing plans for single and multi-location restaurants with core ordering and operations tools.',
+      'Compare Inseat pricing plans for hospitality teams running guest experience, ordering, reservations, and operations workflows.',
     canonicalPath: '/pricing',
     ogType: 'website',
     jsonLd: [pageBreadcrumb('Pricing', '/pricing')]
@@ -174,7 +175,7 @@ const routeSEO = {
   '/integrations': {
     title: 'Integrations | Inseat',
     description:
-      'Connect Inseat with payment providers and restaurant integrations to streamline your operations stack.',
+      'Connect Inseat with payment providers and hospitality integrations to streamline your operations stack.',
     canonicalPath: '/integrations',
     ogType: 'website',
     jsonLd: [pageBreadcrumb('Integrations', '/integrations')]
@@ -285,6 +286,7 @@ const stripSeoTags = (html) =>
     .replace(/<link(?=[^>]*\brel=["']canonical["'])[^>]*>/gi, '')
     .replace(/<meta(?=[^>]*\bproperty=["']og:[^"']+["'])[^>]*>/gi, '')
     .replace(/<meta(?=[^>]*\bname=["']twitter:[^"']+["'])[^>]*>/gi, '')
+    .replace(/<link(?=[^>]*\bdata-rh=["']true["'])(?=[^>]*\brel=["']preload["'])(?=[^>]*\bas=["']image["'])[^>]*>/gi, '')
     .replace(/<script(?=[^>]*\btype=["']application\/ld\+json["'])[^>]*>[\s\S]*?<\/script>/gi, '');
 
 const renderSeo = (config) => {
@@ -299,8 +301,15 @@ const renderSeo = (config) => {
         `<script data-rh="true" type="application/ld+json">${JSON.stringify(schema)}</script>`
     )
     .join('');
+  const preloads = (config.preloadImages || [])
+    .map(
+      (href) =>
+        `<link data-rh="true" rel="preload" as="image" href="${href}" type="image/webp" fetchpriority="high" />`
+    )
+    .join('');
 
   return [
+    preloads,
     `<title data-rh="true">${config.title}</title>`,
     `<meta data-rh="true" name="description" content="${config.description}" />`,
     '<meta data-rh="true" name="robots" content="index,follow" />',

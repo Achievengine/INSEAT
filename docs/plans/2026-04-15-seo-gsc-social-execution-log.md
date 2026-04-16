@@ -545,14 +545,71 @@ Actions completed after that review:
   - `/blog/`
 - rebuilt and deployed the updated static site
 - verified live pages expose `BreadcrumbList` JSON-LD
+- checked GSC Pages report:
+  - last update: `10/04/2026`
+  - `0` not indexed pages
+  - `2` indexed pages
+  - no detected page indexing issues in the last 90 days
+- ran local Lighthouse mobile diagnostics against production
+- found homepage LCP image was `/restaurant.png`
+- added `fetchpriority="high"` to the hero image
+- moved homepage image preload out of the global template and into homepage-only SEO injection
+- generated and deployed `/restaurant.webp`:
+  - PNG source: `307 KB`
+  - WebP version: `42 KB`
+- switched the homepage hero image and preload from `/restaurant.png` to `/restaurant.webp`
+- started Google Business Profile setup through `business.google.com`
+- GBP entered details:
+  - business name: `INSEAT`
+  - category: `Software company`
+  - address: `Shams Business Center, Al Messaned, Media City Free Zone, Sharjah, Sharjah, United Arab Emirates`
+  - phone: `+971 50 731 3961`
+  - website: `https://inseat.achievengine.com/`
+- GBP reached the verification step
+- available GBP verification options shown:
+  - phone code to `050 731 3961`
+  - email code
+  - business video
+- stopped before triggering a verification code because owner-side access is required
+- updated brand positioning away from restaurant-only copy toward hospitality-wide positioning:
+  - `INSEAT is the all-in-one guest experience and operations platform for hospitality businesses, helping teams streamline service, simplify operations, and deliver better customer experiences across every touchpoint.`
+- deployed updated homepage title, description, Open Graph copy, and schema descriptions
+- updated directory submission pack to use hospitality/guest-experience positioning
+- updated Google Ads draft copy with Playwright:
+  - Headline 1: `Inseat Hospitality Platform`
+  - Headline 2: `Guest Experience Software`
+  - Headline 3: `Streamline Service Teams`
+  - Description 1: `Manage service and guest touchpoints in one platform.`
+  - Description 2: `Simplify hospitality workflows and deliver better customer experiences with Inseat.`
+  - phone country changed to `Ethiopia`
+  - phone entered as `+251942150275` / local entry during validation
+  - selected site-sourced logo and image assets
+- Google Ads browser session later closed unexpectedly during the image dialog, so final campaign/billing submission was not completed
+
+Performance diagnostics after the WebP update:
+
+- Performance: `60`
+- Accessibility: `89`
+- Best Practices: `96`
+- SEO: `100`
+- FCP: `2.3s`
+- LCP: `6.4s`
+- Speed Index: `5.3s`
+- TBT: `440ms`
+- CLS: `0`
+
+Observed improvement:
+
+- LCP improved from `8.2s` before the priority/image work to `6.4s` after WebP deployment
+- Speed Index improved from `6.3s` to `5.3s`
+- remaining performance issue is now mainly JavaScript/main-thread work, not the hero image transfer size
 
 Still open from the Claude review:
 
-- create and verify a Google Business Profile using the Sharjah address
+- finish Google Business Profile verification
 - complete Crunchbase and Wellfound/AngelList profiles
 - decide whether the standalone LinkedIn Company Page should replace the Showcase Page in `sameAs`
-- inspect GSC Pages report for `Discovered - currently not indexed` and `Crawled - currently not indexed`
-- run a PageSpeed opportunities/diagnostics pass and fix the main LCP/unused-JS causes
+- reduce homepage JavaScript/main-thread work to improve mobile performance beyond the current Lighthouse `60`
 - add Facebook to `sameAs` only after Meta review clears and the Page is live
 
 Wikidata caution:

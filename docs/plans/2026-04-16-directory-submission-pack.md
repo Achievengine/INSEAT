@@ -31,25 +31,25 @@ Use this exact address where a directory requires a business location:
 
 Primary tagline:
 
-`All-in-one restaurant operations software for faster service, smarter operations, and better guest experiences.`
+`All-in-one guest experience and operations platform for hospitality businesses.`
 
 Shorter option:
 
-`Run ordering, menus, reservations, and operations from one restaurant platform.`
+`Run service, menus, reservations, payments, and guest touchpoints from one platform.`
 
 ## Short Description
 
-`INSEAT helps restaurants run QR ordering, menu management, table operations, reservations, payments, loyalty, analytics, and day-to-day operations from one platform.`
+`INSEAT is the all-in-one guest experience and operations platform for hospitality businesses, helping teams streamline service, simplify operations, and deliver better customer experiences across every touchpoint.`
 
 ## Medium Description
 
-`INSEAT is an all-in-one restaurant operations platform for restaurants, lounges, hospitality venues, and multi-location operators. Teams can run QR ordering, menu management, table management, reservations, payments, loyalty, analytics, and broader service workflows from one system instead of stitching together disconnected tools.`
+`INSEAT is an all-in-one guest experience and operations platform for hospitality businesses, including restaurants, lounges, hotels, venues, and multi-location operators. Teams can run guest ordering, menu management, table and reservation workflows, payments, loyalty, analytics, and broader service operations from one system instead of stitching together disconnected tools.`
 
 ## Long Description
 
-`INSEAT is built for restaurant and hospitality operators that have outgrown disconnected tools. Instead of managing ordering, menu updates, table flows, reservations, loyalty, analytics, and payments across separate systems, INSEAT brings those workflows together in one platform.
+`INSEAT is built for hospitality operators that have outgrown disconnected tools. Instead of managing ordering, menu updates, service flows, reservations, loyalty, analytics, and payments across separate systems, INSEAT brings those workflows together in one platform.
 
-Restaurants can launch QR ordering, digitize menus faster with AI OCR import, manage table and reservation workflows, coordinate promotions and pricing, and monitor operations from a central admin layer. The platform also supports payment-provider flexibility through Stripe, MPGS, Chapa, Telebirr, and Apple Pay.
+Hospitality teams can launch QR ordering, digitize menus faster with AI OCR import, manage table and reservation workflows, coordinate promotions and pricing, and monitor operations from a central admin layer. The platform also supports payment-provider flexibility through Stripe, MPGS, Chapa, Telebirr, and Apple Pay.
 
 The result is not just digital ordering. It is tighter operational control, fewer handoff errors, faster service, and a cleaner technology stack for operators who need better visibility across outlets and guest touchpoints.`
 
@@ -57,12 +57,12 @@ The result is not just digital ordering. It is tighter operational control, fewe
 
 Use the best truthful category available in this order:
 
-1. Restaurant Management Software
-2. Restaurant Operations Software
-3. Online Ordering Software
-4. Reservation Software
-5. Table Management Software
-6. Hospitality Operations Software
+1. Hospitality Operations Software
+2. Guest Experience Platform
+3. Restaurant Management Software
+4. Online Ordering Software
+5. Reservation Software
+6. Table Management Software
 
 ## Core Features
 

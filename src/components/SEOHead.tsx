@@ -135,7 +135,7 @@ const SEOHead = ({
       name: softwareApplication.name,
       description: softwareApplication.description,
       applicationCategory: 'BusinessApplication',
-      applicationSubCategory: 'Restaurant Management Software',
+      applicationSubCategory: 'Hospitality Operations Software',
       operatingSystem: 'Web, iOS, Android',
       offers: {
         '@type': 'Offer',

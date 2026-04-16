@@ -86,14 +86,14 @@ function LandingPage() {
   return (
     <>
       <SEOHead
-        title="INSEAT — Restaurant Operations Software | QR Ordering & Table Management"
+        title="INSEAT — Hospitality Guest Experience & Operations Platform"
         appendSiteName={false}
-        description="INSEAT is a restaurant operations platform for QR ordering, AI OCR menu import, table management, waitlists, reservations, payments, loyalty, analytics, and inventory."
-        keywords="restaurant management software, QR code ordering system, table management software, restaurant waitlist app, kitchen display system KDS, restaurant POS, digital menu, restaurant analytics, restaurant reservations, staff scheduling restaurant, restaurant operations platform, contactless ordering"
+        description="INSEAT is the all-in-one guest experience and operations platform for hospitality businesses, helping teams streamline service and deliver better customer experiences."
+        keywords="hospitality operations software, guest experience platform, QR code ordering system, table management software, waitlist app, kitchen display system KDS, digital menu, hospitality analytics, reservations, service operations platform, contactless ordering"
         url="https://inseat.achievengine.com/"
         image="https://inseat.achievengine.com/og-image.png"
-        ogTitle="INSEAT — Restaurant Operations Software"
-        ogDescription="INSEAT helps restaurants run QR ordering, table management, reservations, payments, loyalty, analytics, and inventory from one platform."
+        ogTitle="INSEAT — Hospitality Operations Platform"
+        ogDescription="INSEAT helps hospitality teams streamline service, simplify operations, and deliver better customer experiences across every touchpoint."
         type="website"
         twitterCard="summary_large_image"
         faqs={[
@@ -103,7 +103,7 @@ function LandingPage() {
           },
           {
             question: 'Is there a free plan?',
-            answer: 'Yes, INSEAT offers a free forever plan that includes basic QR code ordering and table management for small restaurants. No credit card required to start.'
+            answer: 'Yes, INSEAT offers a free forever plan that includes basic QR code ordering and table management for small hospitality teams. No credit card required to start.'
           },
           {
             question: 'Which countries is INSEAT available in?',
@@ -111,7 +111,7 @@ function LandingPage() {
           },
           {
             question: 'How long does it take to set up INSEAT?',
-            answer: 'Most restaurants are up and running in under 5 minutes. You can import your existing menu using our AI OCR feature — just scan your paper menu and INSEAT extracts all items automatically.'
+            answer: 'Most hospitality teams are up and running in under 5 minutes. You can import your existing menu using our AI OCR feature — just scan your paper menu and INSEAT extracts all items automatically.'
           },
           {
             question: 'Does INSEAT work with my existing POS?',
@@ -124,11 +124,11 @@ function LandingPage() {
             '@type': 'SoftwareApplication',
             '@id': 'https://inseat.achievengine.com/#software',
             name: 'INSEAT',
-            alternateName: ['Inseat', 'INSEAT Restaurant Platform', 'INSEAT Restaurant Operations Platform'],
+            alternateName: ['Inseat', 'INSEAT Hospitality Platform', 'INSEAT Guest Experience Platform'],
             applicationCategory: 'BusinessApplication',
-            applicationSubCategory: 'Restaurant Management Software',
+            applicationSubCategory: 'Hospitality Operations Software',
             operatingSystem: 'Web, iOS, Android',
-            description: 'INSEAT is a restaurant operations platform for QR ordering, AI menu import, table management, waitlists, reservations, kitchen workflows, loyalty, payments, analytics, and inventory.',
+            description: 'INSEAT is the all-in-one guest experience and operations platform for hospitality businesses, helping teams streamline service, simplify operations, and deliver better customer experiences across every touchpoint.',
             url: 'https://inseat.achievengine.com',
             image: 'https://inseat.achievengine.com/og-image.png',
             screenshot: 'https://inseat.achievengine.com/og-image.png',
@@ -159,7 +159,7 @@ function LandingPage() {
             '@type': 'Organization',
             '@id': 'https://inseat.achievengine.com/#organization',
             name: 'INSEAT',
-            alternateName: ['Inseat', 'INSEAT Restaurant Platform', 'INSEAT Restaurant Operations Platform'],
+            alternateName: ['Inseat', 'INSEAT Hospitality Platform', 'INSEAT Guest Experience Platform'],
             legalName: 'Achievengine',
             url: 'https://inseat.achievengine.com',
             image: 'https://inseat.achievengine.com/og-image.png',
@@ -171,7 +171,7 @@ function LandingPage() {
               width: 500,
               height: 500
             },
-            description: 'INSEAT is a restaurant operations software platform by Achievengine, built for QR ordering, table management, waitlists, reservations, payments, analytics, and inventory.',
+            description: 'INSEAT is the all-in-one guest experience and operations platform for hospitality businesses, built by Achievengine to streamline service, simplify operations, and improve customer experiences across every touchpoint.',
             foundingDate: '2024',
             email: 'business.inseat@achievengine.com',
             telephone: '+971-50-731-3961',
@@ -205,7 +205,7 @@ function LandingPage() {
             '@type': 'WebSite',
             '@id': 'https://inseat.achievengine.com/#website',
             name: 'INSEAT',
-            alternateName: ['Inseat', 'INSEAT Restaurant Platform', 'INSEAT Restaurant Operations Platform'],
+            alternateName: ['Inseat', 'INSEAT Hospitality Platform', 'INSEAT Guest Experience Platform'],
             url: 'https://inseat.achievengine.com',
             publisher: { '@id': 'https://inseat.achievengine.com/#organization' }
           }

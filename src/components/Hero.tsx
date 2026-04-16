@@ -86,10 +86,11 @@ const Hero = () => {
         initial={{ opacity: 0, x: 100, scale: 0.95 }}
         animate={{ opacity: 1, x: 0, scale: 1 }}
         transition={{ duration: 0.6, delay: 0.2, type: 'spring', stiffness: 60 }}
-        src="/restaurant.png"
+        src="/restaurant.webp"
         alt="Inseat restaurant illustration"
         className="hidden lg:block absolute right-[-80px] bottom-[-20px] h-[720px] xl:h-[780px] 2xl:h-[820px] w-auto z-[90] pointer-events-none"
         loading="eager"
+        fetchPriority="high"
         decoding="async"
       />
 
@@ -189,14 +190,14 @@ const Hero = () => {
               variants={itemVariants}
               className="text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-display font-bold leading-tight tracking-tight text-secondary"
             >
-              Stop Losing Orders to Paper Tickets and Slow Table Turns
+              Streamline Every Guest Touchpoint
             </motion.h1>
 
             <motion.p
               variants={itemVariants}
               className="mt-6 max-w-lg text-xl text-black/70 mx-auto lg:mx-0"
             >
-              The all-in-one platform that helps your team move faster, eliminate costly order errors, and run every outlet with total control even during the lunch rush.
+              The all-in-one guest experience and operations platform for hospitality teams that need faster service, simpler workflows, and better customer experiences across every outlet.
             </motion.p>
 
             <motion.div
@@ -244,10 +245,11 @@ const Hero = () => {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                src="/restaurant.png"
+                src="/restaurant.webp"
                 alt="Inseat restaurant illustration"
                 className="w-[560px] md:w-[720px] max-w-full h-auto mx-auto"
                 loading="eager"
+                fetchPriority="high"
                 decoding="async"
               />
             </div>

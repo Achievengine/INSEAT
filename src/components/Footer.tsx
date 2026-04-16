@@ -24,7 +24,7 @@ const Footer = () => {
             <span className="text-2xl font-bold">INSEAT</span>
           </div>
           <p className="text-gray-400 max-w-md">
-            Transform your restaurant with smart QR code ordering and comprehensive management tools.
+            The all-in-one guest experience and operations platform for hospitality businesses.
           </p>
         </div>
 
