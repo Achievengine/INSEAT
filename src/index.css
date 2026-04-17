@@ -283,6 +283,9 @@
 }
 
 @layer utilities {
+  .scrollbar-hide { scrollbar-width: none; -ms-overflow-style: none; }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+
   .text-primary-100 { color: rgb(var(--inseat-primary-rgb) / 0.78) !important; }
   .text-primary-200 { color: rgb(var(--inseat-primary-rgb) / 0.64) !important; }
 

@@ -1,22 +1,29 @@
 import { useEffect } from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
 
-// Component imports
-import Navbar from '../components/Navbar';
-import Hero from '../components/Hero';
-import PainPoints from '../components/PainPoints';
-import Features from '../components/Features';
-import LoyaltyEngagement from '../components/LoyaltyEngagement';
-import ReservationCallReceptionist from '../components/ReservationCallReceptionist';
-import AdminDashboard from '../components/AdminDashboard';
-import Footer from '../components/Footer';
-import Pricing from '../components/Pricing';
-import AboutUs from '../components/AboutUs';
-import ScrollToTop from '../components/ScrollToTop';
+// SEO (unchanged)
 import SEOHead from '../components/SEOHead';
-import SubscriptionPromotionModal from '../components/SubscriptionPromotionModal';
-import SocialProof from '../components/SocialProof';
-import DemoForm from '../components/DemoForm';
+
+// V2 Dark landing
+import NavbarDark from '../components/landingV2/NavbarDark';
+import HeroV2 from '../components/landingV2/Hero/HeroV2';
+import TrustedByMarquee from '../components/landingV2/TrustedByMarquee';
+import PainPointsV2 from '../components/landingV2/PainPointsV2';
+import HorizontalShowcase from '../components/landingV2/HorizontalShowcase';
+import PlatformNodeDiagram from '../components/landingV2/PlatformNodeDiagram';
+import FeaturesV2 from '../components/landingV2/FeaturesV2';
+import LiveAnalyticsTeaser from '../components/landingV2/LiveAnalyticsTeaser';
+import IntegrationsStrip from '../components/landingV2/IntegrationsStrip';
+import SocialProofV2 from '../components/landingV2/SocialProofV2';
+import PricingV2 from '../components/landingV2/PricingV2';
+import ROICalculator from '../components/landingV2/ROICalculator';
+import FAQv2 from '../components/landingV2/FAQv2';
+import CTABlock from '../components/landingV2/CTABlock';
+import FooterV2 from '../components/landingV2/FooterV2';
+
+// System providers
+import LenisProvider from '../components/system/LenisProvider';
+import CustomCursor from '../components/system/CustomCursor';
+import ScrollProgressBarV2 from '../components/system/ScrollProgressBarV2';
 
 // Styles
 import '../App.css';
@@ -24,7 +31,7 @@ import '../App.css';
 const OFFICIAL_SOCIAL_URLS = [
   'https://x.com/inseat_hq',
   'https://www.instagram.com/inseat_hq/',
-  'https://www.linkedin.com/showcase/inseat/'
+  'https://www.linkedin.com/showcase/inseat/',
 ];
 
 const BUSINESS_ADDRESS = {
@@ -32,91 +39,61 @@ const BUSINESS_ADDRESS = {
   streetAddress: 'Shams Business Center, Al Messaned, Media City Free Zone',
   addressLocality: 'Sharjah',
   addressRegion: 'Sharjah',
-  addressCountry: 'AE'
-};
-
-// ScrollToTop component for the scroll progress indicator
-const ScrollProgress = () => {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
-  return (
-    <motion.div
-      className="fixed top-0 left-0 right-0 h-1 bg-primary z-50 origin-left"
-      style={{ scaleX }}
-    />
-  );
+  addressCountry: 'AE',
 };
 
 function LandingPage() {
-  // Implement smooth scrolling
+  // Toggle the `v2-dark` class on <html> only for this page.
   useEffect(() => {
-    const handleHashClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      const anchor = target.closest('a');
-
-      if (anchor && anchor.hash && anchor.href.includes(window.location.origin)) {
-        e.preventDefault();
-        const targetId = anchor.hash.slice(1);
-        const element = document.getElementById(targetId);
-
-        if (element) {
-          element.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-
-          // Update URL without refreshing
-          window.history.pushState(null, '', anchor.hash);
-        }
-      }
-    };
-
-    document.addEventListener('click', handleHashClick);
-
+    const html = document.documentElement;
+    const body = document.body;
+    html.classList.add('v2-dark');
+    body.classList.add('v2-dark');
     return () => {
-      document.removeEventListener('click', handleHashClick);
+      html.classList.remove('v2-dark');
+      body.classList.remove('v2-dark');
     };
   }, []);
 
   return (
     <>
       <SEOHead
-        title="INSEAT — Hospitality Guest Experience & Operations Platform"
+        title="INSEAT — The operating system restaurants run on"
         appendSiteName={false}
-        description="INSEAT is the all-in-one guest experience and operations platform for hospitality businesses, helping teams streamline service and deliver better customer experiences."
-        keywords="hospitality operations software, guest experience platform, QR code ordering system, table management software, waitlist app, kitchen display system KDS, digital menu, hospitality analytics, reservations, service operations platform, contactless ordering"
+        description="INSEAT is the all-in-one hospitality OS: POS, QR ordering, kitchen display, reservations, floor plans, staff, loyalty, and analytics — one platform, every shift, every guest."
+        keywords="hospitality operations software, restaurant OS, guest experience platform, QR code ordering system, kitchen display system KDS, reservations software, table management software, floor plan software, restaurant analytics, loyalty program, hospitality POS"
         url="https://inseat.achievengine.com/"
         image="https://inseat.achievengine.com/og-image.png"
-        ogTitle="INSEAT — Hospitality Operations Platform"
-        ogDescription="INSEAT helps hospitality teams streamline service, simplify operations, and deliver better customer experiences across every touchpoint."
+        ogTitle="INSEAT — The operating system restaurants run on"
+        ogDescription="One platform for POS, QR ordering, kitchen display, reservations, loyalty, and analytics. Built for hospitality teams in UAE, Ethiopia, and India."
         type="website"
         twitterCard="summary_large_image"
         faqs={[
           {
             question: 'How does INSEAT QR code ordering work?',
-            answer: 'Guests scan a QR code on their table which opens your digital menu in their browser. They can browse, customize items, place orders, and pay — all without downloading an app. Orders go directly to your kitchen display.'
+            answer:
+              'Guests scan a QR code on their table which opens your digital menu in their browser. They can browse, customize items, place orders, and pay — all without downloading an app. Orders go directly to your kitchen display.',
           },
           {
             question: 'Is there a free plan?',
-            answer: 'Yes, INSEAT offers a free forever plan that includes basic QR code ordering and table management for small hospitality teams. No credit card required to start.'
+            answer:
+              'Yes, INSEAT offers a free forever plan that includes basic QR code ordering and table management for small hospitality teams. No credit card required to start.',
           },
           {
             question: 'Which countries is INSEAT available in?',
-            answer: 'INSEAT is currently available in the UAE, Ethiopia, and India, with plans to expand to more regions. We support multiple payment gateways including Stripe, MPGS, Chapa, Telebirr, and Apple Pay.'
+            answer:
+              'INSEAT is currently available in the UAE, Ethiopia, and India, with plans to expand to more regions. We support multiple payment gateways including Stripe, MPGS, Chapa, Telebirr, and Apple Pay.',
           },
           {
             question: 'How long does it take to set up INSEAT?',
-            answer: 'Most hospitality teams are up and running in under 5 minutes. You can import your existing menu using our AI OCR feature — just scan your paper menu and INSEAT extracts all items automatically.'
+            answer:
+              'Most hospitality teams are up and running in under 5 minutes. You can import your existing menu using our AI OCR feature — just scan your paper menu and INSEAT extracts all items automatically.',
           },
           {
             question: 'Does INSEAT work with my existing POS?',
-            answer: 'INSEAT is a standalone platform that can replace or complement your existing POS. It includes QR ordering, table management, kitchen display, staff tools, and analytics all in one system.'
-          }
+            answer:
+              'INSEAT is a standalone platform that can replace or complement your existing POS. It includes QR ordering, table management, kitchen display, staff tools, and analytics all in one system.',
+          },
         ]}
         extraJsonLd={[
           {
@@ -128,7 +105,8 @@ function LandingPage() {
             applicationCategory: 'BusinessApplication',
             applicationSubCategory: 'Hospitality Operations Software',
             operatingSystem: 'Web, iOS, Android',
-            description: 'INSEAT is the all-in-one guest experience and operations platform for hospitality businesses, helping teams streamline service, simplify operations, and deliver better customer experiences across every touchpoint.',
+            description:
+              'INSEAT is the all-in-one guest experience and operations platform for hospitality businesses, helping teams streamline service, simplify operations, and deliver better customer experiences across every touchpoint.',
             url: 'https://inseat.achievengine.com',
             image: 'https://inseat.achievengine.com/og-image.png',
             screenshot: 'https://inseat.achievengine.com/og-image.png',
@@ -144,15 +122,15 @@ function LandingPage() {
               'Dynamic Pricing & Promotions',
               'Staff Management & Scheduling',
               'Analytics Dashboard',
-              'Multi-Payment Gateway Support'
+              'Multi-Payment Gateway Support',
             ],
             offers: {
               '@type': 'AggregateOffer',
               lowPrice: '0',
               highPrice: '99',
               priceCurrency: 'USD',
-              offerCount: '3'
-            }
+              offerCount: '3',
+            },
           },
           {
             '@context': 'https://schema.org',
@@ -169,9 +147,10 @@ function LandingPage() {
               url: 'https://inseat.achievengine.com/logo.png',
               contentUrl: 'https://inseat.achievengine.com/logo.png',
               width: 500,
-              height: 500
+              height: 500,
             },
-            description: 'INSEAT is the all-in-one guest experience and operations platform for hospitality businesses, built by Achievengine to streamline service, simplify operations, and improve customer experiences across every touchpoint.',
+            description:
+              'INSEAT is the all-in-one guest experience and operations platform for hospitality businesses, built by Achievengine to streamline service, simplify operations, and improve customer experiences across every touchpoint.',
             foundingDate: '2024',
             email: 'business.inseat@achievengine.com',
             telephone: '+971-50-731-3961',
@@ -182,7 +161,7 @@ function LandingPage() {
                 email: 'business.inseat@achievengine.com',
                 contactType: 'sales',
                 areaServed: ['AE', 'ET', 'IN'],
-                availableLanguage: ['English', 'Arabic', 'Amharic']
+                availableLanguage: ['English', 'Arabic', 'Amharic'],
               },
               {
                 '@type': 'ContactPoint',
@@ -190,15 +169,15 @@ function LandingPage() {
                 email: 'support@achievengine.com',
                 contactType: 'customer support',
                 areaServed: 'ET',
-                availableLanguage: ['English', 'Amharic']
-              }
+                availableLanguage: ['English', 'Amharic'],
+              },
             ],
             sameAs: OFFICIAL_SOCIAL_URLS,
             parentOrganization: {
               '@type': 'Organization',
               name: 'Achievengine',
-              url: 'https://achievengine.com'
-            }
+              url: 'https://achievengine.com',
+            },
           },
           {
             '@context': 'https://schema.org',
@@ -207,27 +186,34 @@ function LandingPage() {
             name: 'INSEAT',
             alternateName: ['Inseat', 'INSEAT Hospitality Platform', 'INSEAT Guest Experience Platform'],
             url: 'https://inseat.achievengine.com',
-            publisher: { '@id': 'https://inseat.achievengine.com/#organization' }
-          }
+            publisher: { '@id': 'https://inseat.achievengine.com/#organization' },
+          },
         ]}
       />
-      <ScrollProgress />
-      <Navbar />
-      <SubscriptionPromotionModal />
-      <main>
-        <Hero />
-        <PainPoints />
-        <Features />
-        <LoyaltyEngagement />
-        <ReservationCallReceptionist />
-        <AdminDashboard />
-        <SocialProof />
-        <Pricing />
-        <DemoForm />
-        <AboutUs />
-      </main>
-      <Footer />
-      <ScrollToTop />
+
+      <LenisProvider>
+        <CustomCursor />
+        <ScrollProgressBarV2 />
+        <NavbarDark />
+
+        <main className="overflow-x-hidden">
+          <HeroV2 />
+          <TrustedByMarquee />
+          <PainPointsV2 />
+          <HorizontalShowcase />
+          <PlatformNodeDiagram />
+          <FeaturesV2 />
+          <LiveAnalyticsTeaser />
+          <IntegrationsStrip />
+          <SocialProofV2 />
+          <PricingV2 />
+          <ROICalculator />
+          <FAQv2 />
+          <CTABlock />
+        </main>
+
+        <FooterV2 />
+      </LenisProvider>
     </>
   );
 }

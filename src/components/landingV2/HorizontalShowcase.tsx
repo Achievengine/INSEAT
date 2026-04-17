@@ -114,7 +114,7 @@ export default function HorizontalShowcase() {
         </div>
 
         {/* Track */}
-        <div className="flex-1 relative flex items-center">
+        <div className="flex-1 relative flex items-center overflow-x-auto lg:overflow-visible snap-x snap-mandatory lg:snap-none scrollbar-hide">
           <div
             ref={trackRef}
             className="flex gap-6 px-6 lg:gap-8 lg:px-12 will-change-transform"
@@ -125,7 +125,7 @@ export default function HorizontalShowcase() {
             {panels.map((p, i) => (
               <div
                 key={i}
-                className="w-[88vw] lg:w-[80vw] xl:w-[72vw] max-w-6xl shrink-0"
+                className="w-[88vw] lg:w-[80vw] xl:w-[72vw] max-w-6xl shrink-0 snap-center lg:snap-align-none"
               >
                 <div
                   className="v2-glass-strong relative overflow-hidden rounded-3xl p-6 md:p-10 border border-hairline h-[58vh] max-h-[560px] min-h-[440px] flex flex-col lg:grid lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] gap-8"
