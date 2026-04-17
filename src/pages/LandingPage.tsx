@@ -6,8 +6,6 @@ import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import PainPoints from '../components/PainPoints';
 import Features from '../components/Features';
-import IndustriesShowcase from '../components/IndustriesShowcase';
-import CinemacityCaseStudy from '../components/CinemacityCaseStudy';
 import LoyaltyEngagement from '../components/LoyaltyEngagement';
 import ReservationCallReceptionist from '../components/ReservationCallReceptionist';
 import AdminDashboard from '../components/AdminDashboard';
@@ -220,10 +218,8 @@ function LandingPage() {
         <Hero />
         <PainPoints />
         <Features />
-        <IndustriesShowcase />
         <LoyaltyEngagement />
         <ReservationCallReceptionist />
-        <CinemacityCaseStudy />
         <AdminDashboard />
         <SocialProof />
         <Pricing />
