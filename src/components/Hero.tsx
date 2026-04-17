@@ -1,8 +1,18 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 // Phone mockup markup is now inlined below (no separate component)
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const Hero = () => {
+  // Parallax on scroll — the restaurant illustration drifts slightly and the
+  // background glows drift in the opposite direction to create depth.
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  });
+  const illustrationY = useTransform(scrollYProgress, [0, 1], ['0%', '18%']);
+  const illustrationScale = useTransform(scrollYProgress, [0, 1], [1, 1.06]);
+  const glowY = useTransform(scrollYProgress, [0, 1], ['0%', '-30%']);
   // Inline phone mockup UI state
   const [batteryLevel, setBatteryLevel] = useState(78)
   const [currentTime, setCurrentTime] = useState('12:42')
@@ -70,22 +80,20 @@ const Hero = () => {
   return (
     // Reduced bottom padding: pb-24 md:pb-32
     // Added background grid pattern (made even fainter)
-    <section className="relative z-[200] overflow-hidden bg-white pb-20 pt-12 md:pt-20 lg:pb-32">
-      {/* Background elements - Adjusted positions & opacity based on new image */}
-      {/* Re-added z-index to ensure circles are behind content */}
-      <div className="absolute inset-0 overflow-hidden -z-10">
-        {/* Adjusted right circle size and position based on new image */}
+    <section ref={sectionRef} className="relative z-[200] overflow-hidden bg-white pb-20 pt-12 md:pt-20 lg:pb-32">
+      {/* Background elements - parallax drift */}
+      <motion.div style={{ y: glowY }} className="absolute inset-0 overflow-hidden -z-10">
         <div className="absolute -top-48 -right-48 h-72 w-72 rounded-full bg-primary/10 md:h-96 md:w-96"></div>
-        {/* Kept left circle size and position from previous attempt */}
         <div className="absolute top-1/2 -left-64 h-[500px] w-[500px] -translate-y-1/2 rounded-full bg-primary/10 md:h-[600px] md:w-[600px]"></div>
-        {/* Removed the third circle to better match the reference image */}
-      </div>
+        <div className="absolute -bottom-40 right-1/4 h-[380px] w-[380px] rounded-full bg-[#ff8a3d]/10 blur-3xl"></div>
+      </motion.div>
 
-      {/* Restaurant illustration - overlaps the black section slightly */}
+      {/* Restaurant illustration with scroll parallax */}
       <motion.img
         initial={{ opacity: 0, x: 100, scale: 0.95 }}
         animate={{ opacity: 1, x: 0, scale: 1 }}
         transition={{ duration: 0.6, delay: 0.2, type: 'spring', stiffness: 60 }}
+        style={{ y: illustrationY, scale: illustrationScale }}
         src="/restaurant.webp"
         alt="Inseat restaurant illustration"
         className="hidden lg:block absolute right-[-80px] bottom-[-20px] h-[720px] xl:h-[780px] 2xl:h-[820px] w-auto z-[90] pointer-events-none"
