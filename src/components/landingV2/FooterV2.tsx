@@ -1,13 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Instagram, Linkedin } from 'lucide-react';
-
-function XIcon({ size = 14 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-    </svg>
-  );
-}
+import { FaXTwitter, FaInstagram, FaLinkedinIn } from 'react-icons/fa6';
 
 const columns = [
   {
@@ -84,9 +76,9 @@ export default function FooterV2() {
 
             <div className="mt-6 flex items-center gap-3">
               {[
-                { Icon: XIcon, href: 'https://x.com/inseat_hq', label: 'X' },
-                { Icon: Instagram, href: 'https://www.instagram.com/inseat_hq/', label: 'Instagram' },
-                { Icon: Linkedin, href: 'https://www.linkedin.com/showcase/inseat/', label: 'LinkedIn' },
+                { Icon: FaXTwitter, href: 'https://x.com/inseat_hq', label: 'X' },
+                { Icon: FaInstagram, href: 'https://www.instagram.com/inseat_hq/', label: 'Instagram' },
+                { Icon: FaLinkedinIn, href: 'https://www.linkedin.com/showcase/inseat/', label: 'LinkedIn' },
               ].map(({ Icon, href, label }) => (
                 <a
                   key={label}
@@ -97,7 +89,7 @@ export default function FooterV2() {
                   className="h-9 w-9 rounded-full border border-hairline bg-white/[0.02] flex items-center justify-center text-foreground/70 hover:text-foreground hover:border-accent/40 hover:bg-white/[0.06] transition"
                   data-cursor="hover"
                 >
-                  <Icon size={14} strokeWidth={1.8} />
+                  <Icon size={14} />
                 </a>
               ))}
             </div>
