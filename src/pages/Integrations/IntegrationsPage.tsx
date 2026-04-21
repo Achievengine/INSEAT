@@ -78,7 +78,7 @@ const IntegrationsPage = () => {
                 <Link to="/#demo" className="btn-primary text-center">
                   Request Walkthrough
                 </Link>
-                <Link to="/features" className="btn-outline text-center">
+                <Link to="/features/" className="btn-outline text-center">
                   View Platform Features
                 </Link>
               </div>
@@ -121,7 +121,7 @@ const IntegrationsPage = () => {
                       transition={{ delay: index * 0.05 }}
                     >
                       <Link
-                        to={`/integrations/${integration.slug}`}
+                        to={`/integrations/${integration.slug}/`}
                         className="block bg-white rounded-xl p-6 border border-gray-100 hover:shadow-lg hover:border-primary/20 transition-all h-full"
                       >
                         <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">

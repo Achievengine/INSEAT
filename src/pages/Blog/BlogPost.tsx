@@ -25,7 +25,7 @@ export default function BlogPost() {
     }, [slug]);
 
     const origin = typeof window !== 'undefined' ? window.location.origin : 'https://inseat.achievengine.com';
-    const canonicalUrl = `${origin}/blog/${slug || ''}`;
+    const canonicalUrl = `${origin}/blog/${slug || ''}/`;
     const previewImage = new URL('/preview.png', origin).toString();
     const description = blog?.summary || getTextSnippet(blog?.content || '') || 'Read the latest insights and updates from Inseat.';
     const image = blog?.coverImageUrl || previewImage;
@@ -46,7 +46,7 @@ export default function BlogPost() {
             <div className="flex-grow flex items-center justify-center pt-20">
                 <div className="text-center">
                     <h1 className="text-2xl font-bold text-gray-800 mb-4">Blog Post Not Found</h1>
-                    <Link to="/blog" className="text-primary hover:underline">Back to Blog</Link>
+                    <Link to="/blog/" className="text-primary hover:underline">Back to Blog</Link>
                 </div>
             </div>
             <Footer />
@@ -131,7 +131,7 @@ export default function BlogPost() {
                     </div>
 
                     <div className="mt-12 max-w-4xl">
-                        <Link to="/blog" className="inline-flex items-center gap-2 text-secondary hover:text-primary font-semibold transition-colors">
+                        <Link to="/blog/" className="inline-flex items-center gap-2 text-secondary hover:text-primary font-semibold transition-colors">
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
                             Back to Blog
                         </Link>

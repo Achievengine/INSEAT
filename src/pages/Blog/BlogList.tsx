@@ -33,7 +33,7 @@ export default function BlogList() {
     }, [tag]);
 
     const origin = typeof window !== 'undefined' ? window.location.origin : 'https://inseat.achievengine.com';
-    const blogUrl = `${origin}/blog${tag ? `?tag=${encodeURIComponent(tag)}` : ''}`;
+    const blogUrl = `${origin}/blog/${tag ? `?tag=${encodeURIComponent(tag)}` : ''}`;
 
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -52,7 +52,7 @@ export default function BlogList() {
                             '@type': 'BlogPosting',
                             headline: blog.title,
                             datePublished: blog.publishedAt,
-                            url: `${origin}/blog/${blog.slug}`,
+                            url: `${origin}/blog/${blog.slug}/`,
                             author: {
                                 '@type': 'Person',
                                 name: blog.authorName || 'Inseat'
@@ -67,9 +67,9 @@ export default function BlogList() {
 
                 {/* Tags Filter */}
                 <div className="flex flex-wrap gap-2 justify-center mb-10">
-                    <Link to="/blog" className={`px-4 py-2 rounded-full transition-colors ${!tag ? 'bg-primary text-white' : 'bg-white text-gray-700 hover:bg-gray-100'}`}>All</Link>
+                    <Link to="/blog/" className={`px-4 py-2 rounded-full transition-colors ${!tag ? 'bg-primary text-white' : 'bg-white text-gray-700 hover:bg-gray-100'}`}>All</Link>
                     {tags.map(t => (
-                        <Link key={t._id} to={`/blog?tag=${t.slug}`} className={`px-4 py-2 rounded-full transition-colors ${tag === t.slug ? 'bg-primary text-white' : 'bg-white text-gray-700 hover:bg-gray-100'}`}>
+                        <Link key={t._id} to={`/blog/?tag=${t.slug}`} className={`px-4 py-2 rounded-full transition-colors ${tag === t.slug ? 'bg-primary text-white' : 'bg-white text-gray-700 hover:bg-gray-100'}`}>
                             {t.name}
                         </Link>
                     ))}
@@ -82,7 +82,7 @@ export default function BlogList() {
                     <>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                             {blogs.map(blog => (
-                                <Link key={blog._id} to={`/blog/${blog.slug}`} className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all overflow-hidden group flex flex-col h-full">
+                                <Link key={blog._id} to={`/blog/${blog.slug}/`} className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all overflow-hidden group flex flex-col h-full">
                                     <div className="aspect-video bg-gray-200 relative overflow-hidden">
                                         {blog.coverImageUrl ? (
                                             <img src={blog.coverImageUrl} alt={blog.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />

@@ -11,7 +11,7 @@ const IntegrationDetailPage = () => {
   const integration = slug ? platformIntegrationBySlug[slug] : null;
 
   if (!integration) {
-    return <Navigate to="/integrations" replace />;
+    return <Navigate to="/integrations/" replace />;
   }
 
   const breadcrumbs = [
@@ -64,7 +64,7 @@ const IntegrationDetailPage = () => {
                   <Link to="/#demo" className="btn-primary text-center">
                     Request Walkthrough
                   </Link>
-                  <Link to="/integrations" className="btn-outline text-center">
+                  <Link to="/integrations/" className="btn-outline text-center">
                     View All Integrations
                   </Link>
                 </div>

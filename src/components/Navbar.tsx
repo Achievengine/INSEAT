@@ -7,10 +7,10 @@ const Navbar = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const defaultNavItems = [
-    { label: 'Features', href: '/features' },
-    { label: 'Pricing', href: '/pricing' },
-    { label: 'Integrations', href: '/integrations' },
-    { label: 'Blog', href: '/blog' }
+    { label: 'Features', href: '/features/' },
+    { label: 'Pricing', href: '/pricing/' },
+    { label: 'Integrations', href: '/integrations/' },
+    { label: 'Blog', href: '/blog/' }
   ];
   const navItemsRaw = defaultNavItems;
   const navItems = navItemsRaw.filter((item: { href?: string }) => {

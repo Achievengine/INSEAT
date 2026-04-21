@@ -30,7 +30,7 @@ function App() {
           <Route path="/blog/:slug" element={<BlogPost />} />
           {/* Product Pages */}
           {/* Waitlist route intentionally redirected for current product positioning */}
-          <Route path="/waitlist" element={<Navigate to="/features" replace />} />
+          <Route path="/waitlist" element={<Navigate to="/features/" replace />} />
           <Route path="/table-management" element={<TableManagementPage />} />
           <Route path="/reservations" element={<ReservationsPage />} />
           {/* Main Pages */}

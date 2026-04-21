@@ -65,7 +65,7 @@ const FeaturesPage = () => {
     {
       title: 'Payments & Checkout',
       description: 'Provider-based payment configuration',
-      link: '/integrations',
+      link: '/integrations/',
       features: [
         { name: 'Stripe', description: 'Checkout sessions, subscription checkout, and webhook handling.' },
         { name: 'MPGS', description: 'Hosted session creation, verification, and refund support.' },
@@ -144,7 +144,7 @@ const FeaturesPage = () => {
                 <Link to="/#demo" className="btn-primary text-center">
                   Request Walkthrough
                 </Link>
-                <Link to="/integrations" className="btn-outline text-center">
+                <Link to="/integrations/" className="btn-outline text-center">
                   See Integrations
                 </Link>
               </div>
