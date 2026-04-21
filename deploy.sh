@@ -42,7 +42,7 @@ else
 fi
 
 # Check if index.html references preview.png
-if grep -q 'content="/preview.png"' "${DEPLOY_ROOT}/index.html; then
+if grep -q 'content="/preview.png"' "${DEPLOY_ROOT}/index.html"; then
     echo "✓ index.html correctly references preview.png"
 else
     echo "Warning: index.html may not be referencing preview.png correctly"
