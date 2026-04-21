@@ -18,8 +18,8 @@ if [ ! -f "public/preview.png" ]; then
 fi
 echo "✓ preview.png found in public folder"
 
-echo "4. Building the project (skipping TypeScript checking)..."
-npx vite build --mode production
+echo "4. Building the project with prerendered SEO output..."
+npm run build
 
 echo "5. Verifying build contains preview.png..."
 if [ ! -f "dist/preview.png" ]; then
@@ -28,11 +28,13 @@ if [ ! -f "dist/preview.png" ]; then
 fi
 echo "✓ preview.png found in dist folder"
 
-echo "6. Deploying to /var/www/inseat..."
-rsync -av --delete dist/ /var/www/inseat/
+DEPLOY_ROOT="/var/www/inseat-portfolio"
+
+echo "6. Deploying to ${DEPLOY_ROOT}..."
+rsync -av --delete dist/ "${DEPLOY_ROOT}/"
 
 echo "7. Verifying deployment..."
-if [ -f "/var/www/inseat/preview.png" ]; then
+if [ -f "${DEPLOY_ROOT}/preview.png" ]; then
     echo "✓ preview.png successfully deployed"
 else
     echo "Error: preview.png not found in deployed folder!"
@@ -40,7 +42,7 @@ else
 fi
 
 # Check if index.html references preview.png
-if grep -q 'content="/preview.png"' /var/www/inseat/index.html; then
+if grep -q 'content="/preview.png"' "${DEPLOY_ROOT}/index.html; then
     echo "✓ index.html correctly references preview.png"
 else
     echo "Warning: index.html may not be referencing preview.png correctly"
