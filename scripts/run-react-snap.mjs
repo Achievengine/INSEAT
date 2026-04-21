@@ -10,7 +10,10 @@ const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 const chromeCandidates = [
   process.env.PUPPETEER_EXECUTABLE_PATH,
   '/usr/bin/google-chrome-stable',
-  '/usr/bin/google-chrome'
+  '/usr/bin/google-chrome',
+  '/usr/bin/chromium',
+  '/usr/bin/chromium-browser',
+  '/snap/bin/chromium'
 ].filter(Boolean);
 
 const chromePath = chromeCandidates.find((candidate) => fs.existsSync(candidate));
