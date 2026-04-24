@@ -212,7 +212,7 @@ function LandingPage() {
         ]}
       />
       <ScrollProgress />
-      <Navbar variant="hero-dark" />
+      <Navbar />
       <SubscriptionPromotionModal />
       <main>
         <Hero />
