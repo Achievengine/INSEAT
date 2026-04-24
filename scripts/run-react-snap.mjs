@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import net from 'node:net';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 
@@ -18,9 +19,29 @@ const chromeCandidates = [
 
 const chromePath = chromeCandidates.find((candidate) => fs.existsSync(candidate));
 
+const findFreePort = () =>
+  new Promise((resolve, reject) => {
+    const server = net.createServer();
+
+    server.once('error', reject);
+    server.listen(0, '127.0.0.1', () => {
+      const address = server.address();
+      server.close(() => {
+        if (address && typeof address === 'object') {
+          resolve(address.port);
+        } else {
+          reject(new Error('Unable to allocate a prerender port'));
+        }
+      });
+    });
+  });
+
 const options = {
-  ...(packageJson.reactSnap || {})
+  ...(packageJson.reactSnap || {}),
+  port: Number(process.env.REACT_SNAP_PORT) || await findFreePort()
 };
+
+console.log(`Using react-snap prerender port: ${options.port}`);
 
 if (chromePath) {
   options.puppeteerExecutablePath = chromePath;
