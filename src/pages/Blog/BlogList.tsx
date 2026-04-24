@@ -6,9 +6,27 @@ import Footer from '../../components/Footer';
 import BlogLoading from '../../components/BlogLoading';
 import SEOHead from '../../components/SEOHead';
 
+type BlogTag = {
+    _id: string;
+    slug: string;
+    name: string;
+};
+
+type BlogSummary = {
+    _id: string;
+    slug: string;
+    title: string;
+    summary?: string;
+    content: string;
+    coverImageUrl?: string;
+    publishedAt: string;
+    authorName?: string;
+    tags?: BlogTag[];
+};
+
 export default function BlogList() {
-    const [blogs, setBlogs] = useState<any[]>([]);
-    const [tags, setTags] = useState<any[]>([]);
+    const [blogs, setBlogs] = useState<BlogSummary[]>([]);
+    const [tags, setTags] = useState<BlogTag[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [searchParams] = useSearchParams();
     const tag = searchParams.get('tag');
@@ -39,7 +57,7 @@ export default function BlogList() {
         <div className="min-h-screen bg-gray-50 flex flex-col">
             <SEOHead
                 title={tag ? `Inseat Blog: ${tag}` : 'Inseat Blog'}
-                description="Insights, product updates, and restaurant growth tips from the Inseat team."
+                description="Insights, product updates, and hospitality growth tips from the Inseat team."
                 url={blogUrl}
                 type="website"
                 extraJsonLd={[
@@ -94,7 +112,7 @@ export default function BlogList() {
                                     </div>
                                     <div className="p-6 flex flex-col flex-grow">
                                         <div className="flex flex-wrap gap-2 mb-3">
-                                            {blog.tags && blog.tags.map((t: any) => (
+                                            {blog.tags && blog.tags.map((t) => (
                                                 <span key={t._id} className="text-xs font-semibold text-primary bg-primary/10 px-2 py-1 rounded">{t.name}</span>
                                             ))}
                                         </div>

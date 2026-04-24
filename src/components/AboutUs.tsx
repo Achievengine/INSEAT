@@ -74,7 +74,7 @@ const AboutUs = () => {
             </h2>
             <div className="w-20 h-1 bg-primary mb-6"></div>
             <p className="text-gray-600 text-lg max-w-4xl">
-              Helping restaurant owners take back control of their time and their margins since 2025.
+              Helping hospitality teams streamline service, simplify operations, and deliver better guest experiences since 2025.
             </p>
           </motion.div>
 
@@ -82,7 +82,7 @@ const AboutUs = () => {
           <motion.div variants={itemVariants} className="mb-16 max-w-5xl mx-auto">
             <h3 className="text-2xl font-bold text-secondary mb-4">Our Mission</h3>
             <p className="text-gray-600 mb-4">
-              We built Inseat because we saw how hard it was for great restaurants to survive with outdated tools. We&apos;re here to give restaurant owners the tech they deserve so they can run smoother shifts, protect margins, and make better service feel repeatable.
+              We built Inseat because hospitality teams should not need disconnected tools to run service, menus, reservations, payments, loyalty, and operations. INSEAT gives operators one platform for smoother shifts, clearer workflows, and repeatable guest experiences.
             </p>
             <p className="text-gray-600 mb-4">
               INSEAT is a product of{' '}

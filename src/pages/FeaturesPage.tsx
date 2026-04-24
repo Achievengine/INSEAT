@@ -13,9 +13,9 @@ const FeaturesPage = () => {
 
   const faqs = [
     {
-      question: 'What are the core feature flags supported per restaurant?',
+      question: 'What are the core feature flags supported per hospitality business?',
       answer:
-        'INSEAT supports tableOrdering, takeout, delivery, reservations, ratings, dynamicPricing, promotions, giftCards, and aggregator flags per restaurant.'
+        'INSEAT supports tableOrdering, takeout, delivery, reservations, ratings, dynamicPricing, promotions, giftCards, and aggregator flags per outlet or venue.'
     },
     {
       question: 'Can we create menu items from scanned paper menus?',
@@ -25,7 +25,7 @@ const FeaturesPage = () => {
     {
       question: 'How are payment methods controlled?',
       answer:
-        'Payment providers are configured per restaurant with Stripe, MPGS, Chapa, Telebirr, and Apple Pay support, plus provider connect/verify workflows.'
+        'Payment providers are configured per outlet or venue with Stripe, MPGS, Chapa, Telebirr, and Apple Pay support, plus provider connect/verify workflows.'
     },
     {
       question: 'Do you support website publishing workflow?',
@@ -43,8 +43,8 @@ const FeaturesPage = () => {
         { name: 'QR Table Ordering', description: 'Table-linked QR flow for dine-in ordering and table context.' },
         { name: 'Takeout + Delivery Channels', description: 'Menu channel controls support dine-in, takeout, and delivery modes.' },
         { name: 'Reservations', description: 'Reservation creation, management, and venue availability checks.' },
-        { name: 'Waiter Call Handling', description: 'Guest waiter-call routes for in-restaurant service requests.' },
-        { name: 'Payment Flow Modes', description: 'Prepaid, postpaid, and hybrid payment flow modes at restaurant level.' },
+        { name: 'Service Call Handling', description: 'Guest service-call routes for in-venue service requests.' },
+        { name: 'Payment Flow Modes', description: 'Prepaid, postpaid, and hybrid payment flow modes at outlet level.' },
         { name: 'Ratings', description: 'Built-in rating service routes for guest feedback capture.' }
       ]
     },
@@ -55,11 +55,11 @@ const FeaturesPage = () => {
       features: [
         { name: 'AI OCR Menu Import', description: 'Scan paper menus and extract categories/items via AI OCR.' },
         { name: 'Draft-First Publishing', description: 'Track draft counts, review drafts, then publish or discard changes.' },
-        { name: 'Website Builder Configuration', description: 'Manage website-builder config and media upload flow per restaurant.' },
+        { name: 'Website Builder Configuration', description: 'Manage website-builder config and media upload flow per hospitality brand or outlet.' },
         { name: 'Category & Modifier Structure', description: 'Menu, category, subcategory, and modifier routes for full structuring.' },
         { name: 'Batch Item Creation', description: 'Bulk menu creation supports OCR-driven data ingestion.' },
         { name: 'Schedule-Aware Availability', description: 'Menu availability and scheduling controls are supported in models/routes.' },
-        { name: 'QR Code Generation', description: 'Restaurant/table QR generation endpoints for guest entry flows.' }
+        { name: 'QR Code Generation', description: 'Outlet/table QR generation endpoints for guest entry flows.' }
       ]
     },
     {
@@ -72,7 +72,7 @@ const FeaturesPage = () => {
         { name: 'Chapa', description: 'Initialization, callback, and verification flow for local payments.' },
         { name: 'Telebirr', description: 'Mobile-money initialization, status polling, and POS retrieval routes.' },
         { name: 'Apple Pay', description: 'Merchant validation + authorization routes with provider toggles.' },
-        { name: 'Per-Restaurant Provider Control', description: 'Enable/disable providers and choose primary gateway per restaurant.' }
+        { name: 'Per-Outlet Provider Control', description: 'Enable/disable providers and choose primary gateway per outlet.' }
       ]
     },
     {
@@ -84,7 +84,7 @@ const FeaturesPage = () => {
         { name: 'Promotions Engine', description: 'Promotion, combo suggestions, and cart validation endpoints.' },
         { name: 'Loyalty Providers', description: 'Loyalty provider mode supports Vista, Inseat, or disabled mode.' },
         { name: 'Authentication Methods', description: 'Regular, Google, Vista, and guest auth methods are configurable.' },
-        { name: 'Aggregator Mode', description: 'Aggregator routes expose delivery-enabled restaurant/menu views.' },
+        { name: 'Aggregator Mode', description: 'Aggregator routes expose delivery-enabled outlet and menu views.' },
         { name: 'Gift Card Toggle', description: 'Gift-card capability is available as a feature-config flag.' }
       ]
     },
@@ -96,8 +96,8 @@ const FeaturesPage = () => {
         { name: 'Analytics Service', description: 'Sales, dashboard, menu performance, and recommendation analytics routes.' },
         { name: 'Inventory Service', description: 'Inventory, recipes, purchase orders, waste tracking, and analytics.' },
         { name: 'Multi-Venue Table Control', description: 'Venue/table endpoints support multi-location operational structure.' },
-        { name: 'Printer Configuration', description: 'Restaurant/venue printer configuration for operational printing flows.' },
-        { name: 'POS Payment Methods', description: 'Restaurant-level POS payment method toggles (QR and cash/card).' },
+        { name: 'Printer Configuration', description: 'Outlet and venue printer configuration for operational printing flows.' },
+        { name: 'POS Payment Methods', description: 'Outlet-level POS payment method toggles (QR and cash/card).' },
         { name: 'Feature Templates', description: 'Template-based initialization for fast onboarding by market/use case.' }
       ]
     }
@@ -108,13 +108,13 @@ const FeaturesPage = () => {
       <SEOHead
         title="INSEAT Platform Features"
         description="Explore INSEAT features that are currently implemented: AI menu OCR, draft/publish menu workflow, reservations, dynamic pricing, promotions, loyalty, analytics, inventory, and payment provider configuration."
-        keywords="inseat features, restaurant ocr menu import, restaurant feature config, reservations dynamic pricing promotions loyalty"
+        keywords="inseat features, hospitality operations platform, guest experience platform, menu OCR, outlet feature config, reservations dynamic pricing promotions loyalty"
         url="https://inseat.achievengine.com/features/"
         breadcrumbs={breadcrumbs}
         faqs={faqs}
         softwareApplication={{
           name: 'INSEAT',
-          description: 'Restaurant operations platform with ordering, payments, menu management, and analytics.',
+          description: 'Hospitality guest experience and operations platform with ordering, payments, menu management, reservations, loyalty, and analytics.',
           features: featureCategories.flatMap((category) => category.features.map((feature) => feature.name)),
           price: '0',
           priceCurrency: 'USD'

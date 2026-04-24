@@ -24,7 +24,7 @@ export const platformIntegrations: PlatformIntegration[] = [
       'Stripe Connect onboarding for business accounts'
     ],
     setup: [
-      { step: 1, title: 'Enable Stripe Provider', description: 'Enable Stripe in restaurant payment settings.' },
+      { step: 1, title: 'Enable Stripe Provider', description: 'Enable Stripe in outlet payment settings.' },
       { step: 2, title: 'Connect Credentials', description: 'Complete provider setup from admin payment configuration.' },
       { step: 3, title: 'Publish Checkout', description: 'Use website checkout with Stripe session + webhook confirmation.' }
     ],
@@ -82,7 +82,7 @@ export const platformIntegrations: PlatformIntegration[] = [
       'Region-aware payment method handling'
     ],
     setup: [
-      { step: 1, title: 'Enable Chapa', description: 'Enable Chapa in provider configuration for the restaurant.' },
+      { step: 1, title: 'Enable Chapa', description: 'Enable Chapa in provider configuration for the outlet.' },
       { step: 2, title: 'Connect Provider Key', description: 'Save Chapa credentials from admin onboarding.' },
       { step: 3, title: 'Publish Checkout', description: 'Customers can complete payment through Chapa redirect flow.' }
     ],
@@ -136,11 +136,11 @@ export const platformIntegrations: PlatformIntegration[] = [
     features: [
       'Merchant validation support',
       'Payment authorization support',
-      'Provider-level enable/disable in restaurant settings'
+      'Provider-level enable/disable in outlet settings'
     ],
     setup: [
       { step: 1, title: 'Enable Apple Pay', description: 'Turn on Apple Pay under payment providers.' },
-      { step: 2, title: 'Upload Merchant Config', description: 'Store merchant certificate/config in secure restaurant settings.' },
+      { step: 2, title: 'Upload Merchant Config', description: 'Store merchant certificate/config in secure outlet settings.' },
       { step: 3, title: 'Run Authorization Test', description: 'Validate merchant and test Apple Pay transaction authorization.' }
     ],
     faqs: [
@@ -149,7 +149,7 @@ export const platformIntegrations: PlatformIntegration[] = [
         answer: 'Yes. It has dedicated provider configuration and service support.'
       },
       {
-        question: 'Does Apple Pay require setup in restaurant config?',
+        question: 'Does Apple Pay require setup in outlet config?',
         answer: 'Yes. Merchant config and provider enablement are both required.'
       }
     ]
@@ -160,26 +160,26 @@ export const platformIntegrations: PlatformIntegration[] = [
     category: 'Delivery Apps',
     summary: 'Integration layer for delivery-app and marketplace channels through aggregator partners.',
     description:
-      'INSEAT includes aggregator integration support for delivery-enabled restaurants and menus, allowing external delivery-app style integrations through a unified partner flow.',
+      'INSEAT includes aggregator integration support for delivery-enabled outlets and menus, allowing external delivery-app style integrations through a unified partner flow.',
     features: [
-      'List aggregator-enabled restaurants',
-      'Fetch delivery-ready menus for connected restaurants',
+      'List aggregator-enabled outlets',
+      'Fetch delivery-ready menus for connected outlets',
       'Read item-level delivery details',
       'Channel-aware menu mode handling (dine-in, takeout, delivery)'
     ],
     setup: [
-      { step: 1, title: 'Enable Aggregator Mode', description: 'Turn on aggregator feature flag for the restaurant.' },
+      { step: 1, title: 'Enable Aggregator Mode', description: 'Turn on aggregator feature flag for the outlet.' },
       { step: 2, title: 'Prepare Delivery Menu', description: 'Configure menu items/channels for delivery availability.' },
-      { step: 3, title: 'Connect Delivery Channel', description: 'Connect aggregator partners to share restaurants and menus with delivery channels.' }
+      { step: 3, title: 'Connect Delivery Channel', description: 'Connect aggregator partners to share outlets and menus with delivery channels.' }
     ],
     faqs: [
       {
         question: 'Can INSEAT expose menus for delivery channels?',
-        answer: 'Yes. Delivery-ready restaurant and menu data can be shared with connected channels.'
+        answer: 'Yes. Delivery-ready outlet and menu data can be shared with connected channels.'
       },
       {
-        question: 'Is this controlled per restaurant?',
-        answer: 'Yes. Aggregator support is a per-restaurant feature flag.'
+        question: 'Is this controlled per outlet?',
+        answer: 'Yes. Aggregator support is a per-outlet feature flag.'
       }
     ]
   }

@@ -3,7 +3,7 @@ declare module '@vapi-ai/web' {
       constructor(publicKey: string);
       start(assistantId: string): Promise<void>;
       stop(): void;
-      on(event: string, callback: Function): void;
-      off(event: string, callback: Function): void;
+      on(event: string, callback: (...args: unknown[]) => void): void;
+      off(event: string, callback: (...args: unknown[]) => void): void;
     }
   }

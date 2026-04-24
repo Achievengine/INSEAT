@@ -125,7 +125,7 @@ const DemoForm = () => {
                 {/* Logo Upload */}
                 <div>
                   <label className="block text-sm font-medium text-white mb-1">
-                    Restaurant Logo
+                    Business Logo
                   </label>
                   <div className="mt-1 flex items-center space-x-5">
                     <motion.div
@@ -137,7 +137,7 @@ const DemoForm = () => {
                       {logoPreview ? (
                         <img
                           src={logoPreview}
-                          alt="Restaurant Logo"
+                          alt="Business logo"
                           className="h-full w-full object-cover"
                         />
                       ) : (
@@ -154,7 +154,7 @@ const DemoForm = () => {
                       />
                     </motion.div>
                     <div className="text-sm text-gray-500">
-                      <p>Upload your restaurant logo</p>
+                      <p>Upload your business logo</p>
                       <p className="mt-1">Recommended: 400x400px</p>
                     </div>
                   </div>
@@ -211,7 +211,7 @@ const DemoForm = () => {
                     id="companyName"
                     type="text"
                     className={`w-full px-4 py-2 border border-white/20 rounded-lg bg-white/5 text-white focus:ring-2 focus:ring-primary focus:border-transparent ${errors.companyName ? 'border-primary/50 focus:ring-primary/30' : ''}`}
-                    placeholder="e.g., Luigi's Restaurant Group"
+                    placeholder="e.g., Sunrise Hospitality Group"
                     {...register('companyName', {
                       required: 'Company name is required',
                       minLength: {
@@ -225,18 +225,18 @@ const DemoForm = () => {
                   )}
                 </div>
 
-                {/* Restaurant Name */}
+                {/* Outlet Name */}
                 <div>
                   <label htmlFor="restaurantName" className="block text-sm font-medium text-white mb-1">
-                    Restaurant Name <span className="text-primary">*</span>
+                    Outlet or Venue Name <span className="text-primary">*</span>
                   </label>
                   <input
                     id="restaurantName"
                     type="text"
                     className={`w-full px-4 py-2 border border-white/20 rounded-lg bg-white/5 text-white focus:ring-2 focus:ring-primary focus:border-transparent ${errors.restaurantName ? 'border-primary/50 focus:ring-primary/30' : ''}`}
-                    placeholder="e.g., Luigi's Italian Bistro"
+                    placeholder="e.g., Sunrise Downtown Lounge"
                     {...register('restaurantName', {
-                      required: 'Restaurant name is required',
+                      required: 'Outlet or venue name is required',
                       minLength: {
                         value: 2,
                         message: 'Name must be at least 2 characters'
@@ -257,7 +257,7 @@ const DemoForm = () => {
                     id="email"
                     type="email"
                     className={`w-full px-4 py-2 border border-white/20 rounded-lg bg-white/5 text-white focus:ring-2 focus:ring-primary focus:border-transparent ${errors.email ? 'border-primary/50 focus:ring-primary/30' : ''}`}
-                    placeholder="you@restaurant.com"
+                    placeholder="you@yourbusiness.com"
                     {...register('email', {
                       required: 'Email is required',
                       pattern: {

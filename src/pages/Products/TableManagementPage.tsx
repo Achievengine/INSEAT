@@ -14,16 +14,16 @@ const TableManagementPage = () => {
 
   const faqs = [
     {
-      question: 'What is restaurant table management software?',
-      answer: 'Restaurant table management software helps you optimize seating, track table status in real-time, and maximize your restaurant\'s capacity. It provides a digital floor plan where you can see which tables are occupied, available, or being cleaned.'
+      question: 'What is hospitality table management software?',
+      answer: 'Hospitality table management software helps you optimize seating, track table status in real time, and maximize venue capacity. It provides a digital floor plan where you can see which tables are occupied, available, or being cleaned.'
     },
     {
-      question: 'How does table management improve restaurant efficiency?',
+      question: 'How does table management improve hospitality efficiency?',
       answer: 'Table management software reduces wait times, improves table turnover rates, and helps staff coordinate seating more efficiently. It also provides analytics to identify peak hours and optimize staffing.'
     },
     {
       question: 'Can I customize my floor plan in Inseat?',
-      answer: 'Yes! Inseat allows you to create a custom digital floor plan that matches your restaurant layout. You can add, remove, and rearrange tables, sections, and bar areas as needed.'
+      answer: 'Yes. Inseat allows you to create a custom digital floor plan that matches your venue layout. You can add, remove, and rearrange tables, sections, and bar areas as needed.'
     },
     {
       question: 'Does Inseat support multiple dining areas?',
@@ -75,7 +75,7 @@ const TableManagementPage = () => {
         </svg>
       ),
       title: 'Capacity Analytics',
-      description: 'Understand your restaurant\'s capacity utilization. Identify opportunities to seat more guests during peak times.'
+      description: 'Understand your venue capacity utilization. Identify opportunities to seat more guests during peak times.'
     },
     {
       icon: (
@@ -91,15 +91,15 @@ const TableManagementPage = () => {
   return (
     <>
       <SEOHead
-        title="Restaurant Table Management Software"
-        description="Optimize your restaurant seating with Inseat's table management system. Interactive floor plans, real-time status tracking, and capacity analytics. Free trial available."
-        keywords="restaurant table management software, table management system, restaurant floor plan, seating optimization, table turnover, restaurant capacity management"
+        title="Hospitality Table Management Software"
+        description="Optimize venue seating with Inseat's table management system. Interactive floor plans, real-time status tracking, and capacity analytics. Free trial available."
+        keywords="hospitality table management software, venue table management system, floor plan software, seating optimization, table turnover, capacity management"
         url="https://inseat.achievengine.com/table-management/"
         breadcrumbs={breadcrumbs}
         faqs={faqs}
         softwareApplication={{
           name: 'Inseat Table Management',
-          description: 'Restaurant table management software with interactive floor plans and real-time tracking.',
+          description: 'Hospitality table management software with interactive floor plans and real-time tracking.',
           features: features.map(f => f.title),
           price: '0',
           priceCurrency: 'USD'
@@ -121,7 +121,7 @@ const TableManagementPage = () => {
                 transition={{ duration: 0.6 }}
               >
                 <h1 className="text-4xl md:text-5xl font-bold text-secondary mb-6">
-                  Restaurant Table Management System
+                  Hospitality Table Management System
                 </h1>
                 <p className="text-xl text-gray-600 mb-8">
                   Maximize seating efficiency with Inseat's intelligent table management. Interactive floor plans, real-time status updates, and powerful analytics to boost your table turnover.
@@ -197,7 +197,7 @@ const TableManagementPage = () => {
                 transition={{ delay: 0.1 }}
                 className="text-xl text-gray-600 max-w-3xl mx-auto"
               >
-                Everything you need to optimize your restaurant's seating and increase revenue
+                Everything you need to optimize venue seating and increase revenue
               </motion.p>
             </div>
 
@@ -263,7 +263,7 @@ const TableManagementPage = () => {
               viewport={{ once: true }}
               className="text-3xl md:text-4xl font-bold text-white mb-6"
             >
-              Optimize Your Restaurant Seating Today
+              Optimize Your Venue Seating Today
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}

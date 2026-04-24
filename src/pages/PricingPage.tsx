@@ -74,7 +74,7 @@ function buildPlansFromConfig(gates: FeatureGate[], subscriptionConfig: PublicSu
     {
       name: proPlan?.planName || 'Pro',
       description:
-        proPlan?.description || 'For restaurants scaling operations and customer loyalty.',
+        proPlan?.description || 'For hospitality teams scaling operations and customer loyalty.',
       monthlyPrice: proPlan?.pricing?.USD?.monthly ?? 0,
       annualPrice: proPlan?.pricing?.USD?.annualMonthly ?? 0,
       tier: 'mid',
@@ -171,7 +171,7 @@ const PricingPage = () => {
             setCurrency(COUNTRY_CURRENCY[countryCode]);
           }
         }
-      } catch (err) {
+      } catch {
         console.warn('Location detection failed, defaulting to USD');
       }
     };
@@ -215,8 +215,8 @@ const PricingPage = () => {
 
   const faqs = [
     {
-      question: 'Do you have a plan for small restaurants?',
-      answer: `Yes. Starter starts at ${formatPrice(starterPriceForFaq)}/outlet/month and is designed for single-location restaurants launching contactless QR ordering.`
+      question: 'Do you have a plan for small hospitality teams?',
+      answer: `Yes. Starter starts at ${formatPrice(starterPriceForFaq)}/outlet/month and is designed for single-location hospitality teams launching guest ordering and service workflows.`
     },
     {
       question: 'Do you charge per order or reservation?',
@@ -236,7 +236,7 @@ const PricingPage = () => {
     },
     {
       question: 'Can I upgrade later?',
-      answer: 'Yes. You can start on Starter and move to Pro as your restaurant grows.'
+      answer: 'Yes. You can start on Starter and move to Pro as your hospitality operation grows.'
     }
   ];
 
@@ -246,14 +246,14 @@ const PricingPage = () => {
     <>
       <SEOHead
         title="Pricing - Website Builder and Ordering Plans"
-        description={`Simple subscription pricing for INSEAT restaurant ordering platform. Starter at $${starterSeoPrice}, Pro at $${proSeoPrice}, and Custom Enterprise.`}
-        keywords="restaurant ordering pricing, contactless QR ordering pricing, telebirr stripe chapa integration pricing, INSEAT subscription plans"
+        description={`Simple subscription pricing for the INSEAT hospitality guest experience and operations platform. Starter at $${starterSeoPrice}, Pro at $${proSeoPrice}, and Custom Enterprise.`}
+        keywords="hospitality operations pricing, guest experience platform pricing, contactless QR ordering pricing, telebirr stripe chapa integration pricing, INSEAT subscription plans"
         url="https://inseat.achievengine.com/pricing/"
         breadcrumbs={breadcrumbs}
         faqs={faqs}
         softwareApplication={{
           name: 'Inseat',
-          description: 'Restaurant contactless ordering platform with flat-rate subscription tiers.',
+          description: 'Hospitality guest experience and operations platform with flat-rate subscription tiers.',
           features: ['QR Ordering', 'Menu Management', 'Payment Gateways', 'Loyalty Program', 'Analytics'],
           price: String(starterSeoPrice),
           priceCurrency: 'USD'
@@ -278,7 +278,7 @@ const PricingPage = () => {
                 Simple, Transparent Pricing
               </h1>
               <p className="text-xl text-gray-600 mb-8">
-                Launch a full branded restaurant website with online ordering and grow into advanced payment onboarding as your business scales.
+                Launch guest ordering, service workflows, and payment operations for one outlet, then scale into advanced onboarding as your hospitality business grows.
               </p>
 
               {/* Billing Toggle */}

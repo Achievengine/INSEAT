@@ -25,7 +25,7 @@ const IntegrationDetailPage = () => {
       <SEOHead
         title={`${integration.name} Integration`}
         description={integration.description}
-        keywords={`${integration.name} integration, inseat ${integration.category.toLowerCase()} integration, restaurant platform integration`}
+        keywords={`${integration.name} integration, inseat ${integration.category.toLowerCase()} integration, hospitality platform integration`}
         url={`https://inseat.achievengine.com/integrations/${integration.slug}/`}
         breadcrumbs={breadcrumbs}
         faqs={integration.faqs}

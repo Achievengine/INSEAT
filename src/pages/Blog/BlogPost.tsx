@@ -10,9 +10,24 @@ const getTextSnippet = (html: string, maxLength = 160) => {
     return html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, maxLength);
 };
 
+type BlogTag = {
+    _id: string;
+    name: string;
+};
+
+type BlogPostData = {
+    title: string;
+    summary?: string;
+    content: string;
+    coverImageUrl?: string;
+    publishedAt: string;
+    authorName?: string;
+    tags?: BlogTag[];
+};
+
 export default function BlogPost() {
     const { slug } = useParams();
-    const [blog, setBlog] = useState<any>(null);
+    const [blog, setBlog] = useState<BlogPostData | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -97,7 +112,7 @@ export default function BlogPost() {
                     <div className="container-custom relative z-10">
                         <div className="max-w-4xl">
                             <div className="flex flex-wrap gap-2 mb-6">
-                                {(blog.tags || []).map((t: any) => (
+                                {(blog.tags || []).map((t) => (
                                 <span key={t._id} className="text-xs font-bold bg-primary text-white px-3 py-1 rounded-full uppercase tracking-wider">{t.name}</span>
                                 ))}
                             </div>

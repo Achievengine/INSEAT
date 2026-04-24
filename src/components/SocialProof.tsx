@@ -4,7 +4,7 @@ const testimonials = [
   {
     company: 'Cinemacity',
     quote:
-      '"Inseat transformed how we handle peak hours. We\'ve seen a 20% increase in table turnover since switching to their QR ordering system."',
+      '"Inseat transformed how we handle peak hours. We\'ve seen faster guest flow since switching to their QR ordering and operations system."',
   },
   {
     company: 'Managr',

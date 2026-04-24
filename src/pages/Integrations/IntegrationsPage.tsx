@@ -19,9 +19,9 @@ const IntegrationsPage = () => {
         'INSEAT currently includes payment gateway integrations (Stripe, MPGS, Chapa, Telebirr, Apple Pay) and delivery-channel integrations through supported partners.'
     },
     {
-      question: 'Do all restaurants use the same integrations?',
+      question: 'Do all hospitality teams use the same integrations?',
       answer:
-        'No. Integrations are enabled per restaurant, so each restaurant can run a different payment and delivery-app setup.'
+        'No. Integrations are enabled per outlet or venue, so each location can run a different payment and delivery-app setup.'
     },
     {
       question: 'Can providers be verified before going live?',
@@ -31,7 +31,7 @@ const IntegrationsPage = () => {
     {
       question: 'Can delivery apps read delivery-ready menus?',
       answer:
-        'Yes. Delivery-enabled restaurants and menus can be shared with connected delivery channels.'
+        'Yes. Delivery-enabled outlets and menus can be shared with connected delivery channels.'
     }
   ];
 
@@ -42,7 +42,7 @@ const IntegrationsPage = () => {
       <SEOHead
         title="INSEAT Integrations"
         description="Explore INSEAT integrations that are available today: payment gateways and delivery-channel partner integrations."
-        keywords="inseat integrations, stripe mpgs chapa telebirr apple pay, delivery channel integrations, restaurant partner integrations"
+        keywords="inseat integrations, stripe mpgs chapa telebirr apple pay, delivery channel integrations, hospitality partner integrations"
         url="https://inseat.achievengine.com/integrations/"
         breadcrumbs={breadcrumbs}
         faqs={faqs}
@@ -106,8 +106,8 @@ const IntegrationsPage = () => {
                     {category}
                   </h2>
                   <p className="text-gray-600">
-                    {category === 'Payments' && 'Payment gateways and wallet flows configured per restaurant.'}
-                    {category === 'Delivery Apps' && 'Delivery-channel partner integrations configured per restaurant.'}
+                    {category === 'Payments' && 'Payment gateways and wallet flows configured per outlet or venue.'}
+                    {category === 'Delivery Apps' && 'Delivery-channel partner integrations configured per outlet or venue.'}
                   </p>
                 </motion.div>
 

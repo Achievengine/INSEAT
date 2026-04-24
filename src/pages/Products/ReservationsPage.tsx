@@ -14,8 +14,8 @@ const ReservationsPage = () => {
 
   const faqs = [
     {
-      question: 'What is restaurant reservation software?',
-      answer: 'Restaurant reservation software allows guests to book tables online and helps restaurants manage bookings, reduce no-shows, and optimize seating capacity. It replaces phone reservations with a 24/7 online booking system.'
+      question: 'What is hospitality reservation software?',
+      answer: 'Hospitality reservation software allows guests to book online and helps venues manage bookings, reduce no-shows, and optimize seating or service capacity. It replaces phone reservations with a 24/7 online booking system.'
     },
     {
       question: 'How does online reservation reduce no-shows?',
@@ -103,15 +103,15 @@ const ReservationsPage = () => {
   return (
     <>
       <SEOHead
-        title="Restaurant Reservation Software"
+        title="Hospitality Reservation Software"
         description="Accept online reservations 24/7 with Inseat. Reduce no-shows with automated reminders, collect deposits, and manage bookings from one dashboard. No per-cover fees."
-        keywords="restaurant reservation software, online restaurant booking, table reservation system, restaurant booking widget, reduce no-shows, Google Reserve integration"
+        keywords="hospitality reservation software, online venue booking, table reservation system, booking widget, reduce no-shows, Google Reserve integration"
         url="https://inseat.achievengine.com/reservations/"
         breadcrumbs={breadcrumbs}
         faqs={faqs}
         softwareApplication={{
           name: 'Inseat Reservations',
-          description: 'Restaurant reservation software with online booking, automated reminders, and deposit collection.',
+          description: 'Hospitality reservation software with online booking, automated reminders, and deposit collection.',
           features: features.map(f => f.title),
           price: '0',
           priceCurrency: 'USD'
@@ -133,7 +133,7 @@ const ReservationsPage = () => {
                 transition={{ duration: 0.6 }}
               >
                 <h1 className="text-4xl md:text-5xl font-bold text-secondary mb-6">
-                  Restaurant Reservation Software
+                  Hospitality Reservation Software
                 </h1>
                 <p className="text-xl text-gray-600 mb-8">
                   Accept online reservations around the clock. Reduce no-shows with automated reminders, collect deposits for large parties, and manage all bookings from one simple dashboard.
@@ -204,7 +204,7 @@ const ReservationsPage = () => {
                 transition={{ delay: 0.1 }}
                 className="text-xl text-gray-600 max-w-3xl mx-auto"
               >
-                Everything you need to take control of your restaurant bookings
+                Everything you need to take control of hospitality bookings
               </motion.p>
             </div>
 
@@ -365,7 +365,7 @@ const ReservationsPage = () => {
               transition={{ delay: 0.1 }}
               className="text-xl text-primary-100 mb-8 max-w-2xl mx-auto"
             >
-              Join restaurants saving thousands in per-cover fees with Inseat's flat-rate reservation system.
+              Join hospitality teams saving thousands in per-cover fees with Inseat's flat-rate reservation system.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}

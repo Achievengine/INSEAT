@@ -153,7 +153,7 @@ const routeSEO = {
     ogImage: OG_IMAGE_URL,
     ogType: 'website',
     twitterCard: 'summary_large_image',
-    preloadImages: ['/restaurant.webp'],
+    preloadImages: ['/og-image.png'],
     jsonLd: [homeOrganization, homeWebSite, homeSoftwareApplication]
   },
   '/features': {
@@ -193,7 +193,7 @@ const routeSEO = {
   },
   '/integrations/mpgs': {
     title: 'MPGS Integration | Inseat',
-    description: 'Use MPGS with Inseat to process secure payments across your restaurant ordering channels.',
+    description: 'Use MPGS with Inseat to process secure payments across hospitality ordering and guest checkout channels.',
     canonicalPath: '/integrations/mpgs',
     ogType: 'article',
     jsonLd: [breadcrumbList([
@@ -215,7 +215,7 @@ const routeSEO = {
   },
   '/integrations/telebirr': {
     title: 'Telebirr Integration | Inseat',
-    description: 'Connect Telebirr to Inseat for mobile-first payment acceptance in restaurant operations.',
+    description: 'Connect Telebirr to Inseat for mobile-first payment acceptance in hospitality operations.',
     canonicalPath: '/integrations/telebirr',
     ogType: 'article',
     jsonLd: [breadcrumbList([
@@ -247,9 +247,9 @@ const routeSEO = {
     ])]
   },
   '/blog': {
-    title: 'Inseat Blog | Restaurant Operations Insights',
+    title: 'Inseat Blog | Hospitality Operations Insights',
     description:
-      'Read Inseat blog articles on restaurant waitlist management, table operations, digital ordering, and growth.',
+      'Read Inseat blog articles on hospitality operations, guest experience, table workflows, digital ordering, and growth.',
     canonicalPath: '/blog',
     ogType: 'website',
     jsonLd: [pageBreadcrumb('Blog', '/blog')]
@@ -263,9 +263,9 @@ const routeSEO = {
     jsonLd: [pageBreadcrumb('Table Management', '/table-management')]
   },
   '/reservations': {
-    title: 'Restaurant Reservations Software | Inseat',
+    title: 'Hospitality Reservations Software | Inseat',
     description:
-      'Manage bookings, availability, and guest reservations with the Inseat restaurant reservations platform.',
+      'Manage bookings, availability, and guest reservations with the Inseat hospitality reservations platform.',
     canonicalPath: '/reservations',
     ogType: 'website',
     jsonLd: [pageBreadcrumb('Reservations', '/reservations')]
@@ -304,7 +304,7 @@ const renderSeo = (config) => {
   const preloads = (config.preloadImages || [])
     .map(
       (href) =>
-        `<link data-rh="true" rel="preload" as="image" href="${href}" type="image/webp" fetchpriority="high" />`
+        `<link data-rh="true" rel="preload" as="image" href="${href}" fetchpriority="high" />`
     )
     .join('');
 

@@ -2,19 +2,19 @@ import { motion } from 'framer-motion';
 
 const painPoints = [
   {
-    problem: 'Drowning in Paper?',
+    problem: 'Drowning in Manual Work?',
     solution:
-      'Digital orders go straight to the kitchen. No lost tickets, no handwriting errors.',
+      'Digital guest requests, orders, and service tasks move straight to the right team. No lost tickets, no handwriting errors.',
   },
   {
-    problem: 'Slow Table Turns?',
+    problem: 'Slow Guest Flow?',
     solution:
-      'Guests order and pay instantly. Get the next party seated 15 minutes faster.',
+      'Guests can order, request service, reserve, and pay faster, so every outlet moves with fewer bottlenecks.',
   },
   {
-    problem: 'Menu Chaos?',
+    problem: 'Operations Spread Everywhere?',
     solution:
-      'Update prices or items across all locations in one click. No more "sorry, we\'re out of that."',
+      'Manage menus, payments, reservations, loyalty, analytics, and service workflows from one hospitality operations platform.',
   },
 ];
 
@@ -32,10 +32,10 @@ const PainPoints = () => {
             The Pain Is Real
           </p>
           <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-5xl">
-            Is Your Restaurant Running You?
+            Is Your Hospitality Operation Running You?
           </h2>
           <p className="mt-5 text-lg text-secondary/70">
-            Stop letting manual processes and disconnected tools eat into your margins.
+            Stop letting manual processes and disconnected tools slow down service, teams, and guest experience.
           </p>
         </motion.div>
 

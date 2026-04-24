@@ -1,6 +1,11 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+type OperationFeature = {
+  title: string;
+  description: string;
+};
+
 const OperationsHub = () => {
   // State for active tab
   const [activeTab, setActiveTab] = useState('kitchen');
@@ -149,7 +154,7 @@ const OperationsHub = () => {
                   animate="visible"
                   className="grid grid-cols-1 md:grid-cols-2 gap-4"
                 >
-                  {features[activeTab as keyof typeof features].map((feature: any, index: number) => (
+                  {features[activeTab as keyof typeof features].map((feature: OperationFeature, index: number) => (
                     <motion.div
                       key={index}
                       variants={featureCardVariants}
@@ -263,4 +268,3 @@ const OperationsHub = () => {
 };
 
 export default OperationsHub;
-

@@ -76,7 +76,7 @@ function buildPlans(gates: FeatureGate[], subscriptionConfig: PublicSubscription
       name: proPlan?.planName || 'Pro',
       description:
         proPlan?.description ||
-        'For restaurants scaling operations and customer loyalty.',
+        'For hospitality teams scaling operations and customer loyalty.',
       tier: 'mid' as const,
       pricing: proPlan?.pricing,
       annualDiscountPercent: proPlan?.annualDiscountPercent || 0,
@@ -158,7 +158,7 @@ const Pricing = () => {
             </span>
           </h2>
           <p className="text-gray-500 text-lg max-w-2xl mx-auto mb-8">
-            Choose the plan that fits your restaurant. All plans include a 7-day free trial.
+            Choose the plan that fits your hospitality operation. All plans include a 7-day free trial.
           </p>
           <p className="text-sm font-semibold text-primary mb-5">No credit card required</p>
 

@@ -1,264 +1,328 @@
-import { motion } from "framer-motion";
-// Phone mockup markup is now inlined below (no separate component)
-import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion';
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 }
+};
+
+const MiniIcon = ({ active = false }: { active?: boolean }) => (
+  <span
+    className={
+      active
+        ? 'grid h-7 w-7 place-items-center rounded-lg bg-white shadow-[0_10px_24px_-16px_rgba(255,255,255,0.9)] before:h-3 before:w-3 before:rounded-[4px] before:bg-primary'
+        : 'h-6 w-6 rounded-lg border border-white/16 bg-white/10'
+    }
+  />
+);
+
+const MetricTile = ({ index }: { index: number }) => (
+  <div className="rounded-xl border border-white/32 bg-white/[0.86] p-3 shadow-[0_18px_48px_-36px_rgba(20,7,53,0.75)]">
+    <div className="flex items-center justify-between">
+      <span className="h-2 w-14 rounded-full bg-[#5b4876]/24" />
+      <span className="grid h-7 w-7 place-items-center rounded-lg bg-primary/[0.08]">
+        <span className="h-3 w-3 rounded-[4px] border border-primary/55" />
+      </span>
+    </div>
+    <span className="mt-4 block h-5 w-20 rounded-md bg-[#160735]/90" />
+    <div className="mt-3 flex items-center gap-1.5">
+      <span className="h-1.5 rounded-full bg-primary/75" style={{ width: `${48 + index * 7}%` }} />
+      <span className="h-1.5 w-5 rounded-full bg-[#53d4a4]/80" />
+    </div>
+  </div>
+);
+
+const StackedRows = ({ rows = 5 }: { rows?: number }) => (
+  <div className="space-y-2.5">
+    {Array.from({ length: rows }).map((_, index) => (
+      <div
+        key={index}
+        className="grid grid-cols-[2.4rem_1fr_auto] items-center gap-2 rounded-xl border border-white/28 bg-white/[0.76] p-2 shadow-[0_16px_42px_-34px_rgba(20,7,53,0.72)]"
+      >
+        <span className="h-8 rounded-lg bg-gradient-to-br from-primary/85 to-primary/45" />
+        <span className="space-y-1.5">
+          <span className="block h-2 w-4/5 rounded-full bg-[#5b4876]/26" />
+          <span className="block h-2 w-1/2 rounded-full bg-[#5b4876]/18" />
+        </span>
+        <span className={index % 2 === 0 ? 'h-5 w-5 rounded-full bg-[#53d4a4]/75' : 'h-5 w-5 rounded-full bg-[#ffb84d]/80'} />
+      </div>
+    ))}
+  </div>
+);
+
+const MicroTable = () => (
+  <div className="space-y-2">
+    {Array.from({ length: 6 }).map((_, row) => (
+      <div key={row} className="grid grid-cols-[1.1fr_0.65fr_0.45fr] items-center gap-2">
+        <span className="h-2 rounded-full bg-[#5b4876]/20" style={{ width: `${82 - row * 5}%` }} />
+        <span className="h-2 rounded-full bg-primary/65" style={{ width: `${52 + row * 6}%` }} />
+        <span className={row % 3 === 0 ? 'h-2 rounded-full bg-[#53d4a4]/75' : 'h-2 rounded-full bg-[#ffb84d]/75'} />
+      </div>
+    ))}
+  </div>
+);
+
+const ActivityRail = () => (
+  <div className="grid grid-cols-5 items-end gap-2">
+    {[42, 58, 36, 74, 64].map((height, index) => (
+      <span key={index} className="rounded-t-md bg-gradient-to-t from-primary/90 via-primary/62 to-white/70" style={{ height: `${height}px` }} />
+    ))}
+  </div>
+);
+
+const BarChart = () => (
+  <div className="grid h-40 grid-cols-7 items-end gap-2 rounded-xl border border-[#160735]/8 bg-white/78 p-4">
+    {[48, 72, 38, 82, 56, 91, 68].map((height, index) => (
+      <span key={index} className="relative rounded-t-lg bg-gradient-to-t from-primary to-white/70" style={{ height: `${height}%` }}>
+        <span className="absolute inset-x-0 top-0 h-4 rounded-t-lg bg-white/55" />
+      </span>
+    ))}
+  </div>
+);
+
+const Barcode = () => (
+  <div className="flex h-20 items-stretch justify-center gap-[3px]">
+    {[2, 5, 1, 3, 6, 2, 4, 1, 5, 2, 6, 3, 1, 4, 2, 5, 1, 3, 6, 2, 4, 1, 5, 2].map((width, index) => (
+      <span key={index} className="rounded-full bg-[#160735]/90" style={{ width: `${width}px` }} />
+    ))}
+  </div>
+);
 
 const Hero = () => {
-  // Inline phone mockup UI state
-  const [batteryLevel, setBatteryLevel] = useState(78)
-  const [currentTime, setCurrentTime] = useState('12:42')
-  const [scanProgress, setScanProgress] = useState(0)
-
-  // Simulate phone UI changes (non-blocking micro-interactions)
-  useEffect(() => {
-    const b = setInterval(() => setBatteryLevel((p) => Math.max(p - 1, 10)), 30000)
-    return () => clearInterval(b)
-  }, [])
-  useEffect(() => {
-    const t = setInterval(() => {
-      const now = new Date()
-      const h = now.getHours()
-      const m = now.getMinutes().toString().padStart(2, '0')
-      setCurrentTime(`${h}:${m}`)
-    }, 60000)
-    return () => clearInterval(t)
-  }, [])
-  useEffect(() => {
-    const s = setInterval(() => setScanProgress((p) => (p >= 100 ? 0 : p + 5)), 800)
-    return () => clearInterval(s)
-  }, [])
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.5 }
-    }
-  };
-
-  // Phone animation variants (subtle float)
-  const phoneVariants = {
-    idle: { rotate: 22, y: 0 },
-    animate: {
-      rotate: [22, 26, 22],
-      y: [-3, 3, -3],
-      transition: {
-        rotate: { repeat: Infinity, duration: 6, ease: 'easeInOut' },
-        y: { repeat: Infinity, duration: 5, ease: 'easeInOut' }
-      }
-    }
-  } as const
-
-  const scanLineVariants = {
-    scanning: {
-      y: [0, 550, 0],
-      transition: { y: { repeat: Infinity, duration: 3, ease: 'easeInOut' } }
-    }
-  } as const
-
   return (
-    // Reduced bottom padding: pb-24 md:pb-32
-    // Added background grid pattern (made even fainter)
-    <section className="relative z-[200] overflow-hidden bg-white pb-20 pt-12 md:pt-20 lg:pb-32">
-      {/* Background elements - Adjusted positions & opacity based on new image */}
-      {/* Re-added z-index to ensure circles are behind content */}
-      <div className="absolute inset-0 overflow-hidden -z-10">
-        {/* Adjusted right circle size and position based on new image */}
-        <div className="absolute -top-48 -right-48 h-72 w-72 rounded-full bg-primary/10 md:h-96 md:w-96"></div>
-        {/* Kept left circle size and position from previous attempt */}
-        <div className="absolute top-1/2 -left-64 h-[500px] w-[500px] -translate-y-1/2 rounded-full bg-primary/10 md:h-[600px] md:w-[600px]"></div>
-        {/* Removed the third circle to better match the reference image */}
-      </div>
-
-      {/* Restaurant illustration - overlaps the black section slightly */}
-      <motion.img
-        initial={{ opacity: 0, x: 100, scale: 0.95 }}
-        animate={{ opacity: 1, x: 0, scale: 1 }}
-        transition={{ duration: 0.6, delay: 0.2, type: 'spring', stiffness: 60 }}
-        src="/restaurant.webp"
-        alt="Inseat restaurant illustration"
-        className="hidden lg:block absolute right-[-80px] bottom-[-20px] h-[720px] xl:h-[780px] 2xl:h-[820px] w-auto z-[90] pointer-events-none"
-        loading="eager"
-        fetchPriority="high"
-        decoding="async"
-      />
-
-      {/* Phone mockup - sticks out of the hero without elongating it */}
-      <div className="hidden lg:block absolute left-[52%] -translate-x-1/2 bottom-8 z-[120] pointer-events-none">
-        <motion.div
-          variants={phoneVariants}
-          initial="idle"
-          animate="animate"
-          className="transform scale-[0.45] xl:scale-[0.48]"
-        >
-          <div className="relative w-72 overflow-hidden rounded-[28px] border-[10px] border-gray-800 shadow-2xl bg-gray-800">
-            {/* Phone notch */}
-            <div className="absolute top-0 left-0 right-0 z-30 flex justify-center">
-              <div className="w-32 h-6 bg-gray-800 rounded-b-xl flex items-center justify-center">
-                <div className="w-3 h-3 bg-gray-700 rounded-full mx-1"></div>
-                <div className="w-10 h-3 bg-gray-700 rounded-full mx-1"></div>
-                <div className="w-3 h-3 bg-gray-700 rounded-full mx-1"></div>
-              </div>
-            </div>
-
-            {/* Phone screen */}
-            <div className="relative bg-gray-900 h-[660px] flex flex-col items-center justify-center p-4 overflow-hidden rounded-[18px]">
-              {/* Status bar */}
-              <div className="absolute top-0 left-0 w-full bg-black/30 backdrop-blur-sm p-2 flex justify-between items-center z-20 text-xs text-white">
-                <div className="ml-6">{currentTime}</div>
-                <div className="flex items-center space-x-2 mr-2">
-                  <div className="flex items-center">
-                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12,21L12,21c-0.6,0-1-0.4-1-1v-2c0-0.6,0.4-1,1-1h0c0.6,0,1,0.4,1,1v2C13,20.6,12.6,21,12,21z" />
-                      <path d="M15,21L15,21c-0.6,0-1-0.4-1-1v-5c0-0.6,0.4-1,1-1h0c0.6,0,1,0.4,1,1v5C16,20.6,15.6,21,15,21z" />
-                      <path d="M9,21L9,21c-0.6,0-1-0.4-1-1v-7c0-0.6,0.4-1,1-1h0c0.6,0,1,0.4,1,1v7C10,20.6,9.6,21,9,21z" />
-                      <path d="M6,21L6,21c-0.6,0-1-0.4-1-1v-4c0-0.6,0.4-1,1-1h0c0.6,0,1,0.4,1,1v4C7,20.6,6.6,21,6,21z" />
-                    </svg>
-                    <svg className="w-3 h-3 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M1,9l2,2c4.97-4.97,13.03-4.97,18,0l2-2C16.93,2.93,7.08,2.93,1,9z" />
-                      <path d="M5,13l2,2c2.76-2.76,7.24-2.76,10,0l2-2C15.14,9.14,8.87,9.14,5,13z" />
-                      <path d="M9,17l1.5,1.5c0.83-0.83,2.17-0.83,3,0L15,17C13.34,15.34,10.66,15.34,9,17z" />
-                    </svg>
-                  </div>
-                  <div className="flex items-center">
-                    <div className="w-6 h-3 bg-white rounded-sm relative overflow-hidden">
-                      <div className="absolute top-0 right-0 bottom-0 bg-primary" style={{ width: `${batteryLevel}%` }}></div>
-                    </div>
-                    <span className="ml-1 text-xs">{batteryLevel}%</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Camera UI core (simplified) */}
-              <div className="w-full h-full flex flex-col relative">
-                {/* Main QR preview */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <div className="w-32 h-32 mb-6 relative">
-                    <img src="/qr-3d.png" alt="QR Code" className="w-full h-full object-contain" />
-                    {/* Corners highlight */}
-                    <div className="absolute inset-0 border-2 border-primary/0 animate-pulse">
-                      <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-primary"></div>
-                      <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-primary"></div>
-                      <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-primary"></div>
-                      <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-primary"></div>
-                    </div>
-                  </div>
-                  <p className="text-sm text-gray-400 animate-pulse">Scanning for QR Code...</p>
-                  <div className="w-48 h-1 bg-gray-700 rounded-full mt-4 relative overflow-hidden">
-                    <div className="absolute left-0 top-0 bottom-0 bg-primary" style={{ width: `${scanProgress}%` }}></div>
-                  </div>
-                  <p className="text-xs text-gray-500 mt-1">Position QR code within frame</p>
-                </div>
-              </div>
-
-              {/* Scan line animation */}
-              <motion.div className="absolute top-0 left-0 w-full h-1 bg-primary/60 rounded" variants={scanLineVariants} animate="scanning"></motion.div>
-            </div>
-
-            {/* Phone bottom bar */}
-            <div className="absolute bottom-1 left-0 right-0 z-30 flex justify-center">
-              <div className="w-24 h-1 bg-gray-600 rounded-full"></div>
-            </div>
-          </div>
-        </motion.div>
+    <section className="relative z-[20] -mt-px overflow-hidden bg-[#18073a] pb-0 pt-14 text-white md:pt-16 lg:pt-20">
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+        <div className="absolute left-1/2 top-48 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-primary/40 blur-[120px]" />
+        <div className="absolute right-[-12rem] top-8 h-[28rem] w-[28rem] rounded-full bg-white/[0.08] blur-[90px]" />
+        <div
+          className="absolute inset-0 opacity-[0.085]"
+          style={{
+            backgroundImage:
+              'linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)',
+            backgroundSize: '86px 86px',
+            maskImage: 'linear-gradient(to bottom, black, transparent 88%)'
+          }}
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(24,7,58,0)_0%,rgba(24,7,58,0)_78%,#ffffff_78%,#ffffff_100%)]" />
       </div>
 
       <div className="container-custom relative">
-        {/* Adjusted grid layout and alignment */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center min-h-[500px] md:min-h-[580px] lg:min-h-[620px]">
-
-          {/* Left column: Text content - Spanning 2 columns */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="text-center lg:text-left lg:col-span-2 pt-8 md:pt-14"
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          transition={{ staggerChildren: 0.12, delayChildren: 0.08 }}
+          className="mx-auto max-w-5xl text-center"
+        >
+          <motion.h1
+            variants={fadeUp}
+            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+            className="mx-auto max-w-5xl text-balance text-[clamp(2.38rem,5.05vw,4.75rem)] font-semibold leading-[0.98] tracking-tight text-white"
           >
-            {/* Image removed from here */}
-            <motion.h1
-              variants={itemVariants}
-              className="text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-display font-bold leading-tight tracking-tight text-secondary"
-            >
-              Streamline Every Guest Touchpoint
-            </motion.h1>
+            Streamline Every Guest Touchpoint
+          </motion.h1>
 
-            <motion.p
-              variants={itemVariants}
-              className="mt-6 max-w-lg text-xl text-black/70 mx-auto lg:mx-0"
-            >
-              The all-in-one guest experience and operations platform for hospitality teams that need faster service, simpler workflows, and better customer experiences across every outlet.
-            </motion.p>
+          <motion.p
+            variants={fadeUp}
+            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+            className="mx-auto mt-5 max-w-3xl text-pretty text-base leading-7 text-white/74 md:text-lg"
+          >
+            The all-in-one guest experience and operations platform for hospitality teams that need faster service, simpler workflows, and better customer experiences across every outlet.
+          </motion.p>
 
-            <motion.div
-              variants={itemVariants}
-              className="mt-8 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4"
-            >
-              <div className="w-full sm:w-auto flex flex-col items-center sm:items-start">
-                <a
-                  href={`${import.meta.env.VITE_ADMIN_URL || 'http://localhost:5173'}/register?plan=mid`}
-                  className="btn-primary w-full sm:w-auto group relative overflow-hidden shadow-[0_16px_28px_-18px_rgba(97,6,235,0.9)]"
-                >
-                  <span className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-white/35 blur-[1px] transition-transform duration-700 group-hover:translate-x-[260%]" />
-                  <span className="relative inline-flex items-center justify-center gap-2">
-                    <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                      <path d="M10 2.75l1.85 3.75 4.15.6-3 2.93.71 4.14L10 12.23l-3.71 1.94.71-4.14-3-2.93 4.15-.6L10 2.75z" />
-                    </svg>
-                    Start Your 7-Day Free Trial
-                  </span>
-                </a>
-                <p className="mt-2 text-xs font-semibold uppercase tracking-[0.12em] text-black/55">
-                  No credit card required
-                </p>
-              </div>
+          <motion.div
+            variants={fadeUp}
+            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-7 flex flex-col items-center justify-center gap-4 sm:flex-row"
+          >
+            <div className="w-full sm:w-auto">
               <a
-                href="https://calendly.com/abenezer-t-achievengine/30min"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary w-full sm:w-auto flex items-center justify-center gap-2"
+                href={`${import.meta.env.VITE_ADMIN_URL || 'http://localhost:5173'}/register?plan=mid`}
+                className="group relative flex w-full items-center justify-center overflow-hidden rounded-lg bg-white/12 px-7 py-4 text-sm font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-white/18 active:scale-[0.98] sm:w-auto"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M8 7V3m8 4V3m-9 8h10m-11 9h12a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2v11a2 2 0 002 2z" />
-                </svg>
-                Book a 15-Min Strategy Call
+                <span className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-white/35 blur-[1px] transition-transform duration-700 group-hover:translate-x-[260%]" />
+                <span className="relative">Start Your 7-Day Free Trial</span>
               </a>
-            </motion.div>
-
-            {/* Removed the avatars + 500+ restaurants block */}
-          </motion.div>
-
-          {/* Right column: Visuals - Spanning 3 columns */}
-          <div className="relative lg:col-span-3">
-            {/* Mobile/Tablet: big centered illustration */}
-            <div className="lg:hidden flex items-center justify-center mt-6">
-              <motion.img
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                src="/restaurant.webp"
-                alt="Inseat restaurant illustration"
-                className="w-[560px] md:w-[720px] max-w-full h-auto mx-auto"
-                loading="eager"
-                fetchPriority="high"
-                decoding="async"
-              />
+              <p className="mt-2 text-center text-xs font-semibold uppercase tracking-[0.13em] text-white/48">
+                No credit card required
+              </p>
             </div>
 
-            {/* Desktop: empty space placeholder for layout balance */}
-            <div className="hidden lg:block relative h-full min-h-[600px]">
+            <a
+              href="https://calendly.com/abenezer-t-achievengine/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex w-full items-center justify-center gap-2 rounded-lg border border-white/22 px-7 py-4 text-sm font-semibold text-white transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-white/8 active:scale-[0.98] sm:w-auto"
+            >
+              Book a 15-Min Strategy Call
+            </a>
+          </motion.div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 36, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.85, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
+          className="relative mx-auto mt-9 max-w-5xl lg:mt-10"
+          aria-label="INSEAT product screens"
+        >
+          <div className="absolute inset-x-8 top-24 hidden h-72 rounded-full bg-primary/42 blur-[92px] md:block" />
+          <div className="relative overflow-hidden rounded-t-[2rem] border border-b-0 border-white/26 bg-white/[0.16] px-4 pt-8 shadow-[0_42px_130px_-62px_rgba(0,0,0,0.95)] md:px-8 md:pt-10">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_58%_18%,rgba(255,255,255,0.24),transparent_28%),radial-gradient(circle_at_50%_56%,rgba(97,6,235,0.5),transparent_44%),linear-gradient(135deg,rgba(255,255,255,0.12),transparent_44%)]" />
+            <div className="absolute inset-0 opacity-[0.1] [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:80px_80px]" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white via-white/45 to-transparent" />
+
+            <div className="relative grid min-h-[360px] items-end gap-5 md:grid-cols-[0.74fr_1.32fr_0.74fr] md:gap-4 lg:min-h-[430px]">
+              <div className="order-2 mx-auto w-full max-w-[330px] md:order-1 md:max-w-none md:translate-y-12 lg:translate-y-16">
+                <div className="rounded-[1.65rem] border border-white/42 bg-white/20 p-3 shadow-[0_30px_90px_-48px_rgba(0,0,0,0.9)] backdrop-blur-2xl">
+                  <div className="min-h-[575px] overflow-hidden rounded-[1.18rem] border border-white/36 bg-[#160735]/18 shadow-[inset_0_1px_0_rgba(255,255,255,0.26)]">
+                    <div className="flex items-center justify-between border-b border-white/20 bg-white/[0.09] px-4 py-3">
+                      <div className="flex items-center gap-2">
+                        <span className="h-2 w-2 rounded-full bg-white/55" />
+                        <span className="h-2 w-2 rounded-full bg-primary" />
+                      </div>
+                      <span className="h-2 w-20 rounded-full bg-white/38" />
+                    </div>
+                    <div className="grid grid-cols-[0.92fr_1.08fr] gap-3 p-4">
+                      <div className="space-y-2.5">
+                        {Array.from({ length: 5 }).map((_, index) => (
+                          <div key={index} className="rounded-xl border border-white/28 bg-white/[0.66] p-3 shadow-[0_16px_40px_-34px_rgba(20,7,53,0.75)]">
+                            <span className="block h-2 w-3/5 rounded-full bg-[#5b4876]/28" />
+                            <span className="mt-3 block h-8 rounded-lg bg-gradient-to-r from-primary to-primary/62" />
+                          </div>
+                        ))}
+                      </div>
+                      <div className="rounded-xl border border-white/28 bg-white/[0.46] p-3 shadow-[0_18px_46px_-36px_rgba(20,7,53,0.75)]">
+                        <div className="mb-3 grid grid-cols-3 gap-2">
+                          {Array.from({ length: 9 }).map((_, index) => (
+                            <span
+                              key={index}
+                              className={
+                                index % 4 === 0
+                                  ? 'aspect-square rounded-lg bg-primary/80 shadow-[0_0_20px_rgba(97,6,235,0.36)]'
+                                  : 'aspect-square rounded-lg border border-white/30 bg-[#160735]/24'
+                              }
+                            />
+                          ))}
+                        </div>
+                        <StackedRows rows={5} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="order-1 mx-auto w-full md:order-2 md:translate-y-5 lg:translate-y-7">
+                <div className="rounded-[1.85rem] border border-white/46 bg-white/22 p-3 shadow-[0_36px_100px_-45px_rgba(0,0,0,0.95)] backdrop-blur-2xl md:p-4">
+                  <div className="min-h-[620px] overflow-hidden rounded-[1.28rem] border border-white/38 bg-white/[0.18] shadow-[inset_0_1px_0_rgba(255,255,255,0.34)]">
+                    <div className="grid grid-cols-[3rem_1fr]">
+                      <div className="border-r border-white/20 bg-white/[0.08] px-2 py-4">
+                        <div className="flex flex-col items-center gap-3">
+                          <MiniIcon active />
+                          <MiniIcon />
+                          <MiniIcon />
+                          <MiniIcon />
+                          <MiniIcon />
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className="flex items-center justify-between border-b border-white/22 px-5 py-4">
+                          <div>
+                            <span className="block h-2 w-28 rounded-full bg-white/54" />
+                            <span className="mt-2 block h-2 w-20 rounded-full bg-white/25" />
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="h-7 w-7 rounded-full border border-white/20 bg-white/18" />
+                            <span className="h-7 w-24 rounded-full border border-white/20 bg-white/18" />
+                            <span className="h-8 w-8 rounded-full bg-primary/78" />
+                          </div>
+                        </div>
+
+                        <div className="grid gap-3 p-4 sm:grid-cols-4">
+                          {Array.from({ length: 4 }).map((_, index) => (
+                            <MetricTile key={index} index={index} />
+                          ))}
+                        </div>
+
+                        <div className="grid gap-3 p-4 pt-0 sm:grid-cols-[1.08fr_0.92fr]">
+                          <div className="rounded-xl border border-white/30 bg-white/[0.9] p-4">
+                            <div className="mb-4 flex items-center justify-between">
+                              <span className="h-2 w-36 rounded-full bg-[#5b4876]/24" />
+                              <span className="h-5 w-10 rounded-full bg-primary/70" />
+                            </div>
+                            <div className="grid gap-4 sm:grid-cols-[0.95fr_1.05fr]">
+                              <div className="rounded-xl border border-[#160735]/8 bg-white/70 p-3">
+                                <ActivityRail />
+                                <div className="mt-3 flex items-center gap-2">
+                                  <span className="h-2 w-12 rounded-full bg-primary/72" />
+                                  <span className="h-2 w-10 rounded-full bg-[#ffb84d]/80" />
+                                  <span className="h-2 w-8 rounded-full bg-[#53d4a4]/80" />
+                                </div>
+                              </div>
+                              <div className="rounded-xl border border-[#160735]/8 bg-white/70 p-3">
+                                <MicroTable />
+                              </div>
+                            </div>
+                            <div className="mt-4 grid grid-cols-3 gap-2">
+                              {[0, 1, 2].map((item) => (
+                                <span key={item} className="rounded-lg border border-[#160735]/8 bg-white/75 p-2">
+                                  <span className="block h-2 rounded-full bg-[#5b4876]/20" />
+                                  <span className="mt-2 block h-2 rounded-full bg-primary/60" style={{ width: `${58 + item * 12}%` }} />
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                          <div className="rounded-xl border border-white/30 bg-white/[0.88] p-4">
+                            <div className="mb-3 flex items-center justify-between">
+                              <span className="h-2 w-28 rounded-full bg-[#5b4876]/24" />
+                              <span className="h-5 w-5 rounded-full bg-primary/70" />
+                            </div>
+                            <BarChart />
+                            <MicroTable />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="order-3 mx-auto w-[215px] md:w-full md:max-w-[252px] md:-translate-y-3 lg:-translate-y-6">
+                <div className="rounded-[2rem] border border-white/46 bg-white/24 p-3 shadow-[0_34px_95px_-48px_rgba(0,0,0,0.95)] backdrop-blur-2xl">
+                  <div className="relative overflow-hidden rounded-[1.55rem] border border-white/38 bg-white/[0.34] shadow-[inset_0_1px_0_rgba(255,255,255,0.44)]">
+                    <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-primary/28 to-transparent" />
+                    <div className="relative min-h-[390px] px-4 pb-5 pt-7">
+                      <div className="mb-4 flex items-center justify-between">
+                        <span className="h-7 w-7 rounded-full bg-white/72" />
+                        <span className="h-2 w-20 rounded-full bg-white/62" />
+                        <span className="h-7 w-7 rounded-full bg-white/58" />
+                      </div>
+                      <div className="mx-auto mb-4 grid h-24 w-24 place-items-center rounded-2xl bg-white/74 p-3 shadow-[0_22px_60px_-38px_rgba(97,6,235,0.8)]">
+                        <img src="/qr-3d.png" alt="INSEAT table QR code" className="h-full w-full object-contain" />
+                      </div>
+                      <div className="mx-auto mb-4 h-px w-28 bg-gradient-to-r from-transparent via-primary to-transparent shadow-[0_0_18px_rgba(97,6,235,0.82)]" />
+                      <div className="rounded-2xl border border-white/60 bg-white/86 p-4 shadow-[0_20px_60px_-40px_rgba(20,7,53,0.75)]">
+                        <Barcode />
+                        <div className="mt-4 grid grid-cols-[1fr_2.1rem] gap-2">
+                          <span className="block h-8 rounded-xl bg-gradient-to-r from-primary to-primary/45" />
+                          <span className="block h-8 rounded-xl bg-[#53d4a4]/55" />
+                        </div>
+                      </div>
+                      <div className="mt-3 space-y-2.5">
+                        {Array.from({ length: 3 }).map((_, index) => (
+                          <div key={index} className="rounded-2xl border border-white/50 bg-white/74 p-3 shadow-[0_18px_50px_-38px_rgba(20,7,53,0.7)]">
+                            <span className="block h-2.5 w-2/3 rounded-full bg-[#5b4876]/24" />
+                            <span className="mt-2 block h-6 rounded-lg bg-gradient-to-r from-primary to-primary/64" />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
